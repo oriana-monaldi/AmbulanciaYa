@@ -10,8 +10,8 @@ import TrasladoIcon from './Icons/TrasladoIcon'
 
 function Servicios() {
 return (
-    <div className='bg-neutral-200' >
-        <h1 className='text-center text-3xl'><strong>Nuestros Servicios</strong></h1>
+    <div className='bg-neutral-200 ' >
+        <h1 className='text-center  text-3xl'><strong>Nuestros Servicios</strong></h1>
         <Card/>
         <Card title='Servicio de Emergencia' description='Atención rápida y eficiente en situaciones de emergencia las 24 horas del día.' icon= {<AmbulanciaIcon/>}></Card>
         <Card title='Cuidados Intensivos Móviles' description='Ambulancias equipadas con tecnología de cuidados intensivos para casos críticos.' icon= {<CuidadosIcon/>}></Card>
