@@ -1,0 +1,16 @@
+import React from 'react'
+
+function Card( {title, description,icon }) {
+  return (
+    <div className='flex bg-white text w-96 m-10 text-center rounded-md'>
+      <div className=''>
+        <p className='flex justify-center		'>{icon}</p>
+        <h2 className='text-xl '>{title}</h2>
+        <p>{description}</p>
+      </div>
+    </div>
+
+  )
+}
+
+export default Card
