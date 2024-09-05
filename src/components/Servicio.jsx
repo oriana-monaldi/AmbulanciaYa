@@ -15,7 +15,7 @@ return (
             <h1 className='text-center text-3xl'><strong>Nuestros Servicios</strong></h1>
         </div>
         
-        <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 flex items-center justify-center'>
+        <div className='grid-cols-2 md:grid-cols-2 lg:grid-cols-2 flex items-center justify-center'>
             <Card title='Servicio de Emergencia' description='Atención rápida y eficiente en situaciones de emergencia las 24 horas del día.' icon= {<AmbulanciaIcon/>}></Card>
             <Card title='Cuidados Intensivos Móviles' description='Ambulancias equipadas con tecnología de cuidados intensivos para casos críticos.' icon= {<CuidadosIcon/>}></Card>
             <Card title='Atención Médica a Domicilio' description='Visitas médicas programadas a domicilio para pacientes con movilidad reducida.' icon= {<AtencionIcon/>}></Card>
