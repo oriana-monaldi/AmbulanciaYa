@@ -1,13 +1,13 @@
 import './App'
 import Footer from './components/Footer'
-import Servicio from './components/Servicio'
 import Navbar from './components/Navbar'
+import SobreNosotros from './components/SobreNosotros'
 
 function App() {
   return (
     <>
       <Navbar/>
-      <Servicio/>
+      <SobreNosotros/>
       <Footer/>
     </>
   )
