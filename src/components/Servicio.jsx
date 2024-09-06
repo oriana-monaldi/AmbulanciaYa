@@ -11,7 +11,7 @@ import Button from '../components/Button'
 function Servicios() {
 return (
     <div className='bg-neutral-200' >
-        <div>
+        <div className='pt-10'>
             <h1 className='text-center text-5xl text-red-500'><strong>Nuestros Servicios</strong></h1>
         </div>
 
@@ -24,12 +24,12 @@ return (
             <Card title='Cobertura Amplia' description='Servicio en toda la ciudad y áreas circundantes para una atención sin límites.' icon= {<CoberturaIcon/>}></Card>
         </div>
 
-        <div className=' bg-red-600 '>
-            <h3 className='text-center text-white mt-10 text-3xl'>¿Necesitas ayuda inmediata?</h3>
-            <p className='text-center text-white text-xl mt-5 mb-5'>Contactanos ahora</p>
-            <Button/>
+        <div className=' bg-red-600 text-center '>
+            <h3 className=' text-white mb-5 text-3xl'>¿Necesitas ayuda inmediata?</h3>
+            <p className=' text-white text-xl mt-5 mb-5'>Contactanos ahora</p>
+            <Button colorClass="bg-white" textColorClass="text-red-600" />
         </div>
-    
+
     </div>
 
 )

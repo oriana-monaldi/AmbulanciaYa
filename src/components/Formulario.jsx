@@ -4,10 +4,12 @@ import Button from './Button'
 function Formulario() {
     return (
     <div>
-        <div className="bg-white">
-                <h2 className="text-2xl text-center mt-20 text-red-500">
+        <div className="bg-white h-8/12	">
+            <div className='pt-6'>
+                <h2 className="text-2xl text-center pt-2 text-red-500">
                     <strong>Solicitar Ambulancia</strong>
                 </h2>
+            </div>
                 <form className="mt-4 w-96 p-4 ">
                     <p className="text-lg ">Nombre Completo</p>
                     <input

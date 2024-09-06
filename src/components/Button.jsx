@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-function Button() {
+function Button({ colorClass = 'bg-red-600', textColorClass = 'text-white' }) {
   return (
     <div>
-        <button className="bg-red-600 mt-5 rounded-md w-80 h-10 text-white">
+      <button className={`mt-5 mb-10 rounded-md w-80 h-10 ${colorClass} ${textColorClass}`}>
         Solicitar Ambulancia
-        </button>
+      </button>
     </div>
-  )
+  );
 }
 
-export default Button
+export default Button;

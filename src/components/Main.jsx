@@ -5,7 +5,7 @@ function Main() {
 return (
     <div className="flex w-full bg-neutral-200">
         <div className="w-1/2">
-            <h1 className="text-4xl ml-10 mt-20 text-red-600">
+            <h1 className="text-4xl ml-10 mt-24 text-red-600">
                 <strong>Atencion Medica de emergencia las 24 horas</strong>
             </h1>
             <p className="text-xl ml-10 mt-8">
@@ -45,8 +45,8 @@ return (
             </div>
         </div>
 
-        <div className="flex w-2/4	pl-40">
-        <Formulario/>
+        <div className="flex w-2/4 justify-center ">
+            <Formulario/>
         </div>
     </div>
 );
