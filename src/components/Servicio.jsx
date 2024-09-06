@@ -25,11 +25,10 @@ return (
         </div>
 
         <div className=' bg-red-600 text-center '>
-            <h3 className=' text-white mb-5 text-3xl'>¿Necesitas ayuda inmediata?</h3>
+            <h3 className=' text-white mb-5 pt-5 text-3xl'>¿Necesitas ayuda inmediata?</h3>
             <p className=' text-white text-xl mt-5 mb-5'>Contactanos ahora</p>
             <Button colorClass="bg-white" textColorClass="text-red-600" />
         </div>
-
     </div>
 
 )
