@@ -12,3 +12,5 @@ function CardEquipo( {name, rol, src }) {
 }
 
 export default CardEquipo
+
+
