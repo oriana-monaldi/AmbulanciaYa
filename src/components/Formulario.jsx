@@ -4,7 +4,7 @@ import Button from './Button'
 function Formulario() {
     return (
     <div>
-        <div className="bg-white h-8/12	">
+            <div className="bg-slate-50 h-8/12	">
             <div className='pt-6'>
                 <h2 className="text-2xl text-center pt-2 text-red-500">
                     <strong>Solicitar Ambulancia</strong>
