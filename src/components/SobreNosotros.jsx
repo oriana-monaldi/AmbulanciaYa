@@ -1,11 +1,11 @@
 import React from 'react'
 import Card from './Card'
 import Grid from './Grid'
+import Equipo from './Equipo'
 import UserIcon from './Icons/UserIcon'
 import AmbulanciaIcon from './Icons/AmbulanciaIcon'
 import SolicitudIcon from './Icons/SolicitudIcon'
 import AtencionIcon from './Icons/AtencionIcon'
-
 
 function SobreNosotros() {
     return (
@@ -26,8 +26,13 @@ function SobreNosotros() {
                     <Card title='Solicitudes atendidas' description='50,000 +' icon={<SolicitudIcon />} ></Card>
                     <Card title='Pacientes atendidos' description='40,000 +' icon={<AtencionIcon />} ></Card>
                 </Grid>
+                
+                <h2 className='text-3xl m-10'><strong>Nuestro Equipo</strong></h2>
                 <div>
-                    <h2 className='text-3xl mt-20'><strong>Nuestro Equipo</strong></h2>
+                    <Equipo title='Dr. Ana García' rol='Directora Médica' img='./Images/directoraMedica.png'></Equipo>
+                    <Equipo title='Carlos Rodriguez' rol='Jefe de Paramédicos' img='../Images/jefe.png' ></Equipo>
+                    <Equipo title='Laura Martinez' rol='Coordinadora de Operaciones' ></Equipo>
+
                 </div>
             </div>
         </div>
