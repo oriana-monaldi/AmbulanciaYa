@@ -1,18 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 
 function Navbar() {
     return (
-        <div className="flex justify-between items-center h-16 ">
+        <div className="flex justify-between items-center h-16">
             <div className=" flex justify-start items-start">
-                <a href="#">
+                <Link to="/">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="rgb(220, 38, 38)"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         data-id="5"
                     >
                         <path d="M10 10H6"></path>
@@ -23,24 +24,24 @@ function Navbar() {
                         <circle cx="17" cy="18" r="2"></circle>
                         <circle cx="7" cy="18" r="2"></circle>
                     </svg>
-                </a>
+                </Link>
             </div>
             <ul className="flex">
-                <a href="#">
-                    <li className="no-underline mr-8 text-lg text-red-500">
+                <li className="no-underline mr-8 text-lg text-red-500">
+                    <Link to="/">
                         <strong>Inicio</strong>
-                    </li>
-                </a>
-                <a href="#">
-                    <li className="no-underline mr-8  text-lg text-red-500">
+                    </Link>
+                </li>
+                <li className="no-underline mr-8 text-lg text-red-500">
+                    <Link to="/servicios">
                         <strong>Servicios</strong>
-                    </li>
-                </a>
-                <a href="#">
-                    <li className="no-underline mr-8  text-lg text-red-500">
+                    </Link>
+                </li>
+                <li className="no-underline mr-8 text-lg text-red-500">
+                    <Link to="/sobre-nosotros">
                         <strong>Sobre Nosotros</strong>
-                    </li>
-                </a>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
