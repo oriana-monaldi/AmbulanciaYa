@@ -6,6 +6,8 @@ import UserIcon from './Icons/UserIcon'
 import AmbulanciaIcon from './Icons/AmbulanciaIcon'
 import SolicitudIcon from './Icons/SolicitudIcon'
 import AtencionIcon from './Icons/AtencionIcon'
+import Directora from './Images/directoraMedica.png'
+import jefe from './Images/jefe.png'
 
 function SobreNosotros() {
     return (
@@ -29,8 +31,8 @@ function SobreNosotros() {
                 
                 <h2 className='text-3xl m-10'><strong>Nuestro Equipo</strong></h2>
                 <div>
-                    <Equipo title='Dr. Ana García' rol='Directora Médica' img='./Images/directoraMedica.png'></Equipo>
-                    <Equipo title='Carlos Rodriguez' rol='Jefe de Paramédicos' img='../Images/jefe.png' ></Equipo>
+                    <Equipo title='Dr. Ana García' rol='Directora Médica' img={Directora}></Equipo>
+                    <Equipo title='Carlos Rodriguez' rol='Jefe de Paramédicos' img={jefe} ></Equipo>
                     <Equipo title='Laura Martinez' rol='Coordinadora de Operaciones' ></Equipo>
 
                 </div>
