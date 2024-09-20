@@ -30,6 +30,7 @@ return (
             <p className=' text-white text-xl mt-5 mb-5'>Contactanos ahora</p>
             <Button colorClass="bg-white" textColorClass="text-red-600" />
         </div>
+        
     </div>
 
 )

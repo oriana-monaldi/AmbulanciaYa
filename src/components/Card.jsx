@@ -6,9 +6,9 @@ function Card({title, description, icon}) {
             <div>
                 <p className="flex justify-center items-center">{icon}</p>
                 <strong>
-                    <h2 className="text-xl">{title}</h2>
+                    <h2 className="text-2xl">{title}</h2>
                 </strong>
-                <p>{description}</p>
+                <p><strong>{description}</strong></p>
             </div>
         </div>
     );
