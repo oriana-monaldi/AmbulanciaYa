@@ -2,13 +2,13 @@ import React from 'react';
 
 function Card({title, description, icon}) {
     return (
-        <div className=" bg-white text w-96 m-10 text-center rounded-md">
+        <div className="text m-10 w-96 rounded-md bg-white text-center">
             <div>
-                <p className="flex justify-center items-center">{icon}</p>
+                <p className="flex items-center justify-center m-4">{icon}</p>
                 <strong>
-                    <h2 className="text-2xl">{title}</h2>
+                    <h2 className="text-xl">{title}</h2>
                 </strong>
-                <p><strong>{description}</strong></p>
+                <p className='text-red-500 text-lg m-4'><strong>{description}</strong></p>
             </div>
         </div>
     );

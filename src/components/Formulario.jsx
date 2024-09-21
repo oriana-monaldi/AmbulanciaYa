@@ -1,36 +1,39 @@
-import React from 'react'
-import Button from './Button'
+import React from 'react';
+import Button from './Button';
 
 function Formulario() {
     return (
-    <div>
-            <div className="bg-slate-50 h-8/12	">
-            <div className='pt-6'>
-                <h2 className="text-2xl text-center pt-2 text-red-500">
-                    <strong>Solicitar Ambulancia</strong>
-                </h2>
+        <div>
+            <div className="h-8/12 bg-slate-50">
+                <div className="pt-6">
+                    <h2 className="pt-2 text-center text-2xl text-red-500">
+                        <strong>Solicitar Ambulancia</strong>
+                    </h2>
+                </div>
+                <form className="mt-4 w-96 p-4">
+                    <p className="text-lg">Nombre Completo</p>
+                    <input
+                        className="mt-2 w-80 border-2 pb-1"
+                        placeholder="Pedro Martinez"
+                    />
+                    <p className="mt-2 text-lg">Teléfono</p>
+                    <input
+                        className="mt-2 w-80 border-2 pb-1"
+                        placeholder="2215689764"
+                    />
+                    <p className="mt-2 text-lg">Dirección</p>
+                    <input
+                        className="mt-2 w-80 border-2 pb-1"
+                        placeholder="Calle 30 nro 1787"
+                    />
+                    <p className="mt-2 text-lg">Descripción de la emergencia</p>
+                    <input className="mt-2 h-20 w-80 border-2 pb-1" />
+
+                    <Button />
+                </form>
             </div>
-            <form className="mt-4 w-96 p-4 ">
-                <p className="text-lg ">Nombre Completo</p>
-                <input
-                    className="border-2 mt-2 w-80  pb-1"
-                    placeholder="Pedro Martinez"/>
-                <p className="text-lg mt-2 ">Teléfono</p>
-                <input
-                    className="border-2 mt-2 w-80 pb-1"
-                    placeholder="2215689764"/>
-                <p className="text-lg mt-2 ">Dirección</p>
-                <input
-                    className="border-2 mt-2 w-80 pb-1"
-                    placeholder="Calle 30 nro 1787"/>
-                <p className="text-lg mt-2">Descripción de la emergencia</p>
-                <input className="border-2 mt-2 w-80  h-20 pb-1" />
-                
-                <Button/>
-            </form>
-            </div>
-    </div>
-    )
+        </div>
+    );
 }
 
-export default Formulario
+export default Formulario;

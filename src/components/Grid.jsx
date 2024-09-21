@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-function Grid( {children} ) {
+function Grid({children}) {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center p-6 '>
-                {children}
+        <div className="grid grid-cols-1 justify-items-center gap-6 p-6 md:grid-cols-2">
+            {children}
         </div>
-    )
+    );
 }
 
-export default Grid
+export default Grid;

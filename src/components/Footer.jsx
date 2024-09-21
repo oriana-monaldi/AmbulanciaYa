@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
     return (
-        <div className="flex h-32 w-full bg-white mt-4 justify-around">
+        <div className="mt-4 flex h-32 w-full justify-around bg-white">
             <div className="text-black">
                 <h3 className="text-lg text-red-600">
                     <strong>Emergencia Médica</strong>
@@ -13,38 +13,39 @@ function Footer() {
                 </p>
             </div>
 
-            <div className="flex text-black flex-col mx-4 ">
+            <div className="mx-4 flex flex-col text-black">
                 <h3 className="text-lg text-red-600">
                     <strong>Contacto de emergencias</strong>
                 </h3>
                 <div className="flex items-center">
                     <svg
-                        className="w-6 h-6 text-black"
+                        className="h-6 w-6 text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="#2c3e50"
                         fill="none"
                         strokeLinecap="round"
-                        strokeLinejoin="round">
+                        strokeLinejoin="round"
+                    >
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
                     </svg>
-                    <p className="ml-2 m-0 ">911</p>
+                    <p className="m-0 ml-2">911</p>
                 </div>
             </div>
 
-            <div className="flex text-black flex-col ">
+            <div className="flex flex-col text-black">
                 <h3 className="text-lg text-red-600">
                     <strong>Información</strong>
                 </h3>
-                <a href="#" className="block ">
+                <a href="#" className="block">
                     Políticas de Privacidad
                 </a>
-                <a href="#" className="block ">
+                <a href="#" className="block">
                     Términos y Condiciones
                 </a>
-                <a href="#" className="block ">
+                <a href="#" className="block">
                     Preguntas Frecuentes
                 </a>
             </div>
