@@ -11,7 +11,7 @@ function CallToAction() {
             <p className="mb-5 mt-5 text-xl text-white">
                 Contactanos ahora
             </p>
-            <Button colorClass="bg-white" textColorClass="text-red-600" />
+            <Button nombre="Solicitar Ambulancia" colorClass="bg-white" textColorClass="text-red-600" />
         </div>  
         )
 }

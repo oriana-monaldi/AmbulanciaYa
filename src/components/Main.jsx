@@ -33,7 +33,7 @@ function Main() {
             </div>
 
             <div className="flex w-2/4 justify-center">
-                <Formulario />
+                <Formulario esLogin={false} />
             </div>
         </div>
     );

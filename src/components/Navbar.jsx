@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
 import { FaAmbulance } from "react-icons/fa";
+import { MdPersonAdd } from "react-icons/md";
+
 
 function Navbar() {
     return (
@@ -28,6 +29,11 @@ function Navbar() {
                     <li className="text-lg text-red-500 no-underline">
                         <Link to="/sobre-nosotros">
                             <strong>Sobre Nosotros</strong>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/Formulario">
+                            <MdPersonAdd color='red' size={30} />
                         </Link>
                     </li>
                 </ul>
