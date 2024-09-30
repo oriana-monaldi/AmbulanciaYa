@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import { FaAmbulance } from "react-icons/fa";
 import { MdPersonAdd } from "react-icons/md";
 
-
 function Navbar() {
     return (
         <div className="flex h-16 items-center justify-between px-4">
@@ -35,6 +34,9 @@ function Navbar() {
                         <Link to="/Formulario">
                             <MdPersonAdd color='red' size={30} />
                         </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin">Admi</Link>
                     </li>
                 </ul>
             </div>
