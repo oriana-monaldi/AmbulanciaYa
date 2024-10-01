@@ -19,7 +19,7 @@ function App() {
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 <Route path="/formulario" element={<Formulario esLogin={true} />} />
                 <Route path="/admin" element={<Admin />} /> 
-                <Route path="/ambulancias" element={<Table/>} ></Route>
+                <Route path="/table" element={<Table/>} ></Route>
             </Routes>
             <Footer />
         </BrowserRouter>

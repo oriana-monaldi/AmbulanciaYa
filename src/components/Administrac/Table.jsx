@@ -9,32 +9,32 @@ function Table() {
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-red-500">
               <thead className="bg-gray-50">
-                <tr>
+                <tr className='h-8'>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                    className="text-center  text-sm font-medium text-gray-500 tracking-wider"
                   >
                     ReporteID
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                    className="text-center text-sm font-medium text-gray-500 tracking-wider"
                   >
                     AccidenteID
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                    className="text-center text-sm font-medium text-gray-500 tracking-wider"
                   >
                     Acciones
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">1</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">23</td>
-                  <td className="px-6 py-4 text-sm font-medium">
+                <tr className='h-12'>
+                  <td className=" text-center text-sm font-medium text-gray-900">1</td>
+                  <td className="text-center text-sm text-gray-500">23</td>
+                  <td className="text-center text-sm font-medium">
                     <Link to="" className="mr-4 text-indigo-600 hover:text-indigo-900">
                       Ver
                     </Link>
@@ -46,10 +46,10 @@ function Table() {
                 </tr>
               </tbody>
               <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">2</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">28</td>
-                  <td className="px-6 py-4 text-sm font-medium">
+                <tr className='h-12'>
+                  <td className=" text-center text-sm font-medium text-gray-900">1</td>
+                  <td className="text-center text-sm text-gray-500">23</td>
+                  <td className="text-center text-sm font-medium">
                     <Link to="" className="mr-4 text-indigo-600 hover:text-indigo-900">
                       Ver
                     </Link>
