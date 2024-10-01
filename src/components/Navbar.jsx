@@ -36,7 +36,7 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/admin">Admi</Link>
+                        <Link to="/navAdmi">Admi</Link>
                     </li>
                 </ul>
             </div>

@@ -1,9 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavAdmi from './NavAdmi';
+import { FiPlusCircle } from "react-icons/fi";
+
 
 function Table() {
   return (
-    <div className=" border-4 m-8 border-red-600">
+    <div>
+      <NavAdmi/>
+        <h2 className='text-lg m-10'>Gestion de Ambulancias</h2>
+        <div className='flex justify-end m-8'>
+          <FiPlusCircle  color='red' size='40'/>
+        <div>
+        </div>
+      </div>
+      <div className=" border-4 m-8 border-red-600">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -63,8 +74,10 @@ function Table() {
             </table>
           </div>
         </div>
+        </div>
       </div>
     </div>
+
   );
 }
 

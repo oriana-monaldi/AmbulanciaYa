@@ -6,7 +6,7 @@ import Servicio from './components/Servicio';
 import SobreNosotros from './components/SobreNosotros';
 import Footer from './components/Footer';
 import Formulario from './components/Formulario';
-import Admin from './components/Administrac/Admin';
+import NavAdmi from './components/Administrac/NavAdmi';
 import Table from './components/Administrac/Table';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
                 <Route path="/servicios" element={<Servicio />} />
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 <Route path="/formulario" element={<Formulario esLogin={true} />} />
-                <Route path="/admin" element={<Admin />} /> 
+                <Route path="/navAdmi" element={<NavAdmi />} /> 
                 <Route path="/table" element={<Table/>} ></Route>
             </Routes>
             <Footer />
