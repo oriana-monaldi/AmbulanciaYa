@@ -18,6 +18,7 @@ function Formulario({ esLogin }) {
         }
     };
 
+    
     return (
         <div className="h-92 flex items-center justify-center"> 
             <form className="mt-4 w-80 p-4" onSubmit={handleSubmit}>

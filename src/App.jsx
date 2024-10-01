@@ -15,6 +15,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Main />} />
+                <Route path="/" element={<Main />} />
                 <Route path="/servicios" element={<Servicio />} />
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 <Route path="/formulario" element={<Formulario esLogin={true} />} />

@@ -8,9 +8,11 @@ function Table() {
   return (
     <div>
       <NavAdmi/>
-        <h2 className='text-lg m-10'>Gestion de Ambulancias</h2>
+        <h2 className='text-2xl m-10 '>Gestion de Ambulancias</h2>
         <div className='flex justify-end m-8'>
-          <FiPlusCircle  color='red' size='40'/>
+          <Link>
+          <FiPlusCircle  color='red' size='40' />
+          </Link>
         <div>
         </div>
       </div>
