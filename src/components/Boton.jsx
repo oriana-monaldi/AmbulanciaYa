@@ -1,18 +1,22 @@
 import React from 'react';
 import swal from 'sweetalert';
 
-function Button({
+function Boton({
     colorClass = 'bg-red-600',
     textColorClass = 'text-white',
     nombre,
-}) {
+    showAlert = false
+    }) {
     const handleClick = () => {
-        swal({
-            title: 'Su solicitud ha sido recibida con éxito',
-            icon: 'success',
-            button: 'Cerrar',
-        });
+        if (showAlert) {
+            swal({
+                title: 'Su solicitud ha sido recibida con éxito',
+                icon: 'success',
+                button: 'Cerrar',
+            });
+        }
     };
+
     return (
         <div>
             <button
@@ -25,4 +29,4 @@ function Button({
     );
 }
 
-export default Button;
+export default Boton;

@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from './Button'
-
+import Boton from './Boton'
+import  {Link} from 'react-router-dom'
 
 function CallToAction() {
     return (
@@ -11,7 +11,9 @@ function CallToAction() {
             <p className="mb-5 mt-5 text-xl text-white">
                 Contactanos ahora
             </p>
-            <Button nombre="Solicitar Ambulancia" colorClass="bg-white" textColorClass="text-red-600" />
+            <Link to='/'>
+                <Boton nombre="Solicitar Ambulancia" colorClass="bg-white" textColorClass="text-red-600" />
+            </Link>
         </div>  
         )
 }

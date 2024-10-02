@@ -7,7 +7,7 @@ import SobreNosotros from './components/SobreNosotros';
 import Footer from './components/Footer';
 import Formulario from './components/Formulario';
 import NavAdmi from './components/Administrac/NavAdmi';
-import Table from './components/Administrac/Table';
+import Tabla from './components/Administrac/Tabla';
 import Alta from './components/Administrac/Alta';
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 <Route path="/formulario" element={<Formulario esLogin={true} />} />
                 <Route path="/navAdmi" element={<NavAdmi />} /> 
-                <Route path="/alta" element={<Alta />} />
-                <Route path="./Administrac/table" element={<Table/>} ></Route>
+                <Route path="/tabla" element={<Tabla/>} ></Route>
+                <Route path="/alta" element={<Alta/>}></Route>
                 </Routes>
             <Footer />
         </BrowserRouter>

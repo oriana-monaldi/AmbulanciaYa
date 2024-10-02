@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from './Button';
+import Boton from './Boton';
 
 function Formulario({ esLogin }) {
     const [nombre, setNombre] = useState('');
@@ -44,7 +44,7 @@ function Formulario({ esLogin }) {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <Button nombre="Iniciar Sesión" />
+                            <Boton nombre="Iniciar Sesión" />
                         </div>
                     </div>
                 ) : (
@@ -79,7 +79,7 @@ function Formulario({ esLogin }) {
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                         />
-                        <Button nombre="Solicitar Ambulancia" />
+                        <Boton nombre="Solicitar Ambulancia" showAlert={true} />
                     </div>
                 )}
             </form>
