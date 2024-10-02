@@ -4,6 +4,7 @@ import NavAdmi from './NavAdmi';
 import {FiPlusCircle} from 'react-icons/fi';
 import swal from 'sweetalert';
 
+
 function Table() {
   const handleOnClick = () => {
       swal({
@@ -27,10 +28,10 @@ function Table() {
           <NavAdmi />
           <h2 className="m-10 text-2xl">Gestion de Ambulancias</h2>
           <div className="m-8 flex justify-end">
-              <Link to="/alta">
-                  <FiPlusCircle color="red" size="40" />
-              </Link>
-              <div></div>
+          <Link to="/Administrac/alta">
+            <FiPlusCircle color="red" size="40" />
+          </Link>
+
           </div>
           <div className="m-8 border-4 border-red-600">
               <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

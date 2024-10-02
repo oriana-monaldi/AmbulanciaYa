@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Formulario from './components/Formulario';
 import NavAdmi from './components/Administrac/NavAdmi';
 import Table from './components/Administrac/Table';
+import Alta from './components/Administrac/Alta';
 
 function App() {
     return (
@@ -15,13 +16,13 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/" element={<Main />} />
                 <Route path="/servicios" element={<Servicio />} />
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                 <Route path="/formulario" element={<Formulario esLogin={true} />} />
                 <Route path="/navAdmi" element={<NavAdmi />} /> 
-                <Route path="/table" element={<Table/>} ></Route>
-            </Routes>
+                <Route path="/alta" element={<Alta />} />
+                <Route path="./Administrac/table" element={<Table/>} ></Route>
+                </Routes>
             <Footer />
         </BrowserRouter>
     );
