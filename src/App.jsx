@@ -18,7 +18,6 @@ function App() {
         paramedico: ["ParamedicoID", "Nombre Completo", "DNI", "Acciones"]
     };
 
-    // Datos de ejemplo
     const ambulanciasData = [
         { ambulanciaID: 1, patente: "ABC123", inventario: true, vtv: true, seguro: true, paramedico: "Juan Pérez", chofer: "Carlos López" },
     ];

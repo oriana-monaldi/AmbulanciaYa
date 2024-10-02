@@ -6,12 +6,12 @@ import { MdPersonAdd } from "react-icons/md";
 function Navbar() {
     return (
         <div className="flex h-16 items-center justify-between px-4">
-            <div className="flex items-center">
-                <FaAmbulance color='red' size={40}/>
-                <p className="m-2 text-lg font-bold text-red-500">
-                    AmbulanciasYa
-                </p>
-            </div>
+                <Link className="flex " to='./'>
+                    <FaAmbulance color='red' size={40}/>
+                    <p className="m-2 text-lg font-bold text-red-500">
+                        AmbulanciasYa
+                    </p>
+                </Link>
 
             <div className="flex items-center space-x-8">
                 <ul className="flex space-x-8">
