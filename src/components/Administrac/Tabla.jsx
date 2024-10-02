@@ -1,4 +1,3 @@
-// src/components/Administrac/Tabla.js
 import React from 'react';
 import { useParams, Link } from 'react-router-dom'; 
 import swal from 'sweetalert';
@@ -15,7 +14,7 @@ const Tabla = () => {
         paramedico: ["ParamedicoID", "Nombre Completo", "DNI"]
     };
 
-    // Datos de ejemplo
+
     const data = {
         ambulancia: [
             { ambulanciaID: 1, patente: "ABC123", inventario: true, vtv: true, seguro: true, paramedico: "Juan Pérez", chofer: "Carlos López" },
@@ -69,8 +68,8 @@ const Tabla = () => {
                             </td>
                         ))}
                         <td className="text-center">
-                            <button onClick={handleOnClick} className="mr-4 text-red-600 hover:text-red-900">Eliminar</button>
                             <button className="mr-4 text-red-600 hover:text-red-900">Modificar</button>
+                            <button onClick={handleOnClick} className="mr-4 text-red-600 hover:text-red-900">Eliminar</button>
                         </td>
                     </tr>
                 ))}
@@ -78,7 +77,6 @@ const Tabla = () => {
         </table>
     );
 
-    // Definir la ruta del botón según el tipo
     const altaRoute = () => {
         switch (tipo) {
             case 'ambulancia':
@@ -90,7 +88,7 @@ const Tabla = () => {
             case 'paramedico':
                 return '/alta-paramedico';
             default:
-                return '/'; // Ruta por defecto si no coincide con ningún tipo
+                return '/'; 
         }
     };
 
