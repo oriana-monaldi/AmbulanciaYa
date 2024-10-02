@@ -38,9 +38,7 @@ function Alta() {
                     <option value="opcion2">Incompleto</option>
                 </select>
             </div>
-        <Boton nombre="Cargar">
-
-        </Boton>
+        <Boton nombre="Cargar"></Boton>
         </div>
     );
     }

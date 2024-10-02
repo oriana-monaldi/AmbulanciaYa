@@ -95,7 +95,6 @@ const Tabla = () => {
     return (
         <div>
             <NavAdmi />
-
             <div>
                 <div className="m-8 flex justify-end">
                     <Link to={altaRoute()}>
