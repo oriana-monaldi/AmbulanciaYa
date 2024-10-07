@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Boton from './Boton';
 
-function Formulario({esLogin}) {
+function Formulario({ esLogin }) {
     const [nombre, setNombre] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
@@ -54,7 +54,7 @@ function Formulario({esLogin}) {
                         <h2 className="mb-4 text-center text-2xl text-red-500">
                             <strong>Solicitar Ambulancia</strong>
                         </h2>
-                        <div className='pb-4'>
+                        <div className="pb-4">
                             <label>
                                 <input
                                     type="radio"
@@ -82,6 +82,7 @@ function Formulario({esLogin}) {
                             placeholder="Pedro Martinez"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
+                            disabled={paraMi === 'No es para mí'}
                         />
                         <p className="mt-2 text-lg">Teléfono</p>
                         <input
@@ -89,6 +90,7 @@ function Formulario({esLogin}) {
                             placeholder="2215689764"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
+                            disabled={paraMi === 'No es para mí'}
                         />
                         <p className="mt-2 text-lg">Dirección</p>
                         <input
@@ -97,9 +99,7 @@ function Formulario({esLogin}) {
                             value={direccion}
                             onChange={(e) => setDireccion(e.target.value)}
                         />
-                        <p className="mt-2 text-lg">
-                            Descripción de la emergencia
-                        </p>
+                        <p className="mt-2 text-lg">Descripción de la emergencia</p>
                         <textarea
                             className="mt-2 h-20 w-80 border-2 pb-1"
                             value={descripcion}
