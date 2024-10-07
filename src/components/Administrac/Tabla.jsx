@@ -1,32 +1,57 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom'; 
+import {useParams, Link} from 'react-router-dom';
 import swal from 'sweetalert';
 import NavAdmi from './NavAdmi';
-import { FiPlusCircle } from 'react-icons/fi';
+import {FiPlusCircle} from 'react-icons/fi';
 
 const Tabla = () => {
-    const { tipo } = useParams();
+    const {tipo} = useParams();
 
     const headers = {
-        ambulancia: ["AmbulanciaID", "PatenteID", "Inventario", "VTV", "Seguro", "Paramedico", "Chofer"],
-        reporte: ["ReporteID", "AccidenteID"],
-        chofer: ["ChoferID", "Nombre Completo", "DNI"],
-        paramedico: ["ParamedicoID", "Nombre Completo", "DNI"]
+        ambulancia: [
+            'AmbulanciaID',
+            'Patente',
+            'Inventario',
+            'VTV',
+            'Seguro',
+            'Paramedico',
+            'Chofer',
+            'Estado',
+        ],
+        reporte: ['ReporteID', 'AccidenteID', 'Estado'],
+        chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
+        paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
     };
-
 
     const data = {
         ambulancia: [
-            { ambulanciaID: 1, patente: "ABC123", inventario: true, vtv: true, seguro: true, paramedico: "Juan Pérez", chofer: "Carlos López" },
+            {
+                ambulanciaID: 1,
+                patente: 'ABC123',
+                inventario: true,
+                vtv: true,
+                seguro: true,
+                paramedico: 'Juan Pérez',
+                chofer: 'Carlos López',
+                estado: 'Alta',
+            },
         ],
-        reporte: [
-            { reporteID: 1, accidenteID: "A001" },
-        ],
+        reporte: [{reporteID: 1, accidenteID: 'A001', estado: 'Alta'}],
         chofer: [
-            { choferID: 1, nombreCompleto: "Carlos López", dni: "12345678" },
+            {
+                choferID: 1,
+                nombreCompleto: 'Carlos López',
+                dni: '12345678',
+                estado: 'Alta',
+            },
         ],
         paramedico: [
-            { paramedicoID: 1, nombreCompleto: "Juan Pérez", dni: "87654321" },
+            {
+                paramedicoID: 1,
+                nombreCompleto: 'Juan Pérez',
+                dni: '87654321',
+                estado: 'Alta',
+            },
         ],
     };
 
@@ -52,24 +77,46 @@ const Tabla = () => {
             <thead className="bg-gray-50">
                 <tr className="h-8">
                     {headers.map((header, index) => (
-                        <th key={index} className="text-center text-sm font-medium tracking-wider text-gray-500">
+                        <th
+                            key={index}
+                            className="text-center text-sm font-medium tracking-wider text-gray-500"
+                        >
                             {header}
                         </th>
                     ))}
-                    <th className="text-center text-sm font-medium tracking-wider text-gray-500">Acciones</th>
+                    <th className="text-center text-sm font-medium tracking-wider text-gray-500">
+                        Acciones
+                    </th>
                 </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
                 {data.map((item, rowIndex) => (
                     <tr key={rowIndex} className="h-12">
                         {Object.keys(item).map((key, index) => (
-                            <td key={index} className="text-center text-sm text-gray-500">
-                                {typeof item[key] === 'boolean' ? (item[key] ? 'TRUE' : 'FALSE') : item[key]}
+                            <td
+                                key={index}
+                                className="text-center text-sm text-gray-500"
+                            >
+                                {typeof item[key] === 'boolean'
+                                    ? item[key]
+                                        ? 'TRUE'
+                                        : 'FALSE'
+                                    : item[key]}
                             </td>
                         ))}
                         <td className="text-center">
-                            <button className="mr-4 text-red-600 hover:text-red-900">Modificar</button>
-                            <button onClick={handleOnClick} className="mr-4 text-red-600 hover:text-red-900">Eliminar</button>
+                        <button className="mr-4 text-red-600 hover:text-red-900">
+                                Ver reporte
+                            </button>
+                            <button className="mr-4 text-red-600 hover:text-red-900">
+                                Modificar
+                            </button>
+                            <button
+                                onClick={handleOnClick}
+                                className="mr-4 text-red-600 hover:text-red-900"
+                            >
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                 ))}
@@ -88,7 +135,7 @@ const Tabla = () => {
             case 'paramedico':
                 return '/alta-paramedico';
             default:
-                return '/'; 
+                return '/';
         }
     };
 

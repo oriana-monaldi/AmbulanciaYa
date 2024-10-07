@@ -16,7 +16,7 @@ function Servicios() {
     return (
         <div className="bg-neutral-200">
             <div className="pt-10">
-                <h1 className="text-center text-5xl text-red-500">
+                <h1 className="text-center text-3xl text-red-500">
                     <strong>Nuestros Servicios</strong>
                 </h1>
             </div>

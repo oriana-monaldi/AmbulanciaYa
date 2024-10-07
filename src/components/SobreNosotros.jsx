@@ -18,10 +18,10 @@ function SobreNosotros() {
     return (
         <div>
             <div className="flex flex-col items-center justify-center bg-neutral-200">
-                <h1 className="text-center text-5xl text-red-500 pt-10">
+                <h1 className="text-center text-4xl text-red-500 pt-10">
                     <strong>Sobre Nosotros</strong>
                 </h1>
-                <h2 className="mt-10 text-3xl">
+                <h2 className="mt-10 text-2xl">
                     <strong>Nuestra Misión</strong>
                 </h2>
 
@@ -36,7 +36,7 @@ function SobreNosotros() {
                     </p>
                 </div>
 
-                <h2 className="mt-20 text-3xl">
+                <h2 className="mt-20 text-2xl">
                     <strong>Nuestro Impacto</strong>
                 </h2>
 
@@ -63,7 +63,7 @@ function SobreNosotros() {
                     ></Card>
                 </Grid>
 
-                <h2 className="m-10 text-3xl">
+                <h2 className="m-10 text-2xl">
                     <strong>Nuestro Equipo</strong>
                 </h2>
 
