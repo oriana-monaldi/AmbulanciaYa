@@ -6,18 +6,9 @@ import {FiPlusCircle} from 'react-icons/fi';
 
 const Tabla = () => {
     const {tipo} = useParams();
-
+    
     const headers = {
-        ambulancia: [
-            'AmbulanciaID',
-            'Patente',
-            'Inventario',
-            'VTV',
-            'Seguro',
-            'Paramedico',
-            'Chofer',
-            'Estado',
-        ],
+        ambulancia: ['AmbulanciaID','Patente','Inventario','VTV','Seguro','Paramedico','Chofer','Estado'],
         reporte: ['ReporteID', 'AccidenteID', 'Estado'],
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
         paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
@@ -25,8 +16,7 @@ const Tabla = () => {
 
     const data = {
         ambulancia: [
-            {
-                ambulanciaID: 1,
+            {ambulanciaID: 1,
                 patente: 'ABC123',
                 inventario: true,
                 vtv: true,
@@ -36,7 +26,12 @@ const Tabla = () => {
                 estado: 'Alta',
             },
         ],
-        reporte: [{reporteID: 1, accidenteID: 'A001', estado: 'Alta'}],
+        reporte: [
+            {reporteID: 1,
+            accidenteID: 'A001', 
+            estado: 'Alta'
+            }
+        ],
         chofer: [
             {
                 choferID: 1,
@@ -106,7 +101,7 @@ const Tabla = () => {
                         ))}
                         <td className="text-center">
                         <button className="mr-4 text-red-600 hover:text-red-900">
-                                Ver reporte
+                            Más información
                             </button>
                             <button className="mr-4 text-red-600 hover:text-red-900">
                                 Modificar
@@ -127,7 +122,7 @@ const Tabla = () => {
     const altaRoute = () => {
         switch (tipo) {
             case 'ambulancia':
-                return '/alta';
+                return '/alta-ambulancia';
             case 'reporte':
                 return '/alta-reporte';
             case 'chofer':
@@ -141,7 +136,6 @@ const Tabla = () => {
 
     return (
         <div>
-            <NavAdmi />
             <div>
                 <div className="m-8 flex justify-end">
                     <Link to={altaRoute()}>

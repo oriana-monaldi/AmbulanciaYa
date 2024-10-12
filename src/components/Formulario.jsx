@@ -27,7 +27,7 @@ function Formulario({ esLogin }) {
                 {esLogin ? (
                     <div className="flex flex-col items-center">
                         <h2 className="mb-4 text-center text-2xl text-red-500">
-                            <strong>Iniciar Sesión</strong>
+                            <strong>Iniciar sesión como empleado</strong>
                         </h2>
                         <div className="p-4">
                             <p className="text-lg">Email</p>

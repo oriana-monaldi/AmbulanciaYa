@@ -6,9 +6,9 @@ import Servicio from './components/Servicio';
 import SobreNosotros from './components/SobreNosotros';
 import Footer from './components/Footer';
 import Formulario from './components/Formulario';
-import NavAdmi from './components/Administrac/NavAdmi';
-import Tabla from './components/Administrac/Tabla';
-import Alta from './components/Administrac/Alta';
+import NavAdmi from './components/Administrador/NavAdmi';
+import Tabla from './components/Administrador/Tabla';
+import Alta from './components/Administrador/Alta';
 
 function App() {
     const headers = {
@@ -36,31 +36,95 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/servicios" element={<Servicio />} />
-                <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-                <Route path="/formulario" element={<Formulario esLogin={true} />} />
-                <Route path="/navAdmi" element={<NavAdmi />} /> 
-                <Route path="/tabla" element={<Tabla/>} ></Route>
-                <Route path="/alta" element={<Alta/>}></Route>
-                <Route 
-                    path="/tabla/:tipo" 
-                    element={
-                        <Tabla 
-                            headers={headers} 
-                            data={{
-                                ambulancia: ambulanciasData, 
-                                reporte: reportesData, 
-                                chofer: choferesData, 
-                                paramedico: paramedicosData
-                            }} 
-                        />
+            <>
+                <Routes>
+                    {/* Rutas que incluyen el Navbar y Footer */}
+                <Route path="/" element={<>
+                            <Navbar />
+                            <Main />
+                            <Footer />
+                        </>
                     } 
-                />
-            </Routes>
-            <Footer />
+                    />
+                    <Route 
+                        path="/servicios" 
+                        element={
+                            <>
+                                <Navbar />
+                                <Servicio />
+                                <Footer />
+                            </>
+                        } 
+                    />
+                    <Route 
+                        path="/sobre-nosotros" 
+                        element={
+                            <>
+                                <Navbar />
+                                <SobreNosotros />
+                                <Footer />
+                            </>
+                        } 
+                    />
+                    <Route 
+                        path="/formulario" 
+                        element={
+                            <>
+                                <Navbar />
+                                <Formulario esLogin={true} />
+                                <Footer />
+                            </>
+                        } 
+                    />
+
+                    {/* Rutas que utilizan NavAdmi (sin Footer ni Navbar) */}
+                    <Route path="/navAdmi" element={<NavAdmi />} />
+                    
+                    {/* Rutas para la tabla general (sin Footer ni Navbar) */}
+                    <Route 
+                        path="/tabla" 
+                        element={
+                            <>
+                                <NavAdmi />
+                                <Tabla 
+                                    headers={headers} 
+                                    data={{
+                                        ambulancia: ambulanciasData, 
+                                        reporte: reportesData, 
+                                        chofer: choferesData, 
+                                        paramedico: paramedicosData
+                                    }} 
+                                />
+                            </>
+                        } 
+                    />
+
+                    {/* Ruta para la tabla específica por tipo (sin Footer ni Navbar) */}
+                    <Route 
+                        path="/tabla/:tipo" 
+                        element={
+                            <>
+                                <NavAdmi />
+                                <Tabla 
+                                    headers={headers} 
+                                    data={{
+                                        ambulancia: ambulanciasData, 
+                                        reporte: reportesData, 
+                                        chofer: choferesData, 
+                                        paramedico: paramedicosData
+                                    }} 
+                                />
+                            </>
+                        } 
+                    />
+
+                    {/* Rutas para el alta (sin Footer ni Navbar) */}
+                    <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
+                    <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
+                    <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
+                    <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
+                </Routes>
+            </>
         </BrowserRouter>
     );
 }
