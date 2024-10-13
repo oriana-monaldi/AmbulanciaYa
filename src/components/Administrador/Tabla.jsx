@@ -1,7 +1,6 @@
 import React from 'react';
 import {useParams, Link} from 'react-router-dom';
 import swal from 'sweetalert';
-import NavAdmi from './NavAdmi';
 import {FiPlusCircle} from 'react-icons/fi';
 
 const Tabla = () => {
