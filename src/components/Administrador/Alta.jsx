@@ -1,17 +1,27 @@
 import React from 'react';
 import Boton from '../Boton';
-
+import Swal from 'sweetalert2';
+    
 function Alta({ tipo }) {
+        const onClick = () => {
+        Swal.fire({
+            title: "Se añadio correctamente!",
+            icon: "success",
+            timer: 800,
+            showConfirmButton: false, 
+        });
+    };
     return (
         <div className="flex flex-col items-center">
-            <h2 className="text-center text-2xl text-black">
+            <h2 className="text-center text-2xl text-red-500 mt-10 ">
                 <strong>
-                    Registrar una {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' : 'reporte'}
+                    Registrar {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' : 'reporte'}
                 </strong>
             </h2>
 
             {tipo === 'ambulancia' && (
                 <>
+                <div className='border border-red-500 m-4 p-4'>
                     <div className="p-2">
                         <p className="text-lg">Patente</p>
                         <input
@@ -50,18 +60,20 @@ function Alta({ tipo }) {
                             <option value="incompleto">Incompleto</option>
                         </select>
                     </div>
+                </div>
                 </>
             )}
 
             {tipo === 'chofer' && (
                 <>
+                <div className='border border-red-500 m-4 p-4'>
                     <div className="p-2">
                         <p className="text-lg">Nombre Completo</p>
                         <input
                             type="text"
                             className="mt-2 w-full border-2 pb-1"
                             placeholder="Carlos Pérez"
-                        />
+                            />
                     </div>
                     <div className="p-2">
                         <p className="text-lg">DNI</p>
@@ -69,13 +81,15 @@ function Alta({ tipo }) {
                             type="text"
                             className="mt-2 w-full border-2 pb-1"
                             placeholder="44526325"
-                        />
+                            />
                     </div>
+                </div>
                 </>
             )}
 
             {tipo === 'paramedico' && (
                 <>
+                <div className='border border-red-500 m-4 p-4'>
                     <div className="p-2">
                         <p className="text-lg">Nombre Completo</p>
                         <input
@@ -92,11 +106,13 @@ function Alta({ tipo }) {
                             placeholder="44526325"
                         />
                     </div>
+                </div>
                 </>
             )}
 
             {tipo === 'reporte' && (
                 <>
+                <div className='border border-red-500 m-4 p-4'>
                     <p className="mt-2 text-lg">Descripción del suceso</p>
                     <textarea className="mt-2 h-20 w-80 border-2 pb-1" />
                     <div className="p-2">
@@ -109,10 +125,11 @@ function Alta({ tipo }) {
                             <option value="noTraslado">No se requirió traslado</option>
                         </select>
                     </div>
+                </div>
                 </>
             )}
 
-            <Boton nombre="Cargar"></Boton>
+            <Boton nombre="Aceptar" onClick={onClick}></Boton>
         </div>
     );
 }

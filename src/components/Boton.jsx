@@ -5,9 +5,14 @@ function Boton({
     colorClass = 'bg-red-600',
     textColorClass = 'text-white',
     nombre,
+    onClick,
     showAlert = false
-    }) {
+}) {
     const handleClick = () => {
+        if (onClick) {
+            onClick();
+        }
+
         if (showAlert) {
             swal({
                 title: 'Su solicitud ha sido recibida con éxito',
