@@ -1,6 +1,7 @@
 import React from 'react';
 import Boton from '../Boton';
 import Swal from 'sweetalert2';
+import {Link} from 'react-router-dom'
     
 function Alta({ tipo }) {
         const onClick = () => {
@@ -129,7 +130,11 @@ function Alta({ tipo }) {
                 </>
             )}
 
+
+
+            <Link to='/navAdmi'>
             <Boton nombre="Aceptar" onClick={onClick}></Boton>
+            </Link>
         </div>
     );
 }
