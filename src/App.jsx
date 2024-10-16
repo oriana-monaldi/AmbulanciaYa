@@ -36,95 +36,49 @@ function App() {
 
     return (
         <BrowserRouter>
-            <>
-                <Routes>
-                    {/* Rutas que incluyen el Navbar y Footer */}
-                <Route path="/" element={<>
-                            <Navbar />
-                            <Main />
-                            <Footer />
-                        </>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/servicios" element={<Servicio />} />
+                <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+                <Route path="/formulario" element={<Formulario esLogin={true} />} />
+                <Route path="/navAdmi" element={<NavAdmi />} />
+                
+                <Route 
+                    path="/tabla" 
+                    element={
+                        <Tabla 
+                            headers={headers} 
+                            data={{
+                                ambulancia: ambulanciasData, 
+                                reporte: reportesData, 
+                                chofer: choferesData, 
+                                paramedico: paramedicosData
+                            }} 
+                        />
                     } 
-                    />
-                    <Route 
-                        path="/servicios" 
-                        element={
-                            <>
-                                <Navbar />
-                                <Servicio />
-                                <Footer />
-                            </>
-                        } 
-                    />
-                    <Route 
-                        path="/sobre-nosotros" 
-                        element={
-                            <>
-                                <Navbar />
-                                <SobreNosotros />
-                                <Footer />
-                            </>
-                        } 
-                    />
-                    <Route 
-                        path="/formulario" 
-                        element={
-                            <>
-                                <Navbar />
-                                <Formulario esLogin={true} />
-                                <Footer />
-                            </>
-                        } 
-                    />
-
-                    {/* Rutas que utilizan NavAdmi (sin Footer ni Navbar) */}
-                    <Route path="/navAdmi" element={<NavAdmi />} />
-                    
-                    {/* Rutas para la tabla general (sin Footer ni Navbar) */}
-                    <Route 
-                        path="/tabla" 
-                        element={
-                            <>
-                                <NavAdmi />
-                                <Tabla 
-                                    headers={headers} 
-                                    data={{
-                                        ambulancia: ambulanciasData, 
-                                        reporte: reportesData, 
-                                        chofer: choferesData, 
-                                        paramedico: paramedicosData
-                                    }} 
-                                />
-                            </>
-                        } 
-                    />
-
-                    {/* Ruta para la tabla específica por tipo (sin Footer ni Navbar) */}
-                    <Route 
-                        path="/tabla/:tipo" 
-                        element={
-                            <>
-                                <NavAdmi />
-                                <Tabla 
-                                    headers={headers} 
-                                    data={{
-                                        ambulancia: ambulanciasData, 
-                                        reporte: reportesData, 
-                                        chofer: choferesData, 
-                                        paramedico: paramedicosData
-                                    }} 
-                                />
-                            </>
-                        } 
-                    />
-
-                    {/* Rutas para el alta (sin Footer ni Navbar) */}
-                    <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
-                    <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
-                    <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
-                    <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
-                </Routes>
-            </>
+                />
+                <Route 
+                    path="/tabla/:tipo" 
+                    element={
+                        <Tabla 
+                            headers={headers} 
+                            data={{
+                                ambulancia: ambulanciasData, 
+                                reporte: reportesData, 
+                                chofer: choferesData, 
+                                paramedico: paramedicosData
+                            }} 
+                        />
+                    } 
+                />
+                
+                <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
+                <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
+                <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
+                <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
+            </Routes>
+            <Footer />
         </BrowserRouter>
     );
 }
