@@ -1,13 +1,13 @@
 import React from 'react';
-import {useParams, Link} from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import {FiPlusCircle} from 'react-icons/fi';
+import { FiPlusCircle } from 'react-icons/fi';
 
 const Tabla = () => {
-    const {tipo} = useParams();
+    const { tipo } = useParams();
     
     const headers = {
-        ambulancia: ['AmbulanciaID','Patente','Inventario','VTV','Seguro','Paramedico','Chofer','Estado'],
+        ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
         reporte: ['ReporteID', 'AccidenteID', 'Estado'],
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
         paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
@@ -15,7 +15,8 @@ const Tabla = () => {
 
     const data = {
         ambulancia: [
-            {ambulanciaID: 1,
+            {
+                ambulanciaID: 1,
                 patente: 'ABC123',
                 inventario: true,
                 vtv: true,
@@ -26,10 +27,7 @@ const Tabla = () => {
             },
         ],
         reporte: [
-            {reporteID: 1,
-            accidenteID: 'A001', 
-            estado: 'Alta'
-            }
+            { reporteID: 1, accidenteID: 'A001', estado: 'Alta' }
         ],
         chofer: [
             {
@@ -99,8 +97,8 @@ const Tabla = () => {
                             </td>
                         ))}
                         <td className="text-center">
-                        <button className="mr-4 text-red-600 hover:text-red-900">
-                            Más información
+                            <button className="mr-4 text-red-600 hover:text-red-900">
+                                Más información
                             </button>
                             <button className="mr-4 text-red-600 hover:text-red-900">
                                 Modificar
