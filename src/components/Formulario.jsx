@@ -11,20 +11,10 @@ function Formulario({ esLogin }) {
     const [password, setPassword] = useState('');
     const [paraMi, setParaMi] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (esLogin) {
-            console.log(`Iniciando sesión con email: ${email}`);
-        } else {
-            console.log(
-                `Solicitando ambulancia para: ${nombre}, Teléfono: ${telefono}, Dirección: ${direccion}, Para: ${paraMi}`
-            );
-        }
-    };
 
     return (
         <div className="h-92 flex items-center justify-center bg-neutral-200">
-            <form className="mt-4 w-80 p-4" onSubmit={handleSubmit}>
+            <form className="mt-4 w-80 p-4">
                 {esLogin ? (
                     <div className="flex flex-col items-center">
                         <h2 className="mb-4 text-center text-2xl text-red-500">
