@@ -130,10 +130,8 @@ function Alta({ tipo }) {
                 </>
             )}
 
-
-
             <Link to='/navAdmi'>
-            <Boton nombre="Aceptar" onClick={onClick}></Boton>
+                <Boton nombre="Aceptar" onClick={onClick}></Boton>
             </Link>
         </div>
     );

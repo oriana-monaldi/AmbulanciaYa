@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Boton from './Boton';
+import { Link } from 'react-router-dom';
 
 function Formulario({ esLogin }) {
     const [nombre, setNombre] = useState('');
@@ -46,7 +47,9 @@ function Formulario({ esLogin }) {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <Boton nombre="Iniciar Sesión" />
+                            <Link to="/navAdmi">
+                                <Boton nombre="Iniciar Sesión" />
+                            </Link>
                         </div>
                     </div>
                 ) : (

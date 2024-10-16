@@ -1,17 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { FaAmbulance } from "react-icons/fa";
-import { MdPersonAdd } from "react-icons/md";
+import {FaAmbulance} from 'react-icons/fa';
+import {MdPersonAdd} from 'react-icons/md';
 
 function Navbar() {
     return (
         <div className="flex h-16 items-center justify-between px-4">
-                <Link className="flex " to='./'>
-                    <FaAmbulance color='red' size={40}/>
-                    <p className="m-2 text-lg font-bold text-red-500">
-                        AmbulanciasYa
-                    </p>
-                </Link>
+            <Link className="flex" to="./">
+                <FaAmbulance color="red" size={40} />
+                <p className="m-2 text-lg font-bold text-red-500">AmbulanciasYa</p>
+            </Link>
 
             <div className="flex items-center space-x-8">
                 <ul className="flex space-x-8">
@@ -32,11 +30,8 @@ function Navbar() {
                     </li>
                     <li>
                         <Link to="/Formulario">
-                            <MdPersonAdd color='red' size={30} />
+                            <MdPersonAdd color="red" size={30} />
                         </Link>
-                    </li>
-                    <li>
-                        <Link to="/navAdmi">Admi</Link>
                     </li>
                 </ul>
             </div>
