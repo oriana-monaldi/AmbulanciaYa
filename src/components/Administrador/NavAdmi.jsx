@@ -13,7 +13,9 @@ function NavAdmi() {
             </div>
 
             <div className="ml-auto">
-                <GiExitDoor color="red" size={40}/>
+                <Link to='/'>
+                    <GiExitDoor color="red" size={40}/>
+                </Link>
             </div>
         </div>
     );

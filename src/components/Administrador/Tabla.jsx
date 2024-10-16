@@ -27,7 +27,10 @@ const Tabla = () => {
             },
         ],
         reporte: [
-            { reporteID: 1, accidenteID: 'A001', estado: 'Alta' }
+            { 
+                reporteID: 1, 
+                accidenteID: 'A001', 
+                estado: 'Alta' }
         ],
         chofer: [
             {
@@ -68,7 +71,7 @@ const Tabla = () => {
         <table className="min-w-full divide-y divide-gray-500">
             <thead className="bg-gray-50">
                 <tr className="h-8">
-                    {headers.map((header, index) => (
+                    {headers.map((header, index) => ( 
                         <th
                             key={index}  // clave unica para cada encabezado
                             className="text-center text-sm font-medium tracking-wider text-gray-500"
