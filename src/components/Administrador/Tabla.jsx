@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import { FiPlusCircle } from 'react-icons/fi';
 
 const Tabla = () => {
-    const { tipo } = useParams();
+    const { tipo } = useParams(); // obtenemos el parametro "tipo de la url"
     
     const headers = {
         ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
@@ -70,7 +70,7 @@ const Tabla = () => {
                 <tr className="h-8">
                     {headers.map((header, index) => (
                         <th
-                            key={index}
+                            key={index}  // clave unica para cada encabezado
                             className="text-center text-sm font-medium tracking-wider text-gray-500"
                         >
                             {header}
