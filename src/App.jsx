@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Main from './components/Main';
 import Servicio from './components/Servicio';
@@ -13,23 +13,25 @@ import Alta from './components/Administrador/Alta';
 function App() {
     return (
         <BrowserRouter>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/servicios" element={<Servicio />} />
-                <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-                <Route path="/formulario" element={<Formulario esLogin={true} />} />
-                <Route path="/navAdmi" element={<NavAdmi />} />
-                
-                <Route path="/tabla" element={<Tabla />} />
-                <Route path="/tabla/:tipo" element={<Tabla />} />
-                
-                <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
-                <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
-                <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
-                <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
-            </Routes>
-            <Footer />
+            <div className="flex min-h-screen flex-col">
+                <Navbar className="flex-shrink-0" />
+                <div className="flex-grow">
+                    <Routes>
+                        <Route path="/" element={<Main />} />
+                        <Route path="/servicios" element={<Servicio />} />
+                        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+                        <Route path="/formulario" element={<Formulario esLogin={true} />} />
+                        <Route path="/navAdmi" element={<NavAdmi />} />
+                        <Route path="/tabla" element={<Tabla />} />
+                        <Route path="/tabla/:tipo" element={<Tabla />} />
+                        <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
+                        <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
+                        <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
+                        <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
+                    </Routes>
+                </div>
+                <Footer className="flex-shrink-0" />
+            </div>
         </BrowserRouter>
     );
 }
