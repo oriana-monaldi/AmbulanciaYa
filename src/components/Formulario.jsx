@@ -11,32 +11,23 @@ function Formulario({ esLogin }) {
     const [password, setPassword] = useState('');
     const [paraMi, setParaMi] = useState('');
 
-
     return (
         <div className="h-92 flex items-center justify-center bg-neutral-200">
             <form className="mt-4 w-80 p-4">
+                {/* Login */}
                 {esLogin ? (
                     <div className="flex flex-col items-center">
                         <h2 className="mb-4 text-center text-2xl text-red-500">
                             <strong>Iniciar sesión como empleado</strong>
                         </h2>
                         <div className="p-4">
+                            {/* Email */}
                             <p className="text-lg">Email</p>
-                            <input
-                                type="email"
-                                className="mt-2 w-full border-2 pb-1"
-                                placeholder="ejemplo@correo.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
+                            <input type="email" className="mt-2 w-full border-2 pb-1" placeholder="ejemplo@correo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
                             <p className="mt-2 text-lg">Contraseña</p>
-                            <input
-                                type="password"
-                                className="mt-2 w-full border-2 pb-1"
-                                placeholder="********"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            {/* Contraseña */}
+                            <input type="password" className="mt-2 w-full border-2 pb-1" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            {/* Boton Iniciar Sesión */}
                             <Link to="/navAdmi">
                                 <Boton nombre="Iniciar Sesión" />
                             </Link>
@@ -49,55 +40,22 @@ function Formulario({ esLogin }) {
                         </h2>
                         <div className="pb-4">
                             <label>
-                                <input
-                                    type="radio"
-                                    name="paraMi"
-                                    value="Es para mí"
-                                    checked={paraMi === 'Es para mí'}
-                                    onChange={(e) => setParaMi(e.target.value)}
-                                />
+                                <input type="radio" name="paraMi" value="Es para mí" checked={paraMi === 'Es para mí'} onChange={(e) => setParaMi(e.target.value)} />
                                 Es para mí
                             </label>
                             <label className="ml-8">
-                                <input
-                                    type="radio"
-                                    name="paraMi"
-                                    value="No es para mí"
-                                    checked={paraMi === 'No es para mí'}
-                                    onChange={(e) => setParaMi(e.target.value)}
-                                />
+                                <input type="radio" name="paraMi" value="No es para mí" checked={paraMi === 'No es para mí'} onChange={(e) => setParaMi(e.target.value)} />
                                 No es para mí
                             </label>
                         </div>
                         <p className="text-lg">Nombre Completo</p>
-                        <input
-                            className="mt-2 w-80 border-2 pb-1"
-                            placeholder="Pedro Martinez"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            disabled={paraMi === 'No es para mí'}
-                        />
+                        <input className="mt-2 w-80 border-2 pb-1" placeholder="Pedro Martinez" value={nombre} onChange={(e) => setNombre(e.target.value)} disabled={paraMi === 'No es para mí'} />
                         <p className="mt-2 text-lg">Teléfono</p>
-                        <input
-                            className="mt-2 w-80 border-2 pb-1"
-                            placeholder="2215689764"
-                            value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
-                            disabled={paraMi === 'No es para mí'}
-                        />
+                        <input className="mt-2 w-80 border-2 pb-1" placeholder="2215689764" value={telefono} onChange={(e) => setTelefono(e.target.value)} disabled={paraMi === 'No es para mí'} />
                         <p className="mt-2 text-lg">Dirección</p>
-                        <input
-                            className="mt-2 w-80 border-2 pb-1"
-                            placeholder="Calle 30 nro 1787"
-                            value={direccion}
-                            onChange={(e) => setDireccion(e.target.value)}
-                        />
+                        <input className="mt-2 w-80 border-2 pb-1" placeholder="Calle 30 nro 1787" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
                         <p className="mt-2 text-lg">Descripción de la emergencia</p>
-                        <textarea
-                            className="mt-2 h-20 w-80 border-2 pb-1"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                        />
+                        <textarea className="mt-2 h-20 w-80 border-2 pb-1" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
                         <Boton nombre="Solicitar Ambulancia" showAlert={true} />
                     </div>
                 )}

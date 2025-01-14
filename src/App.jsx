@@ -16,8 +16,8 @@ function App() {
             <div className="flex min-h-screen flex-col">
                 <Navbar className="flex-shrink-0" />
                 <div className="flex-grow">
-                    <Routes>
-                        <Route path="/" element={<Main />} />
+                    <Routes> {/* Rutas */}
+                        <Route path="/" element={<Main />} /> 
                         <Route path="/servicios" element={<Servicio />} />
                         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                         <Route path="/formulario" element={<Formulario esLogin={true} />} />

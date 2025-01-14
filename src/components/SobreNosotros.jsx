@@ -2,17 +2,16 @@ import React from 'react';
 import Card from './Card';
 import Grid from './Grid';
 import Equipo from './Equipo';
+import CallToAction from './CallToAction'
 
 import Directora from './Images/directoraMedica.png';
 import jefe from './Images/jefe.png';
 import coordinadora from './Images/coordinadora.webp';
-import CallToAction from './CallToAction'
 
 import { FaAmbulance } from "react-icons/fa";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { IoPeopleCircleOutline } from "react-icons/io5";
 import { TbMessage2Question } from "react-icons/tb";
-
 
 function SobreNosotros() {
     return (
