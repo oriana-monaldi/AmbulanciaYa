@@ -9,6 +9,7 @@ import Formulario from './components/Formulario';
 import NavAdmi from './components/Administrador/NavAdmi';
 import Tabla from './components/Administrador/Tabla';
 import Alta from './components/Administrador/Alta';
+import LogIn from './components/LogIn';
 
 function App() {
     return (
@@ -20,7 +21,8 @@ function App() {
                         <Route path="/" element={<Main />} /> 
                         <Route path="/servicios" element={<Servicio />} />
                         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-                        <Route path="/formulario" element={<Formulario esLogin={true} />} />
+                        <Route path="/formulario" element={<Formulario />} />
+                        <Route path="/logIn" element={<LogIn />} />
                         <Route path="/navAdmi" element={<NavAdmi />} />
                         <Route path="/tabla" element={<Tabla />} />
                         <Route path="/tabla/:tipo" element={<Tabla />} />

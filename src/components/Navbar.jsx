@@ -29,7 +29,7 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/Formulario">
+                        <Link to="/logIn">
                             <MdPersonAdd color="red" size={30} />
                         </Link>
                     </li>

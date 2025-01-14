@@ -1,39 +1,16 @@
 import React, { useState } from 'react';
 import Boton from './Boton';
-import { Link } from 'react-router-dom';
 
-function Formulario({ esLogin }) {
+function Formulario() {
     const [nombre, setNombre] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [paraMi, setParaMi] = useState('');
 
     return (
         <div className="h-92 flex items-center justify-center bg-neutral-200">
             <form className="mt-4 w-80 p-4">
-                {/* Login */}
-                {esLogin ? (
-                    <div className="flex flex-col items-center">
-                        <h2 className="mb-4 text-center text-2xl text-red-500">
-                            <strong>Iniciar sesión como empleado</strong>
-                        </h2>
-                        <div className="p-4">
-                            {/* Email */}
-                            <p className="text-lg">Email</p>
-                            <input type="email" className="mt-2 w-full border-2 pb-1" placeholder="ejemplo@correo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <p className="mt-2 text-lg">Contraseña</p>
-                            {/* Contraseña */}
-                            <input type="password" className="mt-2 w-full border-2 pb-1" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} />
-                            {/* Boton Iniciar Sesión */}
-                            <Link to="/navAdmi">
-                                <Boton nombre="Iniciar Sesión" />
-                            </Link>
-                        </div>
-                    </div>
-                ) : (
                     <div>
                         <h2 className="mb-4 text-center text-2xl text-red-500">
                             <strong>Solicitar Ambulancia</strong>
@@ -58,7 +35,6 @@ function Formulario({ esLogin }) {
                         <textarea className="mt-2 h-20 w-80 border-2 pb-1" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
                         <Boton nombre="Solicitar Ambulancia" showAlert={true} />
                     </div>
-                )}
             </form>
         </div>
     );
