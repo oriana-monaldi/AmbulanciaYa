@@ -19,7 +19,7 @@ function Navbar() {
                 {/* Botón de menú hamburguesa - Solo visible en móviles (md:hidden) */}
                 <FaBars className="cursor-pointer text-red-500 md:hidden" size={25} onClick={() => setShowMenu(!showMenu)} />
 
-                {/* Las clases cambian según el tamaño de pantalla usando md: */} 
+                {/* Las clases cambian según el tamaño de pantalla usando md: */}
                 {/* En móvil posición absoluta, ancho completo */}
                 {/* En desktop posición relativa, ancho auto */}
                 <div className={`absolute right-0 top-14 w-full bg-white md:relative md:top-0 md:block md:w-auto ${showMenu ? 'block' : 'hidden'}`}>

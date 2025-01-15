@@ -1,29 +1,31 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {GiExitDoor} from 'react-icons/gi'; 
+import {GiExitDoor} from 'react-icons/gi';
 
-function NavAdmi() {
+const NavAdmi = () => {
     return (
-        <div className="mt-2 flex flex-wrap items-center justify-between px-10">
-            <div className="flex w-full flex-wrap justify-center lg:flex-nowrap lg:justify-center">
-                <Link className="m-2 w-full rounded-md bg-red-500 p-4 text-center text-white lg:m-10 lg:w-auto" to="/tabla/ambulancia">
-                    Ambulancias
-                </Link>
-                <Link className="m-2 w-full rounded-md  bg-red-500 p-4 text-center text-white lg:m-10 lg:w-auto" to="/tabla/reporte">
-                    Reportes
-                </Link>
-                <Link className="m-2 w-full rounded-md bg-red-500 p-4 text-center text-white lg:m-10 lg:w-auto" to="/tabla/chofer">
-                    Choferes
-                </Link>
-                <Link className="m-2 w-full rounded-md bg-red-500 p-4 text-center text-white lg:m-10 lg:w-auto" to="/tabla/paramedico">
-                    Paramédicos
-                </Link>
-                <Link className="m-2 flex w-full items-center justify-center rounded-md bg-red-500 p-4 text-center text-white lg:m-10 lg:w-auto" to="/logIn">
-                    <GiExitDoor color="white" size={40} />
+        <nav className="bg-red-600 p-4">
+            <div className="container mx-auto flex items-center justify-between">
+                <div className="flex space-x-6">
+                    <Link to="/tabla/accidente" className="text-white transition-colors duration-200 hover:text-red-200">
+                        Accidentes
+                    </Link>
+                    <Link to="/tabla/ambulancia" className="text-white transition-colors duration-200 hover:text-red-200">
+                        Ambulancias
+                    </Link>
+                    <Link to="/tabla/chofer" className="text-white transition-colors duration-200 hover:text-red-200">
+                        Choferes
+                    </Link>
+                    <Link to="/tabla/paramedico" className="text-white transition-colors duration-200 hover:text-red-200">
+                        Paramédicos
+                    </Link>
+                </div>
+                <Link to="/logIn" className="text-white transition-colors duration-200 hover:text-red-200">
+                    <GiExitDoor size={28} />
                 </Link>
             </div>
-        </div>
+        </nav>
     );
-}
+};
 
 export default NavAdmi;

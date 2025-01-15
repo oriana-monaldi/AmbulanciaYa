@@ -22,7 +22,7 @@ function LogIn() {
                         {/* Contraseña */}
                         <input type="password" className="mt-2 w-full border-2 pb-1" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} />
                         {/* Botón Iniciar Sesión */}
-                        <Link to="/navAdmi">
+                        <Link to="/navAdmin">
                             <Boton nombre="Iniciar Sesión" />
                         </Link>
                     </div>

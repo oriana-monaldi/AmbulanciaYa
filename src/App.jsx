@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Main from './components/Main';
 import Servicio from './components/Servicio';
@@ -12,35 +12,44 @@ import Alta from './components/Administrador/Alta';
 import Modificacion from './components/Administrador/Modificacion';
 import LogIn from './components/LogIn';
 
+const AppContent = () => {
+    const location = useLocation();
+
+    // Verifica si estamos en una ruta administrativa
+    const isAdminRoute = location.pathname.includes('/navAdmi') || location.pathname.includes('/tabla') || location.pathname.includes('/alta-') || location.pathname.includes('/modificacion-');
+
+    return (
+        <div className="flex min-h-screen flex-col">
+            {!isAdminRoute && <Navbar className="flex-shrink-0" />}
+            {isAdminRoute && <NavAdmi className="flex-shrink-0" />}
+            <div className="flex-grow">
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/servicios" element={<Servicio />} />
+                    <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+                    <Route path="/formulario" element={<Formulario />} />
+                    <Route path="/logIn" element={<LogIn />} />
+                    <Route path="/tabla" element={<Tabla />} />
+                    <Route path="/tabla/:tipo" element={<Tabla />} />
+                    <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
+                    <Route path="/alta-accidente" element={<Alta tipo="accidente" />} />
+                    <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
+                    <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
+                    <Route path="/modificacion-accidente" element={<Modificacion tipo="accidente" />} />
+                    <Route path="/modificacion-ambulancia" element={<Modificacion tipo="ambulancia" />} />
+                    <Route path="/modificacion-chofer" element={<Modificacion tipo="chofer" />} />
+                    <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
+                </Routes>
+            </div>
+            <Footer className="flex-shrink-0" />
+        </div>
+    );
+};
+
 function App() {
     return (
         <BrowserRouter>
-            <div className="flex min-h-screen flex-col">
-                <Navbar className="flex-shrink-0" />
-                <div className="flex-grow">
-                    <Routes>
-                        {' '}
-                        {/* Rutas */}
-                        <Route path="/" element={<Main />} />
-                        <Route path="/servicios" element={<Servicio />} />
-                        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-                        <Route path="/formulario" element={<Formulario />} />
-                        <Route path="/logIn" element={<LogIn />} />
-                        <Route path="/navAdmi" element={<NavAdmi />} />
-                        <Route path="/tabla" element={<Tabla />} />
-                        <Route path="/tabla/:tipo" element={<Tabla />} />
-                        <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
-                        <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
-                        <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
-                        <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
-                        <Route path="/modificacion-ambulancia" element={<Modificacion tipo="ambulancia" />} />
-                        <Route path="/modificacion-chofer" element={<Modificacion tipo="chofer" />} />
-                        <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
-                        <Route path="/modificacion-reporte" element={<Modificacion tipo="reporte" />} />
-                    </Routes>
-                </div>
-                <Footer className="flex-shrink-0" />
-            </div>
+            <AppContent />
         </BrowserRouter>
     );
 }

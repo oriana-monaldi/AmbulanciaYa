@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Boton from '../Boton';
 import Swal from 'sweetalert2';
 import {Link} from 'react-router-dom';
 
 function Modificacion({tipo}) {
+    // Add state for accident form
+    const [direccion, setDireccion] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+
     const onClick = () => {
         Swal.fire({
             title: 'Se añadio correctamente!',
@@ -12,10 +16,11 @@ function Modificacion({tipo}) {
             showConfirmButton: false,
         });
     };
+
     return (
         <div className="flex flex-col items-center">
             <h2 className="mt-10 text-center text-2xl text-red-500">
-                <strong>Modificar datos de  {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' : 'reporte'}</strong>
+                <strong>Modificar datos de {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'accidente' ? 'accidente' : 'paramédico'}</strong>
             </h2>
 
             {tipo === 'ambulancia' && (
@@ -89,30 +94,22 @@ function Modificacion({tipo}) {
                 </>
             )}
 
-            {tipo === 'reporte' && (
-                <>
-                    <div className="m-4 border border-red-500 p-4">
-                        <p className="mt-2 text-lg">Descripción del suceso</p>
-                        <textarea className="mt-2 h-20 w-80 border-2 pb-1" />
-                        <div className="p-2">
-                            <h2>Traslado de paciente</h2>
-                            <select className="mt-2 w-48 border-2 pb-1">
-                                <option value="" disabled selected>
-                                    Seleccione una opción
-                                </option>
-                                <option value="traslado">Se requirió de traslado</option>
-                                <option value="noTraslado">No se requirió traslado</option>
-                            </select>
-                        </div>
+            {tipo === 'accidente' && (
+                <div className="m-4 border border-red-500 p-4">
+                    <div className="p-2">
+                        <p className="text-lg">Dirección</p>
+                        <input className="mt-2 w-80 border-2 pb-1" placeholder="Calle 30 nro 1787" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
                     </div>
-                </>
+                    <div className="p-2">
+                        <p className="text-lg">Descripción del accidente</p>
+                        <textarea className="mt-2 h-20 w-80 border-2 pb-1" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+                    </div>
+                </div>
             )}
 
             <Link to="/navAdmi">
                 <Boton nombre="Aceptar" onClick={onClick}></Boton>
             </Link>
-
-            
         </div>
     );
 }

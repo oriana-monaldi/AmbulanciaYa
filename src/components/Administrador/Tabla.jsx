@@ -10,12 +10,20 @@ const Tabla = () => {
 
     const headers = {
         ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
-        reporte: ['ReporteID', 'AccidenteID', 'Estado'],
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
         paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
+        accidente: ['Descripción', 'Dirección', 'Fecha', 'Hora'],
     };
 
     const data = {
+        accidente:[
+            {
+                Descripción: 'Choque',
+                Dirección: 'Calle falsa 123',
+                Fecha: '12/12/2021',
+                Hora: '12:00',
+            }
+        ],
         ambulancia: [
             {
                 ambulanciaID: 1,
@@ -25,13 +33,6 @@ const Tabla = () => {
                 seguro: true,
                 paramedico: 'Juan Pérez',
                 chofer: 'Carlos López',
-                estado: 'Alta',
-            },
-        ],
-        reporte: [
-            {
-                reporteID: 1,
-                accidenteID: 'A001',
                 estado: 'Alta',
             },
         ],
@@ -142,10 +143,10 @@ const Tabla = () => {
 
     const modificacionRoute = () => {
         switch (tipo) {
+            case 'accidente':
+                return '/modificacion-accidente';
             case 'ambulancia':
                 return '/modificacion-ambulancia';
-            case 'reporte':
-                return '/modificacion-reporte';
             case 'chofer':
                 return '/modificacion-chofer';
             case 'paramedico':
@@ -158,10 +159,10 @@ const Tabla = () => {
 
     const altaRoute = () => {
         switch (tipo) {
+            case 'accidente':
+                return '/alta-accidente';
             case 'ambulancia':
                 return '/alta-ambulancia';
-            case 'reporte':
-                return '/alta-reporte';
             case 'chofer':
                 return '/alta-chofer';
             case 'paramedico':
