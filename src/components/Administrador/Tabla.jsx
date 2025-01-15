@@ -1,11 +1,16 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import swal from 'sweetalert';
-import { FiPlusCircle } from 'react-icons/fi';
+import {FiPlusCircle} from 'react-icons/fi';
+import {MdDelete} from 'react-icons/md';
+import {CiEdit} from 'react-icons/ci';
+
+import Boton from '../Boton';
+
 
 const Tabla = () => {
-    const { tipo } = useParams(); // obtenemos el parametro "tipo de la url"
-    
+    const {tipo} = useParams();
+
     const headers = {
         ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
         reporte: ['ReporteID', 'AccidenteID', 'Estado'],
@@ -27,10 +32,11 @@ const Tabla = () => {
             },
         ],
         reporte: [
-            { 
-                reporteID: 1, 
-                accidenteID: 'A001', 
-                estado: 'Alta' }
+            {
+                reporteID: 1,
+                accidenteID: 'A001',
+                estado: 'Alta',
+            },
         ],
         chofer: [
             {
@@ -67,51 +73,63 @@ const Tabla = () => {
         });
     };
 
-    const renderTable = (data, headers) => (
+    const renderMobileTable = (data, headers) => (
+        <div className="space-y-6">
+            {data.map((item, rowIndex) => (
+                <div key={rowIndex} className="bg-white p-4">
+                    {headers.map((header, index) => (
+                        <div key={index} className="flex border-b border-gray-200 py-2 last:border-b-0">
+                            <div className="w-1/2 text-sm font-medium text-gray-500">{header}</div>
+                            <div className="w-1/2 text-sm text-gray-900">
+                                {typeof item[Object.keys(item)[index]] === 'boolean' ? (item[Object.keys(item)[index]] ? 'TRUE' : 'FALSE') : item[Object.keys(item)[index]]}
+                            </div>
+                        </div>
+                    ))}
+                    <div className="mt-4 flex border-t border-gray-200 py-2">
+                        <div className="w-1/2 text-sm font-medium text-gray-500">Acciones</div>
+                        <div className="flex w-1/2 flex-col space-y-2">
+                            <Link>
+                                <CiEdit size={20} />
+                            </Link>
+                            <Link>
+                                <MdDelete onClick={handleOnClick} size={20} />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+
+    const renderDesktopTable = (data, headers) => (
         <table className="min-w-full divide-y divide-gray-500">
             <thead className="bg-gray-50">
                 <tr className="h-8">
-                    {headers.map((header, index) => ( 
-                        <th
-                            key={index}  // clave unica para cada encabezado
-                            className="text-center text-sm font-medium tracking-wider text-gray-500"
-                        >
+                    {headers.map((header, index) => (
+                        <th key={index} className="text-center text-sm font-medium tracking-wider text-gray-500">
                             {header}
                         </th>
                     ))}
-                    <th className="text-center text-sm font-medium tracking-wider text-gray-500">
-                        Acciones
-                    </th>
+                    <th className="text-center text-sm font-medium tracking-wider text-gray-500">Acciones</th>
                 </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
                 {data.map((item, rowIndex) => (
                     <tr key={rowIndex} className="h-12">
                         {Object.keys(item).map((key, index) => (
-                            <td
-                                key={index}
-                                className="text-center text-sm text-gray-500"
-                            >
-                                {typeof item[key] === 'boolean'
-                                    ? item[key]
-                                        ? 'TRUE'
-                                        : 'FALSE'
-                                    : item[key]}
+                            <td key={index} className="text-center text-sm text-gray-500">
+                                {typeof item[key] === 'boolean' ? (item[key] ? 'TRUE' : 'FALSE') : item[key]}
                             </td>
                         ))}
                         <td className="text-center">
-                            <button className="mr-4 text-red-600 hover:text-red-900">
-                                Más información
-                            </button>
-                            <button className="mr-4 text-red-600 hover:text-red-900">
-                                Modificar
-                            </button>
-                            <button
-                                onClick={handleOnClick}
-                                className="mr-4 text-red-600 hover:text-red-900"
-                            >
-                                Eliminar
-                            </button>
+                            <div className="flex justify-center space-x-4">
+                                <Link>
+                                    <CiEdit size={20} />
+                                </Link>
+                                <Link>
+                                    <MdDelete onClick={handleOnClick} size={20} />
+                                </Link>
+                            </div>
                         </td>
                     </tr>
                 ))}
@@ -144,7 +162,11 @@ const Tabla = () => {
                 </div>
                 <h2 className="m-10 text-2xl">Gestión de Datos</h2>
                 <div className="m-8 border-4 border-red-600">
-                    {renderTable(data[tipo], headers[tipo])}
+                    {/* Version de escritorio */}
+                    <div className="hidden lg:block">{renderDesktopTable(data[tipo], headers[tipo])}</div>
+
+                    {/* Version móvil */}
+                    <div className="block lg:hidden">{renderMobileTable(data[tipo], headers[tipo])}</div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import Grid from './Grid';
 import Equipo from './Equipo';
-import CallToAction from './CallToAction'
+import CallToAction from './CallToAction';
 
 import Directora from './Images/directoraMedica.png';
 import jefe from './Images/jefe.png';
@@ -43,22 +43,22 @@ function SobreNosotros() {
                     <Card
                         title="Tiempo de respuesta promedio"
                         description="5 min"
-                        icon={<BsFillPeopleFill color='red' size={40}/>}
-                        ></Card>
+                        icon={<BsFillPeopleFill color='red' size={40} />}
+                    ></Card>
                     <Card
                         title="Ambulancias"
                         description="Más de 20 ambulancias "
                         icon={<FaAmbulance color='red' size={40} />}
-                        ></Card>
+                    ></Card>
                     <Card
                         title="Solicitudes atendidas"
                         description="50,000 +"
-                        icon={<TbMessage2Question color='red' size={40}/>}
+                        icon={<TbMessage2Question color='red' size={40} />}
                     ></Card>
                     <Card
                         title="Pacientes atendidos"
                         description="40,000 +"
-                        icon={<IoPeopleCircleOutline color='red' size={40}/>}
+                        icon={<IoPeopleCircleOutline color='red' size={40} />}
                     ></Card>
                 </Grid>
 
@@ -66,25 +66,25 @@ function SobreNosotros() {
                     <strong>Nuestro Equipo</strong>
                 </h2>
 
-                <div className="flex flex-row">
+                <div className="flex flex-wrap justify-center">
                     <Equipo
                         title="Dr. Ana García"
                         rol="Directora Médica"
                         img={Directora}
-                        ></Equipo>
+                    ></Equipo>
                     <Equipo
                         title="Laura Martinez"
                         rol="Coordinadora de Operaciones"
                         img={coordinadora}
-                        ></Equipo>
+                    ></Equipo>
                     <Equipo
                         title="Juan Perez"
                         rol="Jefe de Paramédicos"
                         img={jefe}
-                        ></Equipo>
+                    ></Equipo>
                 </div>
             </div>
-            <CallToAction/>
+            <CallToAction />
         </div>
     );
 }
