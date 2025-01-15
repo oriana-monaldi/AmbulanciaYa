@@ -5,9 +5,6 @@ import {FiPlusCircle} from 'react-icons/fi';
 import {MdDelete} from 'react-icons/md';
 import {CiEdit} from 'react-icons/ci';
 
-import Boton from '../Boton';
-
-
 const Tabla = () => {
     const {tipo} = useParams();
 
@@ -43,6 +40,12 @@ const Tabla = () => {
                 choferID: 1,
                 nombreCompleto: 'Carlos López',
                 dni: '12345678',
+                estado: 'Alta',
+            },
+            {
+                choferID: 2,
+                nombreCompleto: 'Carlos martinez',
+                dni: '1234aaa5678',
                 estado: 'Alta',
             },
         ],
@@ -88,11 +91,11 @@ const Tabla = () => {
                     <div className="mt-4 flex border-t border-gray-200 py-2">
                         <div className="w-1/2 text-sm font-medium text-gray-500">Acciones</div>
                         <div className="flex w-1/2 flex-col space-y-2">
-                            <Link>
-                                <CiEdit size={20} />
+                            <Link to={modificacionRoute()}>
+                                <CiEdit color="red" size="20" />
                             </Link>
                             <Link>
-                                <MdDelete onClick={handleOnClick} size={20} />
+                                <MdDelete color="red" onClick={handleOnClick} size={20} />
                             </Link>
                         </div>
                     </div>
@@ -123,11 +126,11 @@ const Tabla = () => {
                         ))}
                         <td className="text-center">
                             <div className="flex justify-center space-x-4">
-                                <Link>
-                                    <CiEdit size={20} />
+                                <Link to={modificacionRoute()}>
+                                    <CiEdit color="red" size="20" />
                                 </Link>
                                 <Link>
-                                    <MdDelete onClick={handleOnClick} size={20} />
+                                    <MdDelete color="red"  onClick={handleOnClick} size={20} />
                                 </Link>
                             </div>
                         </td>
@@ -136,6 +139,22 @@ const Tabla = () => {
             </tbody>
         </table>
     );
+
+    const modificacionRoute = () => {
+        switch (tipo) {
+            case 'ambulancia':
+                return '/modificacion-ambulancia';
+            case 'reporte':
+                return '/modificacion-reporte';
+            case 'chofer':
+                return '/modificacion-chofer';
+            case 'paramedico':
+                return '/modificacion-paramedico';
+            default:
+                return '/';
+        }
+    };
+
 
     const altaRoute = () => {
         switch (tipo) {

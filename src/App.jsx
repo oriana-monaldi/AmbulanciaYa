@@ -9,6 +9,7 @@ import Formulario from './components/Formulario';
 import NavAdmi from './components/Administrador/NavAdmi';
 import Tabla from './components/Administrador/Tabla';
 import Alta from './components/Administrador/Alta';
+import Modificacion from './components/Administrador/Modificacion';
 import LogIn from './components/LogIn';
 
 function App() {
@@ -17,8 +18,10 @@ function App() {
             <div className="flex min-h-screen flex-col">
                 <Navbar className="flex-shrink-0" />
                 <div className="flex-grow">
-                    <Routes> {/* Rutas */}
-                        <Route path="/" element={<Main />} /> 
+                    <Routes>
+                        {' '}
+                        {/* Rutas */}
+                        <Route path="/" element={<Main />} />
                         <Route path="/servicios" element={<Servicio />} />
                         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                         <Route path="/formulario" element={<Formulario />} />
@@ -30,6 +33,10 @@ function App() {
                         <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
                         <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
                         <Route path="/alta-reporte" element={<Alta tipo="reporte" />} />
+                        <Route path="/modificacion-ambulancia" element={<Modificacion tipo="ambulancia" />} />
+                        <Route path="/modificacion-chofer" element={<Modificacion tipo="chofer" />} />
+                        <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
+                        <Route path="/modificacion-reporte" element={<Modificacion tipo="reporte" />} />
                     </Routes>
                 </div>
                 <Footer className="flex-shrink-0" />
