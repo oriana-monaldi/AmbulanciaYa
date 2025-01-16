@@ -16,7 +16,7 @@ const Footer = () => {
                     <h3 className="mb-2 mt-0 text-xl font-bold text-red-600">Contacto de emergencias</h3>
                     <div className="flex items-center justify-center space-x-2">
                         <LuPhone className="h-6 w-6 text-red-600" />
-                        <p className="ml-6 text-gray-700"></p>
+                        <p className="ml-6 text-gray-700">911</p>
                     </div>
                 </div>
 

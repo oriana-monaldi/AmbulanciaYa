@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import {Link} from 'react-router-dom';
 
 function Modificacion({tipo}) {
-    // Add state for accident form
     const [direccion, setDireccion] = useState('');
     const [descripcion, setDescripcion] = useState('');
 
