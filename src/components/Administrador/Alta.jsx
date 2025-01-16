@@ -20,7 +20,7 @@ function Alta({tipo}) {
     };
 
     return (
-        <div className="flex min-h-[calc(100vh-140px)] items-center justify-center bg-gray-50 p-4">
+        <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
             <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
                 <h2 className="mb-5 text-center text-xl font-bold text-red-600">
                     Registrar {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' : 'accidente'}

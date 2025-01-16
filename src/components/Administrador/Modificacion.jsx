@@ -9,7 +9,7 @@ function Modificacion({tipo}) {
 
     const onClick = () => {
         Swal.fire({
-            title: 'Se añadio correctamente!',
+            title: 'Se añadió correctamente!',
             icon: 'success',
             timer: 800,
             showConfirmButton: false,
@@ -17,98 +17,109 @@ function Modificacion({tipo}) {
     };
 
     return (
-        <div className="flex flex-col items-center">
-            <h2 className="mt-10 text-center text-2xl text-red-500">
-                <strong>Modificar datos de {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'accidente' ? 'accidente' : 'paramédico'}</strong>
-            </h2>
+        <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
+            <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
+                <h2 className="mb-5 text-center text-xl font-bold text-red-600">
+                    Modificar datos de {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'accidente' ? 'accidente' : 'paramédico'}
+                </h2>
 
-            {tipo === 'ambulancia' && (
-                <>
-                    <div className="m-4 border border-red-500 p-4">
-                        <div className="p-2">
-                            <p className="text-lg">Patente</p>
-                            <input type="text" className="mt-2 w-full border-2 pb-1" placeholder="AB540UB" />
+                {tipo === 'ambulancia' && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Patente</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="AB540UB"
+                            />
                         </div>
-                        <div className="p-2">
-                            <h2>VTV</h2>
-                            <select className="mt-2 w-48 border-2 pb-1">
-                                <option value="" disabled selected>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">VTV</label>
+                            <select className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                                <option value="" disabled>
                                     Seleccione una opción
                                 </option>
                                 <option value="alDia">Al día</option>
                                 <option value="vencida">Vencida</option>
                             </select>
                         </div>
-                        <div className="p-2">
-                            <h2>Seguro</h2>
-                            <select className="mt-2 w-48 border-2 pb-1">
-                                <option value="" disabled selected>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Seguro</label>
+                            <select className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                                <option value="" disabled>
                                     Seleccione una opción
                                 </option>
                                 <option value="alDia">Al día</option>
                                 <option value="vencido">Vencido</option>
                             </select>
                         </div>
-                        <div className="p-2">
-                            <h2>Inventario</h2>
-                            <select className="mt-2 w-48 border-2 pb-1">
-                                <option value="" disabled selected>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Inventario</label>
+                            <select className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                                <option value="" disabled>
                                     Seleccione una opción
                                 </option>
                                 <option value="completo">Completo</option>
                                 <option value="incompleto">Incompleto</option>
                             </select>
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                )}
 
-            {tipo === 'chofer' && (
-                <>
-                    <div className="m-4 border border-red-500 p-4">
-                        <div className="p-2">
-                            <p className="text-lg">Nombre Completo</p>
-                            <input type="text" className="mt-2 w-full border-2 pb-1" placeholder="Carlos Pérez" />
+                {tipo === 'chofer' || tipo === 'paramedico' ? (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Carlos Pérez"
+                            />
                         </div>
-                        <div className="p-2">
-                            <p className="text-lg">DNI</p>
-                            <input type="text" className="mt-2 w-full border-2 pb-1" placeholder="44526325" />
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="44526325"
+                            />
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                ) : null}
 
-            {tipo === 'paramedico' && (
-                <>
-                    <div className="m-4 border border-red-500 p-4">
-                        <div className="p-2">
-                            <p className="text-lg">Nombre Completo</p>
-                            <input type="text" className="mt-2 w-full border-2 pb-1" placeholder="Carlos Pérez" />
+                {tipo === 'accidente' && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Dirección</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                value={direccion}
+                                onChange={(e) => setDireccion(e.target.value)}
+                                placeholder="Calle 30 nro 1787"
+                            />
                         </div>
-                        <div className="p-2">
-                            <p className="text-lg">DNI</p>
-                            <input type="text" className="mt-2 w-full border-2 pb-1" placeholder="44526325" />
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Descripción del accidente</label>
+                            <textarea
+                                className="min-h-[80px] w-full resize-y rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                placeholder="Ingrese la descripción del accidente"
+                            />
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                )}
 
-            {tipo === 'accidente' && (
-                <div className="m-4 border border-red-500 p-4">
-                    <div className="p-2">
-                        <p className="text-lg">Dirección</p>
-                        <input className="mt-2 w-80 border-2 pb-1" placeholder="Calle 30 nro 1787" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
-                    </div>
-                    <div className="p-2">
-                        <p className="text-lg">Descripción del accidente</p>
-                        <textarea className="mt-2 h-20 w-80 border-2 pb-1" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-                    </div>
+                <div className="mt-6 text-center">
+                    <Link to="/navAdmin">
+                        <Boton nombre="Aceptar" onClick={onClick} />
+                    </Link>
                 </div>
-            )}
-
-            <Link to="/navAdmi">
-                <Boton nombre="Aceptar" onClick={onClick}></Boton>
-            </Link>
+            </div>
         </div>
     );
 }
