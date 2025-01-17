@@ -181,7 +181,7 @@ const Tabla = () => {
                         <FiPlusCircle color="red" size="40" />
                     </Link>
                 </div>
-                <h2 className="m-10 text-4xl font-bold text-red-600">Datos de{tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+                <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
                 <div className="m-8 border-4 border-red-600">
                     {/* Version de escritorio */}
                     <div className="hidden lg:block">{renderDesktopTable(data[tipo], headers[tipo])}</div>
