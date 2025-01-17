@@ -12,7 +12,7 @@ function Navbar() {
             <div className="flex items-center justify-between">
                 <Link to="/" className="flex items-center">
                     <FaAmbulance color="red" size={40} />
-                    <p className="m-2 text-lg font-bold text-red-500">AmbulanciasYa</p>
+                    <p className="m-2 text-lg font-bold text-red-500">AmbulanciaYa</p>
                 </Link>
 
                 {/* Botón de menú hamburguesa  */}

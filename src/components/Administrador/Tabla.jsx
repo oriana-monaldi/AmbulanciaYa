@@ -9,7 +9,7 @@ const Tabla = () => {
     const {tipo} = useParams();
 
     const headers = {
-        ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
+        ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado', 'En base'],
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
         paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
         accidente: ['Descripción', 'Dirección', 'Fecha', 'Hora'],
@@ -34,6 +34,7 @@ const Tabla = () => {
                 paramedico: 'Juan Pérez',
                 chofer: 'Carlos López',
                 estado: 'Alta',
+                estaEnBase: true,
             },
         ],
         chofer: [
