@@ -13,6 +13,8 @@ const Tabla = () => {
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
         paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
         accidente: ['Descripción', 'Dirección', 'Fecha', 'Hora'],
+        paciente:['Nombre Completo', 'Telefono'],
+        hospital:['Nombre Completo', 'Telefono'],
     };
 
     const data = {
@@ -57,6 +59,20 @@ const Tabla = () => {
                 nombreCompleto: 'Juan Pérez',
                 dni: '87654321',
                 estado: 'Alta',
+            },
+        ],
+        hospital: [
+            {
+                hospitalID: 1,
+                nombre: 'San Martin',
+                direccion: '30 n567',
+            },
+        ],
+        paciente: [
+            {
+                pacienteID: 1,
+                nombreCompleto: 'Juan Pérez',
+                telefono: '12345678',
             },
         ],
     };
@@ -142,22 +158,6 @@ const Tabla = () => {
         </table>
     );
 
-    const modificacionRoute = () => {
-        switch (tipo) {
-            case 'accidente':
-                return '/modificacion-accidente';
-            case 'ambulancia':
-                return '/modificacion-ambulancia';
-            case 'chofer':
-                return '/modificacion-chofer';
-            case 'paramedico':
-                return '/modificacion-paramedico';
-            default:
-                return '/';
-        }
-    };
-
-
     const altaRoute = () => {
         switch (tipo) {
             case 'accidente':
@@ -168,6 +168,29 @@ const Tabla = () => {
                 return '/alta-chofer';
             case 'paramedico':
                 return '/alta-paramedico';
+            case 'hospital':
+                return '/alta-hospital';
+            case 'paciente':
+                return '/alta-paciente';
+            default:
+                return '/';
+        }
+    };
+
+    const modificacionRoute = () => {
+        switch (tipo) {
+            case 'accidente':
+                return '/modificacion-accidente';
+            case 'ambulancia':
+                return '/modificacion-ambulancia';
+            case 'chofer':
+                return '/modificacion-chofer';
+            case 'paramedico':
+                return '/modificacion-paramedico';
+            case 'hospital':
+                return '/modificacion-hospital';
+            case 'paciente':
+                return '/modificacion-paciente';
             default:
                 return '/';
         }

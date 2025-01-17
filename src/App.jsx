@@ -35,10 +35,14 @@ const AppContent = () => {
                     <Route path="/alta-accidente" element={<Alta tipo="accidente" />} />
                     <Route path="/alta-chofer" element={<Alta tipo="chofer" />} />
                     <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
+                    <Route path="/alta-hospital" element={<Alta tipo="hospital" />} />
+                    <Route path="/alta-paciente" element={<Alta tipo="paciente" />} />
                     <Route path="/modificacion-accidente" element={<Modificacion tipo="accidente" />} />
                     <Route path="/modificacion-ambulancia" element={<Modificacion tipo="ambulancia" />} />
                     <Route path="/modificacion-chofer" element={<Modificacion tipo="chofer" />} />
                     <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
+                    <Route path="/modificacion-hospital" element={<Modificacion tipo="hospital" />} />
+                    <Route path="/modificacion-paciente" element={<Modificacion tipo="paciente" />} />
                 </Routes>
             </div>
             <Footer className="flex-shrink-0" />

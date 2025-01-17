@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Boton from '../Boton';
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,8 @@ function Alta({tipo}) {
     const [vtv, setVtv] = useState('');
     const [seguro, setSeguro] = useState('');
     const [inventario, setInventario] = useState('');
+    const navigate = useNavigate();
+    
 
     const onClick = () => {
         Swal.fire({
@@ -16,6 +18,8 @@ function Alta({tipo}) {
             icon: 'success',
             timer: 800,
             showConfirmButton: false,
+        }).then(() => {
+            navigate(`/tabla/${tipo}`);
         });
     };
 
@@ -23,7 +27,7 @@ function Alta({tipo}) {
         <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
             <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
                 <h2 className="mb-5 text-center text-xl font-bold text-red-600">
-                    Registrar {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' : 'accidente'}
+                    Registrar {tipo === 'ambulancia' ? 'ambulancia' : tipo === 'chofer' ? 'chofer' : tipo === 'paramedico' ? 'paramédico' :  tipo === 'hospital' ? 'hospital':  tipo === 'paciente' ? 'paciente' : 'accidente'}
                 </h2>
 
                 {tipo === 'ambulancia' && (
@@ -131,6 +135,51 @@ function Alta({tipo}) {
                         </div>
                     </>
                 )}
+
+                {tipo === 'paciente' && (
+                    <>
+                    <div className="mb-4">
+                        <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            placeholder="Ingrese el nombre completo"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="mb-1 block font-medium text-gray-700">Telefono</label>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            placeholder="Ingrese el telefono"
+                        />
+                    </div>
+                </>
+                )}
+
+                {tipo === 'hospital' && (
+                    <>
+                    <div className="mb-4">
+                        <label className="mb-1 block font-medium text-gray-700">Nombre</label>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            placeholder="Ingrese el nombre del hospital"
+                        />
+                    </div>
+                    <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Dirección</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                value={direccion}
+                                onChange={(e) => setDireccion(e.target.value)}
+                                placeholder="Ingrese la dirección"
+                            />
+                        </div>
+                </>
+                )}
+                
 
                 <div className="mt-6 text-center">
                     <Link to="/navAdmin">

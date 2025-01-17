@@ -1,6 +1,6 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import {GiExitDoor} from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
+import { GiExitDoor } from 'react-icons/gi';
 
 const NavAdmi = () => {
     return (
@@ -30,6 +30,18 @@ const NavAdmi = () => {
                         className={({isActive}) => (isActive ? 'border-b-2 border-red-200 font-bold text-red-200' : 'text-white transition-colors duration-200 hover:text-red-200')}
                     >
                         Paramédicos
+                    </NavLink>
+                    <NavLink
+                        to="/tabla/hospital"
+                        className={({isActive}) => (isActive ? 'border-b-2 border-red-200 font-bold text-red-200' : 'text-white transition-colors duration-200 hover:text-red-200')}
+                    >
+                        Hospital
+                    </NavLink>
+                    <NavLink
+                        to="/tabla/paciente"
+                        className={({isActive}) => (isActive ? 'border-b-2 border-red-200 font-bold text-red-200' : 'text-white transition-colors duration-200 hover:text-red-200')}
+                    >
+                        Pacientes
                     </NavLink>
                 </div>
                 <NavLink to="/logIn" className={({isActive}) => (isActive ? 'border-b-2 border-red-200 font-bold text-red-200' : 'text-white transition-colors duration-200 hover:text-red-200')}>
