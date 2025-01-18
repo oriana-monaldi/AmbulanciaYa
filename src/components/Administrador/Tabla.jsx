@@ -14,7 +14,7 @@ const Tabla = () => {
     const API_BASE_URL = 'https://ambulanciaya.onrender.com';
 
     const headers = {
-        ambulancia: ['Patente', 'Inventario', 'En base', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
+        ambulancia: ['Patente','Inventario', , 'VTV', 'Seguro', 'Paramedico', 'Chofer','En base'],
         chofer: ['Nombre Completo', 'DNI'],
         paramedico: ['Nombre Completo', 'DNI'],
         accidente: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Reporte'],
@@ -59,12 +59,11 @@ const Tabla = () => {
                         transformedData = dataArray.map(item => ({
                             patente: item.patente || '',
                             inventario: Boolean(item.inventario),
-                            estaEnBase: Boolean(item.estaEnBase),
                             vtv: Boolean(item.vtv),
                             seguro: Boolean(item.seguro),
                             paramedico: item.paramedico || '',
                             chofer: item.chofer || '',
-                            estado: item.estado || ''
+                            estaEnBase: Boolean(item.estaEnBase),
                         }));
                         break;
                         
