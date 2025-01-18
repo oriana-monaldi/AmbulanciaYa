@@ -27,7 +27,7 @@ function SobreNosotros() {
                 <div className="mt-6 flex w-1/2 items-center justify-center text-center">
                     <p className="text-lg">
                         Nuestra misión es proporcionar servicios de ambulancia
-                        rápidos, confiables y compasivos a nuestra
+                        rápidos y confiables a nuestra
                         comunidad.
                     </p>
                 </div>
