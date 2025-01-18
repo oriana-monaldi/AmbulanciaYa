@@ -65,7 +65,7 @@ const Formulario = () => {
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [paraMi, setParaMi] = useState('');  // Iniciar sin ninguna opción seleccionada
+    const [paraMi, setParaMi] = useState('Es para mí');  // Changed initial state to 'Es para mí'
 
     return (
         <div className="m-2 flex items-center justify-center bg-neutral-200">
@@ -109,7 +109,7 @@ const Formulario = () => {
                         </div>
                     </StyledRadioGroup>
 
-                    <div className="space-y-3" style={{ height: '350px' }}> {/* Fija el tamaño del contenedor */}
+                    <div className="space-y-3" style={{ height: '350px' }}> 
                         {/* Para "Es para mí", mostrar estos campos */}
                         {paraMi === 'Es para mí' && (
                             <>
@@ -154,7 +154,6 @@ const Formulario = () => {
                             </>
                         )}
 
-                        {/* Estos campos siempre están visibles */}
                         <div>
                             <label className="mb-1 block font-medium text-gray-700" htmlFor="direccion">
                                 Dirección
