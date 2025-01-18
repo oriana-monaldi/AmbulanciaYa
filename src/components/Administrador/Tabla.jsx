@@ -9,18 +9,17 @@ const Tabla = () => {
     const {tipo} = useParams();
     
     const headers = {
-        ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado', 'En base'],
-        chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
-        paramedico: ['ParamedicoID', 'Nombre Completo', 'DNI', 'Estado'],
-        accidente: ['Descripción', 'Dirección', 'Fecha', 'Hora'],
+        ambulancia: ['Patente', 'Inventario', 'En base', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
+        chofer: ['Nombre Completo', 'DNI'],
+        paramedico: ['Nombre Completo', 'DNI'],
+        accidente: ['Dirección', 'Fecha', 'Hora'],
         paciente:['Nombre Completo', 'Telefono'],
-        hospital:['Nombre Completo', 'Telefono'],
+        hospital:['Nombre', 'Dirección'],
     };
 
     const data = {
         accidente:[
             {
-                Descripción: 'Choque',
                 Dirección: 'Calle falsa 123',
                 Fecha: '12/12/2021',
                 Hora: '12:00',
@@ -28,51 +27,42 @@ const Tabla = () => {
         ],
         ambulancia: [
             {
-                ambulanciaID: 1,
                 patente: 'ABC123',
                 inventario: true,
+                estaEnBase: true,
                 vtv: true,
                 seguro: true,
                 paramedico: 'Juan Pérez',
                 chofer: 'Carlos López',
                 estado: 'Alta',
-                estaEnBase: true,
             },
         ],
         chofer: [
             {
-                choferID: 1,
                 nombreCompleto: 'Carlos López',
                 dni: '12345678',
-                estado: 'Alta',
             },
             {
-                choferID: 2,
                 nombreCompleto: 'Carlos martinez',
                 dni: '1234aaa5678',
-                estado: 'Alta',
             },
         ],
         paramedico: [
             {
-                paramedicoID: 1,
                 nombreCompleto: 'Juan Pérez',
                 dni: '87654321',
-                estado: 'Alta',
-            },
-        ],
-        hospital: [
-            {
-                hospitalID: 1,
-                nombre: 'San Martin',
-                direccion: '30 n567',
             },
         ],
         paciente: [
             {
-                pacienteID: 1,
                 nombreCompleto: 'Juan Pérez',
                 telefono: '12345678',
+            },
+        ],
+        hospital: [
+            {
+                nombre: 'San Martin',
+                direccion: '30 n567',
             },
         ],
     };
@@ -120,6 +110,9 @@ const Tabla = () => {
                                 REPORTE
                             </Link>
                             )}
+                            <Link to="/descripcion" className="text-red-600 font-medium">
+                                DECRIPCIÓN
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -159,7 +152,11 @@ const Tabla = () => {
                                     <Link to="/alta-reporte" className="text-red-600 font-medium">
                                         REPORTE
                                     </Link>
+
                                 )}
+                                <Link to="/descripcion" className="text-red-600 font-medium">
+                                    DECRIPCIÓN
+                                </Link>
                             </div>
                         </td>
                     </tr>

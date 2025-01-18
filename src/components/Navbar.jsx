@@ -15,7 +15,7 @@ function Navbar() {
                     <p className="m-2 text-lg font-bold text-red-500">AmbulanciaYa</p>
                 </Link>
 
-                {/* Botón de menú hamburguesa  */}
+                {/* Botón de menú hamburguesa */}
                 <FaBars className="cursor-pointer text-red-500 md:hidden" size={25} onClick={() => setShowMenu(!showMenu)} />
 
                 <div className={`absolute right-0 top-14 w-full bg-white md:relative md:top-0 md:block md:w-auto ${showMenu ? 'block' : 'hidden'}`}>
