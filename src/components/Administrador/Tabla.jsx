@@ -12,7 +12,7 @@ const Tabla = () => {
         ambulancia: ['Patente', 'Inventario', 'En base', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado'],
         chofer: ['Nombre Completo', 'DNI'],
         paramedico: ['Nombre Completo', 'DNI'],
-        accidente: ['Dirección', 'Fecha', 'Hora'],
+        accidente: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Reporte'],
         paciente:['Nombre Completo', 'Telefono'],
         hospital:['Nombre', 'Dirección'],
     };
@@ -21,8 +21,10 @@ const Tabla = () => {
         accidente:[
             {
                 Dirección: 'Calle falsa 123',
+                Descripcion: 'Accidente de tránsito',
                 Fecha: '12/12/2021',
                 Hora: '12:00',
+                Reporte:'Si',
             }
         ],
         ambulancia: [
@@ -110,9 +112,6 @@ const Tabla = () => {
                                 REPORTE
                             </Link>
                             )}
-                            <Link to="/descripcion" className="text-red-600 font-medium">
-                                DECRIPCIÓN
-                            </Link>
                         </div>
                     </div>
                 </div>
@@ -154,9 +153,6 @@ const Tabla = () => {
                                     </Link>
 
                                 )}
-                                <Link to="/descripcion" className="text-red-600 font-medium">
-                                    DECRIPCIÓN
-                                </Link>
                             </div>
                         </td>
                     </tr>
