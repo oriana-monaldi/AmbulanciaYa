@@ -6,6 +6,8 @@ function Boton({
     nombre,
     onClick,
     size = 'w-80',
+    className,
+    children
 }) {
     const handleClick = () => {
         if (onClick) {
@@ -14,11 +16,13 @@ function Boton({
     };
 
     return (
-        <div>
-            <button className={`mb-10 mt-2 h-10 ${size} rounded-md ${colorClass} ${textColorClass}`} onClick={handleClick}>
-                {nombre}
-            </button>
-        </div>
+        <button 
+            className={`mb-10 mt-2 h-10 ${size} rounded-md ${colorClass} ${textColorClass} flex items-center justify-center transition-colors hover:opacity-90 ${className || ''}`}
+            onClick={handleClick}
+            type="button"
+        >
+            {nombre}
+        </button>
     );
 }
 
