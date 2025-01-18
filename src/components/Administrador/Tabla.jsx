@@ -7,7 +7,7 @@ import {CiEdit} from 'react-icons/ci';
 
 const Tabla = () => {
     const {tipo} = useParams();
-
+    
     const headers = {
         ambulancia: ['AmbulanciaID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Paramedico', 'Chofer', 'Estado', 'En base'],
         chofer: ['ChoferID', 'Nombre Completo', 'DNI', 'Estado'],
@@ -115,6 +115,11 @@ const Tabla = () => {
                             <Link>
                                 <MdDelete color="red" onClick={handleOnClick} size={20} />
                             </Link>
+                            {tipo === 'accidente' && (
+                            <Link to="/alta-reporte" className="text-red-600 font-medium">
+                                REPORTE
+                            </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -148,8 +153,13 @@ const Tabla = () => {
                                     <CiEdit color="red" size="20" />
                                 </Link>
                                 <Link>
-                                    <MdDelete color="red"  onClick={handleOnClick} size={20} />
+                                    <MdDelete color="red" onClick={handleOnClick} size={20} />
                                 </Link>
+                                {tipo === 'accidente' && (
+                                    <Link to="/alta-reporte" className="text-red-600 font-medium">
+                                        REPORTE
+                                    </Link>
+                                )}
                             </div>
                         </td>
                     </tr>
@@ -206,10 +216,7 @@ const Tabla = () => {
                 </div>
                 <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
                 <div className="m-8 border-4 border-red-600">
-                    {/* Version de escritorio */}
                     <div className="hidden lg:block">{renderDesktopTable(data[tipo], headers[tipo])}</div>
-
-                    {/* Version móvil */}
                     <div className="block lg:hidden">{renderMobileTable(data[tipo], headers[tipo])}</div>
                 </div>
             </div>

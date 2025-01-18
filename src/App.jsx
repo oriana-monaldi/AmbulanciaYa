@@ -11,12 +11,17 @@ import Tabla from './components/Administrador/Tabla';
 import Alta from './components/Administrador/Alta';
 import Modificacion from './components/Administrador/Modificacion';
 import LogIn from './components/LogIn';
+import Reporte from './components/Administrador/Reporte';
 
 const AppContent = () => {
     const location = useLocation();
 
     // Verifica si estamos en una ruta administrativa
-    const isAdminRoute = location.pathname.includes('/navAdmi') || location.pathname.includes('/tabla') || location.pathname.includes('/alta-') || location.pathname.includes('/modificacion-');
+    const isAdminRoute = location.pathname.includes('/navAdmi') || 
+    location.pathname.includes('/tabla') || 
+    location.pathname.includes('/alta-') || 
+    location.pathname.includes('/modificacion-') ||
+    location.pathname === '/alta-reporte';
 
     return (
         <div className="flex min-h-screen flex-col">
@@ -43,7 +48,9 @@ const AppContent = () => {
                     <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
                     <Route path="/modificacion-hospital" element={<Modificacion tipo="hospital" />} />
                     <Route path="/modificacion-paciente" element={<Modificacion tipo="paciente" />} />
-                </Routes>
+                    <Route path="/alta-reporte" element={<Reporte/>} />
+                   
+                    </Routes>
             </div>
             <Footer className="flex-shrink-0" />
         </div>

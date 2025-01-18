@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Phone, MapPin, AlertCircle, User} from 'lucide-react';
+import React, { useState } from 'react';
+import { Phone, MapPin, AlertCircle, User } from 'lucide-react';
 import Boton from './Boton';
 import styled from 'styled-components';
 
@@ -65,7 +65,7 @@ const Formulario = () => {
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [paraMi, setParaMi] = useState('');
+    const [paraMi, setParaMi] = useState('');  // Iniciar sin ninguna opción seleccionada
 
     return (
         <div className="m-2 flex items-center justify-center bg-neutral-200">
@@ -73,7 +73,7 @@ const Formulario = () => {
                 <div className="bg-red-600 p-6 text-white">
                     <h2 className="text-center text-3xl font-bold">Solicitar Ambulancia</h2>
                 </div>
-                <div className="space-y-4 p-4">
+                <div className="space-y-4 p-4" style={{ height: 'auto' }}>
                     <StyledRadioGroup>
                         <div className="radio-buttons-container">
                             <div className="radio-button">
@@ -109,46 +109,52 @@ const Formulario = () => {
                         </div>
                     </StyledRadioGroup>
 
-                    <div className="space-y-3">
-                        <div>
-                            <label className="mb-1 block font-medium text-gray-700" htmlFor="nombre">
-                                Nombre Completo
-                            </label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
-                                <input
-                                    id="nombre"
-                                    type="text"
-                                    pattern="[A-Za-záéíóúñÁÉÍÓÚÑ\s]+"
-                                    className="w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 focus:border-red-500 focus:outline-none"
-                                    placeholder="Pedro Martinez"
-                                    value={nombre}
-                                    onChange={(e) => setNombre(e.target.value)}
-                                    disabled={paraMi === 'No es para mí'}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label className="mb-1 block font-medium text-gray-700" htmlFor="telefono">
-                                Teléfono
-                            </label>
-                            <div className="relative">
-                                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
-                                <input
-                                    id="telefono"
-                                    type="tel"
-                                    pattern="[0-9]{10}"
-                                    className="w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 focus:border-red-500 focus:outline-none"
-                                    placeholder="2215689764"
-                                    value={telefono}
-                                    onChange={(e) => setTelefono(e.target.value)}
-                                    disabled={paraMi === 'No es para mí'}
-                                    maxLength={10}
-                                    required
-                                />
-                            </div>
-                        </div>
+                    <div className="space-y-3" style={{ height: '350px' }}> {/* Fija el tamaño del contenedor */}
+                        {/* Para "Es para mí", mostrar estos campos */}
+                        {paraMi === 'Es para mí' && (
+                            <>
+                                <div>
+                                    <label className="mb-1 block font-medium text-gray-700" htmlFor="nombre">
+                                        Nombre Completo
+                                    </label>
+                                    <div className="relative">
+                                        <User className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
+                                        <input
+                                            id="nombre"
+                                            type="text"
+                                            pattern="[A-Za-záéíóúñÁÉÍÓÚÑ\s]+"
+                                            className="w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 focus:border-red-500 focus:outline-none"
+                                            placeholder="Pedro Martinez"
+                                            value={nombre}
+                                            onChange={(e) => setNombre(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block font-medium text-gray-700" htmlFor="telefono">
+                                        Teléfono
+                                    </label>
+                                    <div className="relative">
+                                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
+                                        <input
+                                            id="telefono"
+                                            type="tel"
+                                            pattern="[0-9]{10}"
+                                            className="w-full rounded-lg border-2 border-gray-200 py-2 pl-10 pr-3 focus:border-red-500 focus:outline-none"
+                                            placeholder="2215689764"
+                                            value={telefono}
+                                            onChange={(e) => setTelefono(e.target.value)}
+                                            maxLength={10}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {/* Estos campos siempre están visibles */}
                         <div>
                             <label className="mb-1 block font-medium text-gray-700" htmlFor="direccion">
                                 Dirección
@@ -166,6 +172,7 @@ const Formulario = () => {
                                 />
                             </div>
                         </div>
+
                         <div>
                             <label className="mb-1 block font-medium text-gray-700" htmlFor="descripcion">
                                 Descripción de la emergencia
@@ -182,6 +189,7 @@ const Formulario = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className="mt-2 flex justify-center">
                         <Boton nombre="Solicitar Ambulancia" showAlert={true} />
                     </div>
