@@ -11,7 +11,6 @@ const Formulario = () => {
 
     return (
         <div className="m-2 flex items-center justify-center bg-neutral-200">
-            {/* Tamaño fijo y grande */}
             <form className="w-full max-w-4xl min-h-[650px] overflow-hidden rounded-lg bg-white pb-2 shadow-lg">
                 <div className="bg-red-600 p-6 text-white">
                     <h2 className="text-center text-3xl font-bold">Solicitar Ambulancia</h2>
