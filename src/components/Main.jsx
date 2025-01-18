@@ -6,7 +6,6 @@ import {LuShield} from 'react-icons/lu';
 function Main() {
     return (
         <div className="flex w-full flex-wrap bg-neutral-200">
-            {/* Contenido Izquierdo */}
             <div className="w-full lg:w-1/2">
                 <h1 className="ml-10 mt-28 text-2xl text-red-600 sm:text-3xl lg:text-4xl">
                     <strong>Atención Médica de emergencia las 24hs</strong>
@@ -25,7 +24,6 @@ function Main() {
                     <p className="m-4 mt-6 lg:mt-4 lg:text-base">Personal Certificado</p>
                 </div>
             </div>
-            {/* Formulario */}
             <div className="mt-8 flex w-full justify-center lg:mt-0 lg:w-2/4">
                 <Formulario esLogin={false} />
             </div>

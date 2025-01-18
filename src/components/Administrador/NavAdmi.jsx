@@ -15,11 +15,9 @@ const NavAdmi = () => {
     };
 
     const handleLogout = (e) => {
-        // Detener cualquier comportamiento por defecto inmediatamente
         e.preventDefault();
         e.stopPropagation();
         
-        // Primero mostrar la alerta
         Swal.fire({
             title: "¿Estás seguro?",
             text: "¿Deseas cerrar la sesión?",
@@ -31,7 +29,6 @@ const NavAdmi = () => {
             cancelButtonText: "No, cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Solo si el usuario confirma, mostrar mensaje de éxito y luego redirigir
                 Swal.fire({
                     title: "¡Sesión cerrada!",
                     text: "Has cerrado sesión exitosamente",
@@ -40,7 +37,6 @@ const NavAdmi = () => {
                     navigate('/logIn');
                 });
             }
-            // Si el usuario cancela, no hace nada y se queda en la página actual
         });
     };
 
@@ -106,12 +102,12 @@ const NavAdmi = () => {
                 </div>
 
                 <div className="flex items-center">
-                <button 
-    onClick={(e) => handleLogout(e)}
-    className="text-white hover:text-red-200 transition-colors duration-200"
->
-    <GiExitDoor size={24} />
-</button>
+                    <button 
+                        onClick={(e) => handleLogout(e)}
+                        className="text-white hover:text-red-200 transition-colors duration-200"
+                        >
+                        <GiExitDoor size={24} />
+                    </button>
                 </div>
             </div>
         </nav>

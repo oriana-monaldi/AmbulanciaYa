@@ -8,8 +8,6 @@ function LogIn() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        // Aquí puedes añadir la lógica de autenticación
-        // Si la autenticación es exitosa, redirige a la ruta de la tabla de accidentes
         navigate('/tabla/accidente');
     };
 

@@ -28,10 +28,7 @@ function SobreNosotros() {
                     <p className="text-lg">
                         Nuestra misión es proporcionar servicios de ambulancia
                         rápidos, confiables y compasivos a nuestra
-                        comunidad.Estamos comprometidos con la excelencia en la
-                        atención de emergencia y el transporte médico,
-                        asegurando que cada paciente reciba el mejor cuidado
-                        posible en su momento de necesidad.
+                        comunidad.
                     </p>
                 </div>
 

@@ -4,7 +4,6 @@ import Boton from '../Boton';
 import { useState } from 'react';
 
 function Reporte() {
-    const [direccion, setDireccion] = useState(''); 
     const [requiereTraslado, setRequiereTraslado] = useState(false);
     const [hospitalSeleccionado, setHospitalSeleccionado] = useState('');
 
