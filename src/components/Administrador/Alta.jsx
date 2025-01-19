@@ -91,7 +91,7 @@ function Alta({tipo}) {
                     </>
                 )}
 
-                {(tipo === 'chofer' || tipo === 'paramedico') && (
+                {(tipo === 'chofer') && (
                     <>
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
@@ -107,6 +107,35 @@ function Alta({tipo}) {
                                 type="text"
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 placeholder="Ingrese el DNI"
+                            />
+                        </div>
+                    </>
+                )}
+
+                {(tipo === 'paramedico') && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Ingrese el nombre completo"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Ingrese el DNI"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Email</label>
+                            <input
+                                type="text"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Ingrese el email"
                             />
                         </div>
                     </>

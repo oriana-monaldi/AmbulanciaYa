@@ -17,9 +17,9 @@ const AppContent = () => {
     const location = useLocation();
 
     // Verifica si estamos en una ruta administrativa
-    const isAdminRoute = location.pathname.includes('/navAdmi') || 
-    location.pathname.includes('/tabla') || 
-    location.pathname.includes('/alta-') || 
+    const isAdminRoute = location.pathname.includes('/navAdmi') ||
+    location.pathname.includes('/tabla') ||
+    location.pathname.includes('/alta-') ||
     location.pathname.includes('/modificacion-') ||
     location.pathname === '/alta-reporte';
 
@@ -49,8 +49,7 @@ const AppContent = () => {
                     <Route path="/modificacion-hospital" element={<Modificacion tipo="hospital" />} />
                     <Route path="/modificacion-paciente" element={<Modificacion tipo="paciente" />} />
                     <Route path="/alta-reporte" element={<Reporte/>} />
-                   
-                    </Routes>
+                </Routes>
             </div>
             <Footer className="flex-shrink-0" />
         </div>
