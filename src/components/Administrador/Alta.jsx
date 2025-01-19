@@ -209,10 +209,9 @@ function Alta({tipo}) {
                 </>
                 )}
                 
-
-                <div className="mt-6 text-center">
-                    <Link to="/navAdmin">
-                        <Boton nombre="Aceptar" onClick={onClick} />
+                <div className="mt-6 flex justify-center">
+                    <Link to="/navAdmin" className="w-full">
+                        <Boton nombre="Aceptar" onClick={onClick} className="w-full" />
                     </Link>
                 </div>
             </div>

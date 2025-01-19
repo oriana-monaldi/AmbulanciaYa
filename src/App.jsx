@@ -15,7 +15,6 @@ import Reporte from './components/Administrador/Reporte';
 
 const AppContent = () => {
     const location = useLocation();
-
     // Verifica si estamos en una ruta administrativa
     const isAdminRoute = location.pathname.includes('/navAdmi') ||
     location.pathname.includes('/tabla') ||
@@ -42,13 +41,13 @@ const AppContent = () => {
                     <Route path="/alta-paramedico" element={<Alta tipo="paramedico" />} />
                     <Route path="/alta-hospital" element={<Alta tipo="hospital" />} />
                     <Route path="/alta-paciente" element={<Alta tipo="paciente" />} />
-                    <Route path="/modificacion-accidente" element={<Modificacion tipo="accidente" />} />
-                    <Route path="/modificacion-ambulancia" element={<Modificacion tipo="ambulancia" />} />
-                    <Route path="/modificacion-chofer" element={<Modificacion tipo="chofer" />} />
-                    <Route path="/modificacion-paramedico" element={<Modificacion tipo="paramedico" />} />
-                    <Route path="/modificacion-hospital" element={<Modificacion tipo="hospital" />} />
-                    <Route path="/modificacion-paciente" element={<Modificacion tipo="paciente" />} />
-                    <Route path="/alta-reporte" element={<Reporte/>} />
+                    <Route path="/modificacion-accidente/:id" element={<Modificacion tipo="accidente" />} />
+                    <Route path="/modificacion-ambulancia/:id" element={<Modificacion tipo="ambulancia" />} />
+                    <Route path="/modificacion-chofer/:id" element={<Modificacion tipo="chofer" />} />
+                    <Route path="/modificacion-paramedico/:id" element={<Modificacion tipo="paramedico" />} />
+                    <Route path="/modificacion-hospital/:id" element={<Modificacion tipo="hospital" />} />
+                    <Route path="/modificacion-paciente/:id" element={<Modificacion tipo="paciente" />} />
+                    <Route path="/alta-reporte/:id" element={<Reporte/>} />
                 </Routes>
             </div>
             <Footer className="flex-shrink-0" />

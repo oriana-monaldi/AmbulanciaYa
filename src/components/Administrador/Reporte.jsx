@@ -1,16 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Boton from '../Boton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Reporte() {
     const [requiereTraslado, setRequiereTraslado] = useState(false);
     const [hospitalSeleccionado, setHospitalSeleccionado] = useState('');
+    const [hospitales, setHospitales] = useState([]);
 
-    const hospitales = [
-        { id: 1, nombre: "Hospital Central" },
-        { id: 2, nombre: "Hospital General" }
-    ];
+    useEffect(() => {
+        fetch('https://ambulanciaya.onrender.com/hospitales')
+            .then(response => response.json())
+            .then(data => setHospitales(data))
+            .catch(error => console.error('Error:', error));
+    }, []);
 
     const onClick = () => {
     };
@@ -30,48 +33,58 @@ function Reporte() {
                     />
                 </div>
 
-                <div className="flex items-center justify-between mb-4">
+                <div className="mb-4">
                     <span className="font-medium text-gray-700">
                         El paciente fue trasladado
                     </span>
-                    <div 
-                        className={`relative inline-flex h-6 w-11 cursor-pointer rounded-full transition-colors duration-200 ease-in-out ${
-                            requiereTraslado ? 'bg-red-600' : 'bg-gray-200'
-                        }`}
-                        onClick={() => setRequiereTraslado(!requiereTraslado)}
-                    >
-                        <span
-                            className={`inline-block h-5 w-5 transform rounded-full bg-white transition duration-200 ease-in-out m-0.5 ${
-                                requiereTraslado ? 'translate-x-5' : 'translate-x-0'
-                            }`}
-                        />
+                    <div className="ml-4 inline-flex items-center">
+                        <label className="relative inline-flex cursor-pointer items-center">
+                            <input
+                                type="checkbox"
+                                className="peer sr-only"
+                                checked={requiereTraslado}
+                                onChange={(e) => setRequiereTraslado(e.target.checked)}
+                            />
+                            <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-red-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300"></div>
+                        </label>
                     </div>
                 </div>
 
                 {requiereTraslado && (
                     <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">
-                                Hospital de traslado                           
-                            </label>
-                            <select
-                        value={hospitalSeleccionado}
-                        onChange={(e) => setHospitalSeleccionado(e.target.value)}
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-    >
-                            <option value="" disabled>Seleccione un hospital</option>
+                        <label className="mb-1 block font-medium text-gray-700">
+                            Hospital de traslado
+                        </label>
+                        <select
+                            value={hospitalSeleccionado}
+                            onChange={(e) => setHospitalSeleccionado(e.target.value)}
+                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            <option value="">Seleccione un hospital</option>
                             {hospitales.map((hospital) => (
-                                <option key={hospital.id} value={hospital.id}>
-                                {hospital.nombre}
-                            </option>
-    ))}
-</select>
-
+                                <option key={hospital._id} value={hospital._id}>
+                                    {hospital.nombre}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 )}
 
-                <div className="mt-6 text-center">
+<div className="mt-6 flex justify-center space-x-4">
+                    <button 
+                        type="submit" 
+                        className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+                        onClick={onClick}
+                    >
+                        Guardar Cambios
+                    </button>
                     <Link to="/tabla/accidente">
-                        <Boton nombre="Aceptar" onClick={onClick} />
+                        <button 
+                            type="button"
+                            className="rounded border border-red-600 px-4 py-2 text-red-600 hover:bg-red-50"
+                        >
+                            Cancelar
+                        </button>
                     </Link>
                 </div>
             </div>
