@@ -3,7 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { GiExitDoor } from 'react-icons/gi';
 import { FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaUserGear } from "react-icons/fa6";
+
 import Swal from 'sweetalert2';
+
 
 const NavAdmi = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -97,17 +100,24 @@ const NavAdmi = () => {
                             >
                                 Hospitales
                             </NavLink>
+                            
                         </div>
                     </div>
                 </div>
 
                 <div className="flex items-center">
                     <button 
+                        className="text-white hover:text-red-200 mr-6 transition-colors duration-200"
+                        >
+                        <FaUserGear   size={24} />
+                    </button>
+                    <button 
                         onClick={(e) => handleLogout(e)}
                         className="text-white hover:text-red-200 transition-colors duration-200"
                         >
                         <GiExitDoor size={24} />
                     </button>
+                    
                 </div>
             </div>
         </nav>

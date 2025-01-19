@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Boton from '../Boton';
 import { useState, useEffect } from 'react';
+import Boton from '../Boton';
+
 
 function Reporte() {
     const [requiereTraslado, setRequiereTraslado] = useState(false);
@@ -15,8 +16,6 @@ function Reporte() {
             .catch(error => console.error('Error:', error));
     }, []);
 
-    const onClick = () => {
-    };
 
     return (
         <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
@@ -70,21 +69,22 @@ function Reporte() {
                     </div>
                 )}
 
-<div className="mt-6 flex justify-center space-x-4">
-                    <button 
-                        type="submit" 
-                        className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-                        onClick={onClick}
-                    >
-                        Guardar Cambios
-                    </button>
+                <div className="mt-6 flex justify-center space-x-4">
+                    <Boton
+                        nombre="Guardar Cambios"
+                        colorClass="bg-red-600"
+                        textColorClass="text-white"
+                        size="w-auto"
+                        className="px-4 py-2 h-auto"
+                    />
                     <Link to="/tabla/accidente">
-                        <button 
-                            type="button"
-                            className="rounded border border-red-600 px-4 py-2 text-red-600 hover:bg-red-50"
-                        >
-                            Cancelar
-                        </button>
+                        <Boton
+                            nombre="Cancelar"
+                            colorClass="bg-white"
+                            textColorClass="text-red-600"
+                            size="w-auto"
+                            className="px-4 py-2 h-auto border border-red-600 hover:bg-red-50"
+                        />
                     </Link>
                 </div>
             </div>

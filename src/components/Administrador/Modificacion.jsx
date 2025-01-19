@@ -301,19 +301,22 @@ function Modificacion({ tipo }) {
                 )}
 
                 <div className="mt-6 flex justify-center space-x-4">
-                    <button 
-                        type="submit" 
-                        className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-                    >
-                        Guardar Cambios
-                    </button>
+                    <Boton
+                        nombre="Guardar Cambios"
+                        colorClass="bg-red-600"
+                        textColorClass="text-white"
+                        size="w-auto"
+                        className="px-4 py-2 h-auto hover:bg-red-700 mb-0 mt-0"
+                        onClick={(e) => e.target.closest('form').requestSubmit()}
+                    />
                     <Link to={`/tabla/${tipo}`}>
-                        <button 
-                            type="button"
-                            className="rounded border border-red-600 px-4 py-2 text-red-600 hover:bg-red-50"
-                        >
-                            Cancelar
-                        </button>
+                        <Boton
+                            nombre="Cancelar"
+                            colorClass="bg-white"
+                            textColorClass="text-red-600"
+                            size="w-auto"
+                            className="px-4 py-2 h-auto border border-red-600 hover:bg-red-50 mb-0 mt-0"
+                        />
                     </Link>
                 </div>
             </form>
