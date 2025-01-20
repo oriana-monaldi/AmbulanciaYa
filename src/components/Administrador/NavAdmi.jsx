@@ -4,6 +4,7 @@ import { GiExitDoor } from 'react-icons/gi';
 import { FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { FaUserGear } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 
@@ -106,11 +107,11 @@ const NavAdmi = () => {
                 </div>
 
                 <div className="flex items-center">
-                    <button 
+                    <Link to="/panelUsuario"
                         className="text-white hover:text-red-200 mr-6 transition-colors duration-200"
-                        >
-                        <FaUserGear   size={24} />
-                    </button>
+                    >
+                        <FaUserGear size={24} />
+                    </Link>
                     <button 
                         onClick={(e) => handleLogout(e)}
                         className="text-white hover:text-red-200 transition-colors duration-200"

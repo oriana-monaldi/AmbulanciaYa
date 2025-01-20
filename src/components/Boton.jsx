@@ -7,7 +7,6 @@ function Boton({
     onClick,
     size = 'w-80',
     className,
-    children
 }) {
     const handleClick = () => {
         if (onClick) {
