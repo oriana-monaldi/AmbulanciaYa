@@ -104,10 +104,10 @@ function Modificacion({ tipo }) {
             <form onSubmit={handleSubmit} className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
                 <h2 className="mb-5 text-center text-xl font-bold text-red-600">
                     Modificar datos de {tipo === 'ambulancia' ? 'ambulancia' : 
-                                     tipo === 'chofer' ? 'chofer' : 
-                                     tipo === 'paramedico' ? 'paramédico' : 
-                                     tipo === 'hospital' ? 'hospital' : 
-                                     tipo === 'paciente' ? 'paciente' : 'accidente'}
+                        tipo === 'chofer' ? 'chofer' : 
+                        tipo === 'paramedico' ? 'paramédico' : 
+                        tipo === 'hospital' ? 'hospital' : 
+                        tipo === 'paciente' ? 'paciente' : 'accidente'}
                 </h2>
 
                 {tipo === 'ambulancia' && (
@@ -153,6 +153,20 @@ function Modificacion({ tipo }) {
 
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Inventario</label>
+                            <select
+                                name="inventario"
+                                value={formData.inventario}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            >
+                                <option value="">Seleccione una opción</option>
+                                <option value="true">Completo</option>
+                                <option value="false">Incompleto</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Paramedico ARREGLAR</label>
                             <select
                                 name="inventario"
                                 value={formData.inventario}
