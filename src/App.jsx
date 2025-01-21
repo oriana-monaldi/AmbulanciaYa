@@ -62,7 +62,6 @@ function App() {
     return (
         <BrowserRouter>
             <AppContent />
-            <Alta tipo="chofer" />
         </BrowserRouter>
     );
 }
