@@ -28,6 +28,31 @@ function Alta({ tipo }) {
 
     const navigate = useNavigate();
 
+    // Validación para el DNI
+    const handleDNIChange = (e) => {
+        const value = e.target.value;
+        // Solo permitir números y limitar a 8 dígitos
+        if (value === '' || (/^\d+$/.test(value) && value.length <= 8)) {
+            setFormData(prev => ({
+                ...prev,
+                dni: value
+            }));
+        }
+    };
+
+    // Validación para el nombre
+    const handleNombreChange = (e) => {
+        const value = e.target.value;
+        // Solo permitir letras y espacios
+        if (/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(value)) {
+            setFormData(prev => ({
+                ...prev,
+                nombreCompleto: value
+            }));
+        }
+    };
+
+    // Manejador general para otros campos
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -36,34 +61,88 @@ function Alta({ tipo }) {
         }));
     };
 
+    const validateChoferData = () => {
+        if (!formData.nombreCompleto || !formData.dni) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor complete todos los campos',
+                icon: 'error'
+            });
+            return false;
+        }
+
+        if (formData.dni.length !== 8) {
+            Swal.fire({
+                title: 'Error',
+                text: 'El DNI debe tener 8 dígitos',
+                icon: 'error'
+            });
+            return false;
+        }
+
+        if (formData.nombreCompleto.trim().length < 3) {
+            Swal.fire({
+                title: 'Error',
+                text: 'El nombre debe tener al menos 3 caracteres',
+                icon: 'error'
+            });
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validaciones específicas según el tipo
+        if (tipo === 'chofer' && !validateChoferData()) {
+            return;
+        }
+
         try {
+            // Preparar los datos según el tipo
+            let dataToSend = {};
+            
+            if (tipo === 'chofer') {
+                dataToSend = {
+                    nombreCompleto: formData.nombreCompleto.trim(),
+                    dni: formData.dni
+                };
+            } else {
+                // Mantener la lógica existente para otros tipos
+                dataToSend = formData;
+            }
+
             const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(dataToSend)
             });
 
             if (!response.ok) {
                 throw new Error('Error en la solicitud');
             }
 
+            await response.json();
+
             Swal.fire({
-                title: 'Se añadió correctamente!',
+                title: 'Registro exitoso',
+                text: `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} registrado correctamente`,
                 icon: 'success',
-                timer: 800,
+                timer: 1500,
                 showConfirmButton: false,
             }).then(() => {
                 navigate(`/tabla/${tipo}`);
             });
+
         } catch (error) {
             console.error('Error:', error);
             Swal.fire({
                 title: 'Error',
-                text: 'No se pudo crear el registro',
+                text: `No se pudo registrar el ${tipo}. Por favor, intente nuevamente.`,
                 icon: 'error'
             });
         }
@@ -80,6 +159,40 @@ function Alta({ tipo }) {
                             tipo === 'paciente' ? 'paciente' : 'accidente'}
                 </h2>
 
+                {/* Formulario para Chofer */}
+                {tipo === 'chofer' && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <input
+                                type="text"
+                                name="nombreCompleto"
+                                value={formData.nombreCompleto}
+                                onChange={handleNombreChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Ingrese el nombre completo"
+                                required
+                                maxLength={50}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <input
+                                type="text"
+                                name="dni"
+                                value={formData.dni}
+                                onChange={handleDNIChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                placeholder="Ingrese el DNI (8 dígitos)"
+                                required
+                                pattern="\d{8}"
+                                maxLength={8}
+                            />
+                        </div>
+                    </>
+                )}
+
+                {/* Mantener los otros formularios existentes */}
                 {tipo === 'ambulancia' && (
                     <>
                         <div className="mb-4">
@@ -139,17 +252,18 @@ function Alta({ tipo }) {
                     </>
                 )}
 
-                {(tipo === 'chofer' || tipo === 'paramedico') && (
+
+                {(tipo === 'paramedico') && (
                     <>
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <label className="mb-1 block font-medium text-gray-700">Email</label>
                             <input
-                                type="text"
-                                name="nombreCompleto"
-                                value={formData.nombreCompleto}
+                                type="email"
+                                name="email"
+                                value={formData.email}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                placeholder="Ingrese el nombre completo"
+                                placeholder="Ingrese el email"
                                 required
                             />
                         </div>
@@ -165,20 +279,15 @@ function Alta({ tipo }) {
                                 required
                             />
                         </div>
-                    </>
-                )}
-
-                {(tipo === 'paramedico') && (
-                    <>
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Email</label>
                             <input
-                                type="email"
+                                type="text"
                                 name="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                placeholder="Ingrese el email"
+                                placeholder="Ingrese el Email"
                                 required
                             />
                         </div>
@@ -236,33 +345,35 @@ function Alta({ tipo }) {
                 )}
 
                 {tipo === 'hospital' && (
-                    <div className="mb-4">
-                        <label className="mb-1 block font-medium text-gray-700">Nombre</label>
-                        <input
-                            type="text"
-                            name="nombre"
-                            value={formData.nombre}
-                            onChange={handleInputChange}
-                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            placeholder="Ingrese el nombre del hospital"
-                            required
-                        />
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Dirección</label>
-                            <input
-                                type="text"
-                                name="direccion"
-                                value={formData.direccion}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                placeholder="Ingrese la dirección"
-                                required
-                            />
-                        </div>
-                    </div>
-                    
+                <>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Nombre </label>
+                    <input
+                        type="text"
+                        name="nombre"
+                        value={formData.nombre}
+                        onChange={handleNombreChange}
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Ingrese el nombre "
+                        required
+                        maxLength={50}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Dirección</label>
+                    <input
+                        type="text"
+                        name="direccion"
+                        value={formData.direccion}
+                        onChange={handleInputChange}
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Ingrese la dirección"
+                        required
+                    />
+                </div>
+            </>
+                
                 )}
-
                 {tipo === 'paciente' && (
                     <>
                         <div className="mb-4">
@@ -304,8 +415,7 @@ function Alta({ tipo }) {
                     </>
                 )}
 
-                
-                <div className="mt-6 flex justify-center space-x-4">
+<div className="mt-6 flex justify-center space-x-4">
                     <Boton
                         nombre="Guardar"
                         colorClass="bg-red-600"
