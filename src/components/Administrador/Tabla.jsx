@@ -64,6 +64,7 @@ const VistaMobile = ({ data, headers, tipo, onDelete }) => {
                                         REPORTE
                                     </Link>
                                 )}
+                                
                             </div>
                         </div>
                     </div>
@@ -102,11 +103,6 @@ const VistaEscitorio = ({ data, headers, tipo, onDelete }) => {
                                 <button onClick={() => onDelete(item._id)}>
                                     <MdDelete color="red" size={20} />
                                 </button>
-                                {tipo === 'accidente' && !item.reporte && (
-                                    <Link to={`/alta-reporte/${item._id}`} className="text-red-600 font-medium">
-                                        REPORTE
-                                    </Link>
-                                )}
                             </div>
                         </td>
                     </tr>

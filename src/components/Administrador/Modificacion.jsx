@@ -7,6 +7,8 @@ function Modificacion({ tipo }) {
     const location = useLocation();
     const { id } = useParams();
     const navigate = useNavigate();
+    const [paramedicos, setParamedicos] = useState([]);
+    const [choferes, setChoferes] = useState([]);
     const itemData = location.state?.itemData;
 
     const [formData, setFormData] = useState({
@@ -43,6 +45,27 @@ function Modificacion({ tipo }) {
             fetchItemData();
         }
     }, [id, itemData]);
+
+    // Paramedicos
+    useEffect(() => {
+        if (tipo === 'ambulancia') {
+            fetch('https://ambulanciaya.onrender.com/paramedicos')
+                .then(response => response.json())
+                .then(data => setParamedicos(data))
+                .catch(error => console.error('Error cargando paramédicos:', error));
+        }
+    }, [tipo]);
+
+     // Choferes
+    useEffect(() => {
+        if (tipo === 'ambulancia') {
+            fetch('https://ambulanciaya.onrender.com/choferes')
+                .then(response => response.json())
+                .then(data => setChoferes(data))
+                .catch(error => console.error('Error cargando choferes:', error));
+        }
+    }, [tipo]);
+
 
     const fetchItemData = async () => {
         try {
@@ -166,36 +189,92 @@ function Modificacion({ tipo }) {
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Paramedico ARREGLAR</label>
+                            <label className="mb-1 block font-medium text-gray-700">Paramédico</label>
                             <select
-                                name="inventario"
-                                value={formData.inventario}
+                                name="paramedico"
+                                value={formData.paramedico}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                             >
-                                <option value="">Seleccione una opción</option>
-                                <option value="true">Completo</option>
-                                <option value="false">Incompleto</option>
+                                <option value="">Seleccione un paramédico</option>
+                                {paramedicos.map(paramedico => (
+                                    <option key={paramedico._id} value={paramedico._id}>
+                                        {paramedico.nombreCompleto}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">En Base</label>
+                            <label className="mb-1 block font-medium text-gray-700">Chofer</label>
                             <select
-                                name="estaEnBase"
-                                value={formData.estaEnBase}
+                                name="chofer"
+                                value={formData.chofer}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                             >
-                                <option value="">Seleccione una opción</option>
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
+                                <option value="">Seleccione un chofer</option>
+                                {choferes.map(chofer => (
+                                    <option key={chofer._id} value={chofer._id}>
+                                        {chofer.nombreCompleto}
+                                    </option>
+                                ))}
                             </select>
                         </div>
+
+                        <div className="mb-4">
+                        <label className="mb-1 block font-medium text-gray-700">En base</label>
+                        <select
+                            name="enBase"
+                            value={formData.enBase} 
+                            onChange={handleInputChange}
+                            className="w-full rounded-md border border-red-600 bg-white px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            <option value="">Seleccione una opción</option>
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
                     </>
                 )}
 
-                {(tipo === 'chofer' || tipo === 'paramedico') && (
+                {(tipo === 'paramedico') && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <input
+                                type="text"
+                                name="nombreCompleto"
+                                value={formData.nombreCompleto}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <input
+                                type="text"
+                                name="dni"
+                                value={formData.dni}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Email</label>
+                            <input
+                                type="text"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                            />
+                        </div>
+                    </>
+
+                )}
+
+                {(tipo === 'chofer' ) && (
                     <>
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
@@ -219,7 +298,6 @@ function Modificacion({ tipo }) {
                         </div>
                     </>
                 )}
-
                 {tipo === 'accidente' && (
                     <>
                         <div className="mb-4">
@@ -261,31 +339,7 @@ function Modificacion({ tipo }) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                             />
                         </div>
-                    </>
-                )}
 
-                {tipo === 'paciente' && (
-                    <>
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
-                            <input
-                                type="text"
-                                name="nombreCompleto"
-                                value={formData.nombreCompleto}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Teléfono</label>
-                            <input
-                                type="text"
-                                name="telefono"
-                                value={formData.telefono}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
                     </>
                 )}
 
