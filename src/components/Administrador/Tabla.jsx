@@ -43,15 +43,14 @@ const VistaMobile = ({ data, headers, tipo, onDelete }) => {
                         const value = typeof item[key] === 'boolean' ? (item[key] ? 'Sí' : 'No') : item[key];
                         
                         return (
-                            <div key={index} className="flex border-b border-gray-200 py-2 last:border-b-0">
-                                <div className="w-1/2 text-sm font-medium text-gray-500">{header}</div>
+                            <div key={index} className="flex border-b border-gray-200 py-2 ">
+                                <div className="w-1/2 text-sm  text-gray-500">{header}</div>
                                 <div className="w-1/2 text-sm text-gray-900">{value}</div>
                             </div>
                         );
                     })}
                     <div className="mt-4 flex border-t border-gray-200 py-2">
-                        <div className="w-1/2 text-sm font-medium text-gray-500">Acciones</div>
-                        <div className="w-1/2">
+                        <div className="w-1/2 text-sm  text-gray-500">Acciones</div>
                             <div className="flex justify-center space-x-4">
                                 <Link to={`/modificacion-${tipo}/${item._id}`} state={{ itemData: item }}>
                                     <CiEdit color="red" size="20" />
@@ -60,12 +59,11 @@ const VistaMobile = ({ data, headers, tipo, onDelete }) => {
                                     <MdDelete color="red" size={20} />
                                 </button>
                                 {tipo === 'accidente' && !item.reporte && (
-                                    <Link to={`/alta-reporte/${item._id}`} className="text-red-600 font-medium">
+                                    <Link to={`/alta-reporte/${item._id}`} className="text-red-600 ">
                                         REPORTE
                                     </Link>
                                 )}
                                 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,6 +101,11 @@ const VistaEscitorio = ({ data, headers, tipo, onDelete }) => {
                                 <button onClick={() => onDelete(item._id)}>
                                     <MdDelete color="red" size={20} />
                                 </button>
+                                {tipo === 'accidente' && !item.reporte && (
+                                    <Link to={`/alta-reporte/${item._id}`} className="text-red-600 font-medium">
+                                        REPORTE
+                                    </Link>
+                                )}
                             </div>
                         </td>
                     </tr>
@@ -150,6 +153,7 @@ const Tabla = () => {
         loadData();
     }, [tipo]);
 
+    //DELETE
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`${API_URL}${TABLE_CONFIG[tipo].endpoint}/${id}`, {

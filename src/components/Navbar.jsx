@@ -4,7 +4,6 @@ import {FaAmbulance, FaBars} from 'react-icons/fa';
 import {FaUserAlt} from 'react-icons/fa';
 
 function Navbar() {
-    // Estado para controlar la visibilidad del menú en mobile
     const [showMenu, setShowMenu] = useState(false);
 
     return (

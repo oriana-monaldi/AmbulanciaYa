@@ -7,7 +7,7 @@ const Formulario = () => {
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [paraMi, setParaMi] = useState('Es para mí'); // Valor predeterminado como "Es para mí"
+    const [paraMi, setParaMi] = useState('Es para mí'); 
 
     return (
         <div className="m-2 flex items-center justify-center bg-neutral-200">
@@ -49,7 +49,6 @@ const Formulario = () => {
                         </div>
                     </div>
 
-                    {/* Campos Condicionales */}
                     {paraMi === 'Es para mí' && (
                         <>
                             <div>

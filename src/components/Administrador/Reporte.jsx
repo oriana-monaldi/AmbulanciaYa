@@ -24,10 +24,10 @@ function Reporte() {
                     Reporte de Accidente
                 </h2>
                 <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Descripción</label>
+                    <label className="mb-1 block font-medium text-gray-700">Reporte</label>
                     <textarea
                         className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
-                        placeholder="Ingrese la descripción del accidente"
+                        placeholder="Ingrese el reporte"
                         rows={6}
                     />
                 </div>
