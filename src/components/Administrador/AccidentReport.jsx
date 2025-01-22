@@ -1,39 +1,171 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock } from 'lucide-react';
+import swal from 'sweetalert';
 
-const AccidentReport = ({
-  accidentId,
-  initialReport = {
+const AccidentReport = () => {
+  const { id } = useParams();
+  console.log("ID recibido:", id); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const API_URL = 'https://ambulanciaya.onrender.com';
+  
+  const [report, setReport] = useState({
     description: '',
     hospitalTransfer: false,
     hospitalName: '',
     reportDate: '',
     reportTime: '',
     isSubmitted: false,
-  },
-  onDelete,
-  onEdit,
-  onSubmit,
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [report, setReport] = useState(initialReport);
+  });
 
-  const handleEdit = () => {
-    if (isEditing) {
-      onEdit?.(accidentId, report);
+  useEffect(() => {
+    let isMounted = true;
+
+    const cargarReporte = async () => {
+      if (!id) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/reportes/accidente/${id}`);
+        
+        if (!isMounted) return;
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!isMounted) return;
+
+        if (data) {
+          setReport({
+            description: data.descripcion || '',
+            hospitalTransfer: data.requiereTraslado || false,
+            hospitalName: data.nombreHospital || '',
+            reportDate: data.fecha || '',
+            reportTime: data.hora || '',
+            isSubmitted: true
+          });
+        }
+      } catch (error) {
+        if (!isMounted) return;
+        console.error('Error al cargar el reporte:', error);
+        swal({
+          title: 'Error',
+          text: 'No se pudo cargar el reporte del accidente',
+          icon: 'error'
+        });
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    setIsLoading(true);
+    cargarReporte();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
+
+  const handleEdit = async () => {
+    if (!isEditing) {
+      setIsEditing(true);
+      return;
     }
-    setIsEditing(!isEditing);
-  };
 
-  const handleSubmit = () => {
-    onSubmit?.(accidentId, report);
-  };
+    try {
+      const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          descripcion: report.description,
+          requiereTraslado: report.hospitalTransfer,
+          nombreHospital: report.hospitalName,
+          fecha: report.reportDate,
+          hora: report.reportTime
+        })
+      });
 
-  const handleDelete = () => {
-    if (window.confirm('¿Está seguro que desea eliminar este reporte?')) {
-      onDelete?.(accidentId);
+      if (!response.ok) throw new Error('Error al actualizar');
+
+      setIsEditing(false);
+      swal('Éxito', 'Reporte actualizado correctamente', 'success');
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+      swal('Error', 'No se pudo actualizar el reporte', 'error');
     }
   };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          descripcion: report.description,
+          requiereTraslado: report.hospitalTransfer,
+          nombreHospital: report.hospitalName,
+          fecha: report.reportDate,
+          hora: report.reportTime
+        })
+      });
+
+      if (!response.ok) throw new Error('Error al crear el reporte');
+
+      setReport(prev => ({ ...prev, isSubmitted: true }));
+      swal('Éxito', 'Reporte creado correctamente', 'success');
+    } catch (error) {
+      console.error('Error al crear:', error);
+      swal('Error', 'No se pudo crear el reporte', 'error');
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm('¿Está seguro que desea eliminar este reporte?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) throw new Error('Error al eliminar');
+
+      setReport({
+        description: '',
+        hospitalTransfer: false,
+        hospitalName: '',
+        reportDate: '',
+        reportTime: '',
+        isSubmitted: false,
+      });
+      
+      swal('Éxito', 'Reporte eliminado correctamente', 'success');
+    } catch (error) {
+      console.error('Error al eliminar:', error);
+      swal('Error', 'No se pudo eliminar el reporte', 'error');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-xl text-red-600">Cargando reporte...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">

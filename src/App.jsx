@@ -12,8 +12,9 @@ import Alta from './components/Administrador/Alta';
 import Modificacion from './components/Administrador/Modificacion';
 import LogIn from './components/LogIn';
 import Reporte from './components/Administrador/Reporte';
-import VistaReporte from './components/Administrador/VistaReporte';
+import AccidentReport from './components/Administrador/AccidentReport';
 import PanelUsuario from './components/Administrador/PanelUsuario';
+
 
 const AppContent = () => {
     const location = useLocation();
@@ -51,12 +52,12 @@ const AppContent = () => {
                     <Route path="/modificacion-paramedico/:id" element={<Modificacion tipo="paramedico" />} />
                     <Route path="/modificacion-hospital/:id" element={<Modificacion tipo="hospital" />} />
                     <Route path="/modificacion-paciente/:id" element={<Modificacion tipo="paciente" />} />
-                    <Route path="/vista-reporte/:id" element={<VistaReporte/>} />
+                    <Route path="/vista-reporte/:id" element={<AccidentReport />} />
                     <Route path="/alta-reporte/:id" element={<Reporte/>} />
                     <Route path="/panelUsuario" element={<PanelUsuario />} />
                 </Routes>
             </div>
-            <Footer className="flex-shrink-0" />
+            {!isAdminRoute && <Footer />}
         </div>
     );
 };

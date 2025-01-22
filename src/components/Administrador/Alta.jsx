@@ -217,7 +217,6 @@ function Alta({ tipo }) {
         }
     };
 
-    //Renderizado de input o dropdown
     const renderField = (label, name, type = 'text', options = null, inputProps = {}) => (
         <div className="mb-4">
             <label className="mb-1 block font-medium text-gray-700">{label}</label>
@@ -358,22 +357,22 @@ function Alta({ tipo }) {
             {renderField('Hora', 'hora', 'time')}
             
             <div className="mb-4">
-            <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
-            <select
-                name="ambulanciaId"
-                value={formData.ambulanciaId}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                required
-            >
-                <option value="">Seleccione una ambulancia</option>
-                {ambulancias.map(ambulancia => (
-                    <option key={ambulancia.id} value={ambulancia.id}>
-                        {ambulancia.patente}
-                    </option>
-                ))}
-            </select>
-        </div>
+                <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
+                <select
+                    name="ambulanciaId"
+                    value={formData.ambulanciaId}
+                    onChange={handleInputChange}
+                    className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    required
+                >
+                    <option value="">Seleccione una ambulancia</option>
+                    {ambulancias.map(ambulancia => (
+                        <option key={ambulancia.id} value={ambulancia.id}>
+                            {ambulancia.patente}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
 
         <div className="mb-4">
