@@ -219,9 +219,7 @@ function Alta({tipo}) {
     return (
         <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
             <form onSubmit={handleSubmit} className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
-                <h2 className="mb-5 text-center text-xl font-bold text-red-600">
-                    Registrar {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
-                </h2>
+                <h2 className="mb-5 text-center text-xl font-bold text-red-600">Registrar {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
 
                 {tipo === 'ambulancia' && (
                     <>
@@ -247,7 +245,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione una opción</option>
+                                <option value="" disabled>
+                                    Seleccione una opción
+                                </option>
                                 <option value="true">Completo</option>
                                 <option value="false">Incompleto</option>
                             </select>
@@ -262,7 +262,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione una opción</option>
+                                <option value="" disabled>
+                                    Seleccione una opción
+                                </option>
                                 <option value="true">Vigente</option>
                                 <option value="false">No vigente</option>
                             </select>
@@ -277,7 +279,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione estado Seguro</option>
+                                <option value="" disabled>
+                                    Seleccione estado Seguro
+                                </option>
                                 <option value="true">Vigente</option>
                                 <option value="false">No vigente</option>
                             </select>
@@ -292,7 +296,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione una opción</option>
+                                <option value="" disabled>
+                                    Seleccione una opción
+                                </option>
                                 <option value="true">Si</option>
                                 <option value="false">No</option>
                             </select>
@@ -307,7 +313,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione un chofer</option>
+                                <option value="" disabled>
+                                    Seleccione un chofer
+                                </option>
                                 {choferes.map((chofer) => (
                                     <option key={chofer.id} value={chofer.id}>
                                         {chofer.nombreCompleto}
@@ -325,7 +333,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value=""disabled>Seleccione un paramédico</option>
+                                <option value="" disabled>
+                                    Seleccione un paramédico
+                                </option>
                                 {paramedicos.map((paramedico) => (
                                     <option key={paramedico.id} value={paramedico.id}>
                                         {paramedico.nombreCompleto}
@@ -344,7 +354,7 @@ function Alta({tipo}) {
                                 type="text"
                                 name="nombreCompleto"
                                 value={formData.nombreCompleto}
-                                placeholder='Ingrese el nombre completo'
+                                placeholder="Ingrese el nombre completo"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
@@ -357,8 +367,11 @@ function Alta({tipo}) {
                                 type="text"
                                 name="dni"
                                 value={formData.dni}
-                                placeholder='Ingrese el DNI'
+                                placeholder="Ingrese el DNI"
                                 onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
@@ -374,7 +387,7 @@ function Alta({tipo}) {
                                 type="text"
                                 name="nombreCompleto"
                                 value={formData.nombreCompleto}
-                                placeholder='Ingrese el nombre completo'
+                                placeholder="Ingrese el nombre completo"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
@@ -387,8 +400,11 @@ function Alta({tipo}) {
                                 type="text"
                                 name="dni"
                                 value={formData.dni}
-                                placeholder='Ingrese el DNI'
+                                placeholder="Ingrese el DNI"
                                 onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
@@ -400,7 +416,7 @@ function Alta({tipo}) {
                                 type="text"
                                 name="email"
                                 value={formData.email}
-                                placeholder='Ingrese el Email'
+                                placeholder="Ingrese el Email"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
@@ -417,7 +433,7 @@ function Alta({tipo}) {
                                 type="text"
                                 name="nombre"
                                 value={formData.nombre}
-                                placeholder='Ingrese el Nombre'
+                                placeholder="Ingrese el Nombre"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
@@ -430,7 +446,7 @@ function Alta({tipo}) {
                                 type="text"
                                 name="direccion"
                                 value={formData.direccion}
-                                placeholder='Ingrese la dirección'
+                                placeholder="Ingrese la dirección"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
@@ -447,12 +463,12 @@ function Alta({tipo}) {
                                 type="text"
                                 name="direccion"
                                 value={formData.direccion}
-                                placeholder='Ingrese la dirección'
+                                placeholder="Ingrese la dirección"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
-                        </div>  
+                        </div>
 
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Descripción</label>
@@ -460,13 +476,13 @@ function Alta({tipo}) {
                                 type="text"
                                 name="descripcion"
                                 value={formData.descripcion}
-                                placeholder='Ingrese la dirección'
+                                placeholder="Ingrese la dirección"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
-                        </div>                       
-                        
+                        </div>
+
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Fecha</label>
                             <input
@@ -498,7 +514,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled selected>Seleccione una ambulancia</option>
+                                <option value="" disabled selected>
+                                    Seleccione una ambulancia
+                                </option>
                                 {ambulancias.map((ambulancia) => (
                                     <option key={ambulancia.id} value={ambulancia.id}>
                                         {ambulancia.patente}
@@ -516,7 +534,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled selected >Seleccione un hospital</option>
+                                <option value="" disabled selected>
+                                    Seleccione un hospital
+                                </option>
                                 {hospitales.map((hospital) => (
                                     <option key={hospital.id} value={hospital.id}>
                                         {hospital.nombre}
@@ -534,7 +554,9 @@ function Alta({tipo}) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled selected>Seleccione un paciente</option>
+                                <option value="" disabled selected>
+                                    Seleccione un paciente
+                                </option>
                                 {pacientes.map((paciente) => (
                                     <option key={paciente.id} value={paciente.id}>
                                         {paciente.nombreCompleto}

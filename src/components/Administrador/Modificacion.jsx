@@ -35,27 +35,27 @@ function Modificacion({tipo}) {
     });
 
     useEffect(() => {
-    const fetchData = async () => {
-        if (id) {
-            try {
-                const endpoint = getEndpoint(tipo);
-                const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`);
-                if (!response.ok) throw new Error('Error al obtener los datos');
-                const data = await response.json();
-                setFormData(data);
-            } catch (error) {
-                console.error('Error:', error);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'No se pudieron cargar los datos',
-                    icon: 'error',
-                });
+        const fetchData = async () => {
+            if (id) {
+                try {
+                    const endpoint = getEndpoint(tipo);
+                    const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`);
+                    if (!response.ok) throw new Error('Error al obtener los datos');
+                    const data = await response.json();
+                    setFormData(data);
+                } catch (error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudieron cargar los datos',
+                        icon: 'error',
+                    });
+                }
             }
-        }
-    };
+        };
 
-    fetchData();
-}, [id, tipo]);
+        fetchData();
+    }, [id, tipo]);
     useEffect(() => {
         if (id && itemData) {
             setFormData(itemData);
@@ -186,7 +186,7 @@ function Modificacion({tipo}) {
                 choferId: formData.choferId ? parseInt(formData.choferId) : undefined,
                 paramedicoId: formData.paramedicoId ? parseInt(formData.paramedicoId) : undefined,
             };
-    
+
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
                 headers: {
@@ -194,12 +194,12 @@ function Modificacion({tipo}) {
                 },
                 body: JSON.stringify(dataToSend),
             });
-    
+
             if (!response.ok) {
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.message || 'Error al actualizar los datos');
             }
-    
+
             await Swal.fire({
                 title: 'Éxito',
                 text: 'Datos actualizados correctamente',
@@ -232,12 +232,12 @@ function Modificacion({tipo}) {
                     {tipo === 'ambulancia'
                         ? 'ambulancia'
                         : tipo === 'chofer'
-                            ? 'chofer'
-                            : tipo === 'paramedico'
+                          ? 'chofer'
+                          : tipo === 'paramedico'
                             ? 'paramédico'
                             : tipo === 'accidente'
-                        ? 'accidente'       
-                                : tipo === 'paciente'
+                              ? 'accidente'
+                              : tipo === 'paciente'
                                 ? 'paciente'
                                 : 'hospital'}
                 </h2>
@@ -386,7 +386,11 @@ function Modificacion({tipo}) {
                                 type="text"
                                 name="dni"
                                 value={formData.dni}
+                                placeholder="Ingrese el DNI"
                                 onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
@@ -438,7 +442,7 @@ function Modificacion({tipo}) {
                                 type="date"
                                 name="fecha"
                                 value={formData.fecha}
-                                placeholder='Ingrese la fecha'
+                                placeholder="Ingrese la fecha"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                             />
@@ -448,7 +452,7 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Hora</label>
                             <input
                                 type="time"
-                                name='hora'
+                                name="hora"
                                 placeholder="Ingrese la hora"
                                 value={formData.hora}
                                 onChange={handleInputChange}
@@ -535,7 +539,11 @@ function Modificacion({tipo}) {
                                 type="text"
                                 name="dni"
                                 value={formData.dni}
+                                placeholder="Ingrese el DNI"
                                 onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
@@ -553,8 +561,38 @@ function Modificacion({tipo}) {
                             placeholder="Nombre Completo"
                             className="mb-4 w-full rounded border p-2"
                         />
-                        <input type="text" name="dni" value={formData.dni} onChange={handleInputChange} placeholder="DNI" className="mb-4 w-full rounded border p-2" />
-                        <input type="tel" name="telefono" value={formData.telefono} onChange={handleInputChange} placeholder="Teléfono" className="mb-4 w-full rounded border p-2" />
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <input
+                                type="text"
+                                name="dni"
+                                value={formData.dni}
+                                placeholder="Ingrese el DNI"
+                                onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Telefono</label>
+                            <input
+                                type="text"
+                                name="telefono"
+                                value={formData.dni}
+                                placeholder="Ingrese el DNI"
+                                onChange={handleInputChange}
+                                onInput={(e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                }}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
                     </>
                 )}
 
