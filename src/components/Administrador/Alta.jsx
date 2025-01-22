@@ -68,44 +68,9 @@ function Alta({ tipo }) {
         if (tipo === 'accidente') {
             fetchAmbulancias();
             fetchHospitales();
+            fetchPacientes();
         }
     }, [tipo]);
-
-    const fetchChoferes = async () => {
-        try {
-            const response = await fetch('https://ambulanciaya.onrender.com/choferes');
-            if (!response.ok) {
-                throw new Error('Error fetching drivers');
-            }
-            const data = await response.json();
-            setChoferes(data);
-        } catch (error) {
-            console.error('Error fetching drivers:', error);
-            Swal.fire({
-                title: 'Error',
-                text: 'No se pudieron cargar los choferes',
-                icon: 'error'
-            });
-        }
-    };
-
-    const fetchParamedicos = async () => {
-        try {
-            const response = await fetch('https://ambulanciaya.onrender.com/paramedicos');
-            if (!response.ok) {
-                throw new Error('Error fetching paramedics');
-            }
-            const data = await response.json();
-            setParamedicos(data);
-        } catch (error) {
-            console.error('Error fetching paramedics:', error);
-            Swal.fire({
-                title: 'Error',
-                text: 'No se pudieron cargar los paramédicos',
-                icon: 'error'
-            });
-        }
-    };
 
     const handleInputChange = (e) => {
         const { name, value, type } = e.target;
@@ -123,7 +88,7 @@ function Alta({ tipo }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos que estoy mandando:', JSON.stringify(formData, null, 2));
+        console.log('Datos que estoy mandando:', JSON.stringify(formData, null, 2)); //DESPUES SE SACA
 
         try {
             const response = await fetch(`https://ambulanciaya.onrender.com${API_ENDPOINTS[tipo]}`, {
@@ -165,20 +130,43 @@ function Alta({ tipo }) {
             });
         }
     };
-    //Ambulancia
 
-    // Add this to your existing useEffect
-    useEffect(() => {
-        if (tipo === 'ambulancia') {
-            fetchChoferes();
-            fetchParamedicos();
+    //Fetchs
+    const fetchChoferes = async () => {
+        try {
+            const response = await fetch('https://ambulanciaya.onrender.com/choferes');
+            if (!response.ok) {
+                throw new Error('Error fetching drivers');
+            }
+            const data = await response.json();
+            setChoferes(data);
+        } catch (error) {
+            console.error('Error fetching drivers:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudieron cargar los choferes',
+                icon: 'error'
+            });
         }
-        if (tipo === 'accidente') {
-            fetchAmbulancias();
-        }
-    }, [tipo]);
+    };
 
-    // Add this new fetch function
+    const fetchParamedicos = async () => {
+        try {
+            const response = await fetch('https://ambulanciaya.onrender.com/paramedicos');
+            if (!response.ok) {
+                throw new Error('Error fetching paramedics');
+            }
+            const data = await response.json();
+            setParamedicos(data);
+        } catch (error) {
+            console.error('Error fetching paramedics:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudieron cargar los paramédicos',
+                icon: 'error'
+            });
+        }
+    };
     const fetchAmbulancias = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/ambulancias');
@@ -197,7 +185,6 @@ function Alta({ tipo }) {
         }
     };
 
-    //Hospital
     const fetchHospitales = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/hospitales');
@@ -213,6 +200,24 @@ function Alta({ tipo }) {
             });
         }
     };
+
+    const fetchPacientes = async () => {
+        try {
+            const response = await fetch('https://ambulanciaya.onrender.com/pacientes');
+            if (!response.ok) throw new Error('Error fetching patients');
+            const data = await response.json();
+            setPacientes(data);
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudieron cargar los pacientes',
+                icon: 'error'
+            });
+        }
+    };
+
+    //Renderizado de input o dropdown
     const renderField = (label, name, type = 'text', options = null, inputProps = {}) => (
         <div className="mb-4">
             <label className="mb-1 block font-medium text-gray-700">{label}</label>
@@ -259,7 +264,7 @@ function Alta({ tipo }) {
                             {value: 'false', label: 'Incompleto'}
                         ])}
 
-                        {renderField('VTV', 'vtv', 'select', [
+                        {renderField('VTV', 'vtv', 'select', [ 
                             {value: 'true', label: 'Al día'},
                             {value: 'false', label: 'Vencida'}
                         ])}
@@ -310,6 +315,8 @@ function Alta({ tipo }) {
                                 ))}
                             </select>
                         </div>
+
+                        
                     </>
                 )}
 
@@ -367,6 +374,7 @@ function Alta({ tipo }) {
                                 ))}
                             </select>
                         </div>
+
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Hospital</label>
                             <select
@@ -378,8 +386,26 @@ function Alta({ tipo }) {
                             >
                                 <option value="">Seleccione un hospital</option>
                                 {hospitales.map(hospital => (
-                                    <option key={hospital._id} value={hospital._id}>
+                                    <option key={hospital.id} value={hospital.id}>
                                         {hospital.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Paciente</label>
+                            <select
+                                name="pacienteId"
+                                value={formData.pacienteId}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="">Seleccione un paciente</option>
+                                {pacientes.map(paciente => (
+                                    <option key={paciente.id} value={paciente.id}>
+                                        {paciente.nombreCompleto}
                                     </option>
                                 ))}
                             </select>
