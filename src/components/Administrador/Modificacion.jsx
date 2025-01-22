@@ -18,8 +18,8 @@ function Modificacion({tipo}) {
         vtv: '',
         seguro: '',
         inventario: '',
-        paramedico: '',
-        chofer: '',
+        paramedicoId: '',
+        choferId: '',
         enBase: '',
         nombreCompleto: '',
         dni: '',
@@ -27,11 +27,35 @@ function Modificacion({tipo}) {
         descripcion: '',
         fecha: '',
         hora: '',
-        reporte: '',
+        ambulanciaId: '',
+        hospitalId: '',
+        pacienteId: '',
         telefono: '',
         nombre: '',
     });
 
+    useEffect(() => {
+    const fetchData = async () => {
+        if (id) {
+            try {
+                const endpoint = getEndpoint(tipo);
+                const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`);
+                if (!response.ok) throw new Error('Error al obtener los datos');
+                const data = await response.json();
+                setFormData(data);
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudieron cargar los datos',
+                    icon: 'error',
+                });
+            }
+        }
+    };
+
+    fetchData();
+}, [id, tipo]);
     useEffect(() => {
         if (id && itemData) {
             setFormData(itemData);
@@ -153,25 +177,34 @@ function Modificacion({tipo}) {
         e.preventDefault();
         try {
             const endpoint = getEndpoint(tipo);
+            const dataToSend = {
+                ...formData,
+                // Asegúrate de que los IDs sean números
+                ambulanciaId: formData.ambulanciaId ? parseInt(formData.ambulanciaId) : undefined,
+                hospitalId: formData.hospitalId ? parseInt(formData.hospitalId) : undefined,
+                pacienteId: formData.pacienteId ? parseInt(formData.pacienteId) : undefined,
+                choferId: formData.choferId ? parseInt(formData.choferId) : undefined,
+                paramedicoId: formData.paramedicoId ? parseInt(formData.paramedicoId) : undefined,
+            };
+    
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(dataToSend),
             });
-
+    
             if (!response.ok) {
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.message || 'Error al actualizar los datos');
             }
-
+    
             await Swal.fire({
                 title: 'Éxito',
                 text: 'Datos actualizados correctamente',
                 icon: 'success',
             });
-
             navigate(`/tabla/${tipo}`);
         } catch (error) {
             console.error('Error:', error);
@@ -182,6 +215,7 @@ function Modificacion({tipo}) {
             });
         }
     };
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData((prevState) => ({
@@ -277,7 +311,7 @@ function Modificacion({tipo}) {
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">En Base</label>
                             <select
-                                name="base"
+                                name="enBase"
                                 value={formData.base}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -390,7 +424,7 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Descripción</label>
                             <input
                                 type="text"
-                                name="Ingrese la descripcion"
+                                name="descripcion"
                                 value={formData.descripcion}
                                 onChange={handleInputChange}
                                 placeholder="Descripción"
@@ -402,8 +436,9 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Fecha</label>
                             <input
                                 type="date"
-                                name="Ingrese lafecha"
+                                name="fecha"
                                 value={formData.fecha}
+                                placeholder='Ingrese la fecha'
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                             />
@@ -413,7 +448,8 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Hora</label>
                             <input
                                 type="time"
-                                name="Ingrese la hora"
+                                name='hora'
+                                placeholder="Ingrese la hora"
                                 value={formData.hora}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
