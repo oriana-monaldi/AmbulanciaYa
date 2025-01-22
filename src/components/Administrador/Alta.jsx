@@ -34,7 +34,7 @@ const INITIAL_STATES = {
     accidente: {
         direccion: '',
         descripcion: '',
-        fecha: new Date().toISOString().split('T')[0],
+        fecha: new Date().toLocaleDateString('en-CA'),
         hora: new Date().toLocaleTimeString('en-US', { hour12: false }).slice(0,5),
         ambulanciaId: '',
         hospitalId: '',
@@ -350,68 +350,69 @@ function Alta({ tipo }) {
                     </>
                 )}
 
-                {tipo === 'accidente' && (
-                    <>
-                        {renderField('Dirección', 'direccion')}
-                        {renderField('Descripción', 'descripcion')}
-                        {renderField('Fecha', 'fecha', 'date')}
-                        {renderField('Hora', 'hora', 'time')}
-                        
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
-                            <select
-                                name="ambulanciaId"
-                                value={formData.ambulanciaId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            >
-                                <option value="">Seleccione una ambulancia</option>
-                                {ambulancias.map(ambulancia => (
-                                    <option key={ambulancia._id} value={ambulancia._id}>
-                                        {ambulancia.patente}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+    {tipo === 'accidente' && (
+        <>
+            {renderField('Dirección', 'direccion')}
+            {renderField('Descripción', 'descripcion')}
+            {renderField('Fecha', 'fecha', 'date')}
+            {renderField('Hora', 'hora', 'time')}
+            
+            <div className="mb-4">
+            <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
+            <select
+                name="ambulanciaId"
+                value={formData.ambulanciaId}
+                onChange={handleInputChange}
+                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                required
+            >
+                <option value="">Seleccione una ambulancia</option>
+                {ambulancias.map(ambulancia => (
+                    <option key={ambulancia.id} value={ambulancia.id}>
+                        {ambulancia.patente}
+                    </option>
+                ))}
+            </select>
+        </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
-                            <select
-                                name="hospitalId"
-                                value={formData.hospitalId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            >
-                                <option value="">Seleccione un hospital</option>
-                                {hospitales.map(hospital => (
-                                    <option key={hospital.id} value={hospital.id}>
-                                        {hospital.nombre}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Paciente</label>
-                            <select
-                                name="pacienteId"
-                                value={formData.pacienteId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            >
-                                <option value="">Seleccione un paciente</option>
-                                {pacientes.map(paciente => (
-                                    <option key={paciente.id} value={paciente.id}>
-                                        {paciente.nombreCompleto}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </>
-                )}
+        <div className="mb-4">
+            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
+            <select
+                name="hospitalId"
+                value={formData.hospitalId}
+                onChange={handleInputChange}
+                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                required
+            >
+                <option value="">Seleccione un hospital</option>
+                {hospitales.map(hospital => (
+                    <option key={hospital.id} value={hospital.id}>
+                        {hospital.nombre}
+                    </option>
+                ))}
+            </select>
+        </div>
+
+        <div className="mb-4">
+            <label className="mb-1 block font-medium text-gray-700">Paciente</label>
+            <select
+                name="pacienteId"
+                value={formData.pacienteId}
+                onChange={handleInputChange}
+                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                required
+            >
+                <option value="">Seleccione un paciente</option>
+                {pacientes.map(paciente => (
+                    <option key={paciente.id} value={paciente.id}>
+                        {paciente.nombreCompleto}
+                    </option>
+                ))}
+            </select>
+        </div>
+        </>
+    )}
 
                 <div className="mt-6 flex justify-center space-x-4">
                     <button 
