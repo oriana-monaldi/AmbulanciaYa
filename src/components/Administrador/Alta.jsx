@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const API_ENDPOINTS = {
@@ -8,7 +8,7 @@ const API_ENDPOINTS = {
     paramedico: '/paramedicos',
     accidente: '/accidentes',
     hospital: '/hospitales',
-    paciente: '/pacientes'
+    paciente: '/pacientes',
 };
 
 const INITIAL_STATES = {
@@ -19,39 +19,39 @@ const INITIAL_STATES = {
         seguro: false,
         base: false,
         choferId: '',
-        paramedicoId: '' 
+        paramedicoId: '',
     },
     chofer: {
         nombreCompleto: '',
-        dni: ''
+        dni: '',
     },
     paramedico: {
         nombreCompleto: '',
         dni: '',
         email: '',
-        isAdmin: false
+        isAdmin: false,
     },
     accidente: {
         direccion: '',
         descripcion: '',
         fecha: new Date().toLocaleDateString('en-CA'),
-        hora: new Date().toLocaleTimeString('en-US', { hour12: false }).slice(0,5),
+        hora: new Date().toLocaleTimeString('en-US', {hour12: false}).slice(0, 5),
         ambulanciaId: '',
         hospitalId: '',
-        pacienteId: ''
+        pacienteId: '',
     },
     hospital: {
         nombre: '',
-        direccion: ''
+        direccion: '',
     },
     paciente: {
         nombreCompleto: '',
         dni: '',
-        telefono: ''
-    }
+        telefono: '',
+    },
 };
 
-function Alta({ tipo }) {
+function Alta({tipo}) {
     const [formData, setFormData] = useState(INITIAL_STATES[tipo] || {});
     const [choferes, setChoferes] = useState([]);
     const [paramedicos, setParamedicos] = useState([]);
@@ -73,16 +73,16 @@ function Alta({ tipo }) {
     }, [tipo]);
 
     const handleInputChange = (e) => {
-        const { name, value, type } = e.target;
-        
+        const {name, value, type} = e.target;
+
         let finalValue = value;
         if (type === 'select-one' && (value === 'true' || value === 'false')) {
             finalValue = value === 'true';
         }
 
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
             ...prevState,
-            [name]: finalValue
+            [name]: finalValue,
         }));
     };
 
@@ -95,20 +95,20 @@ function Alta({ tipo }) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    Accept: 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
             });
-        
+
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('Error response:', errorText);
                 throw new Error(`HTTP error! status: ${response.status}. Details: ${errorText}`);
             }
 
-            const contentType = response.headers.get("content-type");
+            const contentType = response.headers.get('content-type');
             let data;
-            if (contentType && contentType.includes("application/json")) {
+            if (contentType && contentType.includes('application/json')) {
                 data = await response.json();
                 console.log('Respuesta del servidor:', data);
             }
@@ -117,7 +117,7 @@ function Alta({ tipo }) {
                 title: 'Éxito',
                 text: `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} registrado correctamente`,
                 icon: 'success',
-                timer: 1500
+                timer: 1500,
             });
 
             navigate(`/tabla/${tipo}`);
@@ -126,7 +126,7 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: `No se pudo registrar el ${tipo}. ${error.message}`,
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
@@ -145,7 +145,7 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar los choferes',
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
@@ -163,7 +163,7 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar los paramédicos',
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
@@ -180,7 +180,7 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar las ambulancias',
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
@@ -196,7 +196,7 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar los hospitales',
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
@@ -212,11 +212,11 @@ function Alta({ tipo }) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar los pacientes',
-                icon: 'error'
+                icon: 'error',
             });
         }
     };
-
+        //cambiar esta locura 
     const renderField = (label, name, type = 'text', options = null, inputProps = {}) => (
         <div className="mb-4">
             <label className="mb-1 block font-medium text-gray-700">{label}</label>
@@ -228,9 +228,11 @@ function Alta({ tipo }) {
                     className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                     required
                 >
-                    <option value="">Seleccione una opción</option>
-                    {options.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option value="" disabled selected >Seleccione una opción</option>
+                    {options.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                        </option>
                     ))}
                 </select>
             ) : (
@@ -250,35 +252,43 @@ function Alta({ tipo }) {
     return (
         <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
             <form onSubmit={handleSubmit} className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
-                <h2 className="mb-5 text-center text-xl font-bold text-red-600">
-                    Registrar {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
-                </h2>
+                <h2 className="mb-5 text-center text-xl font-bold text-red-600">Registrar {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
 
                 {tipo === 'ambulancia' && (
                     <>
-                        {renderField('Patente', 'patente')}
-
+                <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Patente</label>
+                            <input
+                                type="text"
+                                name="patente"
+                                value={formData.patente}
+                                onChange={handleInputChange}
+                                placeholder="Patente"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
                         {renderField('Inventario', 'inventario', 'select', [
                             {value: 'true', label: 'Completo'},
-                            {value: 'false', label: 'Incompleto'}
+                            {value: 'false', label: 'Incompleto'},
                         ])}
 
-                        {renderField('VTV', 'vtv', 'select', [ 
+                        {renderField('VTV', 'vtv', 'select', [
                             {value: 'true', label: 'Al día'},
-                            {value: 'false', label: 'Vencida'}
+                            {value: 'false', label: 'Vencida'},
                         ])}
 
                         {renderField('Seguro', 'seguro', 'select', [
                             {value: 'true', label: 'Al día'},
-                            {value: 'false', label: 'Vencido'}
+                            {value: 'false', label: 'Vencido'},
                         ])}
 
                         {renderField('En Base', 'base', 'select', [
                             {value: 'true', label: 'Si'},
-                            {value: 'false', label: 'No'}
+                            {value: 'false', label: 'No'},
                         ])}
-                        
-            {/* ARREGLAR ESTO*/}
+
+                        {/* ARREGLAR ESTO*/}
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Chofer</label>
                             <select
@@ -288,8 +298,8 @@ function Alta({ tipo }) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="">Seleccione un chofer</option>
-                                {choferes.map(chofer => (
+                                <option value=""disabled selected>Seleccione un chofer</option>
+                                {choferes.map((chofer) => (
                                     <option key={chofer.id} value={chofer.id}>
                                         {chofer.nombreCompleto}
                                     </option>
@@ -306,20 +316,18 @@ function Alta({ tipo }) {
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="">Seleccione un paramédico</option>
-                                {paramedicos.map(paramedico => (
+                                <option value="" disabled selected>Seleccione un paramédico</option>
+                                {paramedicos.map((paramedico) => (
                                     <option key={paramedico.id} value={paramedico.id}>
                                         {paramedico.nombreCompleto}
                                     </option>
                                 ))}
                             </select>
                         </div>
-
-                        
                     </>
                 )}
 
-                {(tipo === 'chofer') && (
+                {tipo === 'chofer' && (
                     <>
                         {renderField('Nombre Completo', 'nombreCompleto')}
                         {renderField('DNI', 'dni')}
@@ -349,82 +357,75 @@ function Alta({ tipo }) {
                     </>
                 )}
 
-    {tipo === 'accidente' && (
-        <>
-            {renderField('Dirección', 'direccion')}
-            {renderField('Descripción', 'descripcion')}
-            {renderField('Fecha', 'fecha', 'date')}
-            {renderField('Hora', 'hora', 'time')}
-            
-            <div className="mb-4">
-                <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
-                <select
-                    name="ambulanciaId"
-                    value={formData.ambulanciaId}
-                    onChange={handleInputChange}
-                    className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    required
-                >
-                    <option value="">Seleccione una ambulancia</option>
-                    {ambulancias.map(ambulancia => (
-                        <option key={ambulancia.id} value={ambulancia.id}>
-                            {ambulancia.patente}
-                        </option>
-                    ))}
-                </select>
-            </div>
+                {tipo === 'accidente' && (
+                    <>
+                        {renderField('Dirección', 'direccion')}
+                        {renderField('Descripción', 'descripcion')}
+                        {renderField('Fecha', 'fecha', 'date')}
+                        {renderField('Hora', 'hora', 'time')}
 
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
+                            <select
+                                name="ambulanciaId"
+                                value={formData.ambulanciaId}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled selected>Seleccione una ambulancia</option>
+                                {ambulancias.map((ambulancia) => (
+                                    <option key={ambulancia.id} value={ambulancia.id}>
+                                        {ambulancia.patente}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-        <div className="mb-4">
-            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
-            <select
-                name="hospitalId"
-                value={formData.hospitalId}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                required
-            >
-                <option value="">Seleccione un hospital</option>
-                {hospitales.map(hospital => (
-                    <option key={hospital.id} value={hospital.id}>
-                        {hospital.nombre}
-                    </option>
-                ))}
-            </select>
-        </div>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
+                            <select
+                                name="hospitalId"
+                                value={formData.hospitalId}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled selected >Seleccione un hospital</option>
+                                {hospitales.map((hospital) => (
+                                    <option key={hospital.id} value={hospital.id}>
+                                        {hospital.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-        <div className="mb-4">
-            <label className="mb-1 block font-medium text-gray-700">Paciente</label>
-            <select
-                name="pacienteId"
-                value={formData.pacienteId}
-                onChange={handleInputChange}
-                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                required
-            >
-                <option value="">Seleccione un paciente</option>
-                {pacientes.map(paciente => (
-                    <option key={paciente.id} value={paciente.id}>
-                        {paciente.nombreCompleto}
-                    </option>
-                ))}
-            </select>
-        </div>
-        </>
-    )}
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Paciente</label>
+                            <select
+                                name="pacienteId"
+                                value={formData.pacienteId}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled selected>Seleccione un paciente</option>
+                                {pacientes.map((paciente) => (
+                                    <option key={paciente.id} value={paciente.id}>
+                                        {paciente.nombreCompleto}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </>
+                )}
 
                 <div className="mt-6 flex justify-center space-x-4">
-                    <button 
-                        type="submit"
-                        className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-                    >
+                    <button type="submit" className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700">
                         Guardar
                     </button>
                     <Link to={`/tabla/${tipo}`}>
-                        <button 
-                            type="button"
-                            className="rounded border border-red-600 px-4 py-2 text-red-600 hover:bg-red-50"
-                        >
+                        <button type="button" className="rounded border border-red-600 px-4 py-2 text-red-600 hover:bg-red-50">
                             Cancelar
                         </button>
                     </Link>
