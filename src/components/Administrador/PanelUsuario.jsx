@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const AdminPanel = () => {
   const [passwordForm, setPasswordForm] = useState({
@@ -12,6 +13,12 @@ const AdminPanel = () => {
     newEmail: "",
     confirmPassword: "",
   })
+
+  // Password visibility states
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showEmailConfirmPassword, setShowEmailConfirmPassword] = useState(false);
 
   const handlePasswordChange = (e) => {
     e.preventDefault()
@@ -27,37 +34,67 @@ const AdminPanel = () => {
         <h1 className="text-3xl font-bold text-red-600 mb-8 text-center">Configuracion de usuario</h1>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Formulario de Contraseña */}
+          {/* Password Form */}
           <div className="bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
             <h2 className="text-2xl font-semibold mb-6 text-red-600 border-b pb-2">Cambiar Contraseña</h2>
             <form onSubmit={handlePasswordChange} className="space-y-6">
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">Contraseña Actual</label>
-                <input
-                  type="password"
-                  value={passwordForm.currentPassword}
-                  onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
-                  className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
-                />
+                <div className="relative">
+                  <input
+                    type={showCurrentPassword ? 'text' : 'password'}
+                    value={passwordForm.currentPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+                    className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showCurrentPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
+
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">Nueva Contraseña</label>
-                <input
-                  type="password"
-                  value={passwordForm.newPassword}
-                  onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
-                  className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
-                />
+                <div className="relative">
+                  <input
+                    type={showNewPassword ? 'text' : 'password'}
+                    value={passwordForm.newPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                    className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showNewPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
+
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">Confirmar Nueva Contraseña</label>
-                <input
-                  type="password"
-                  value={passwordForm.confirmPassword}
-                  onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
-                  className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={passwordForm.confirmPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                    className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showConfirmPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
+
               <button
                 type="submit"
                 className="w-full bg-red-600 text-white py-3 px-4 rounded-md hover:bg-red-700 transition-colors duration-300 font-semibold text-lg"
@@ -67,7 +104,7 @@ const AdminPanel = () => {
             </form>
           </div>
 
-          {/* Formulario de Email */}
+          {/* Email Form */}
           <div className="bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
             <h2 className="text-2xl font-semibold mb-6 text-red-600 border-b pb-2">Modificar Correo Electrónico</h2>
             <form onSubmit={handleEmailChange} className="space-y-6">
@@ -80,6 +117,7 @@ const AdminPanel = () => {
                   className="w-full p-3 border border-red-200 rounded-md bg-gray-100 text-gray-600"
                 />
               </div>
+
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">Nuevo Correo Electrónico</label>
                 <input
@@ -90,15 +128,26 @@ const AdminPanel = () => {
                   placeholder="nuevo@email.com"
                 />
               </div>
+
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">Confirmar contraseña</label>
-                <input
-                  type="password"
-                  value={emailForm.confirmPassword}
-                  onChange={(e) => setEmailForm({ ...emailForm, confirmPassword: e.target.value })}
-                  className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
-                />
+                <div className="relative">
+                  <input
+                    type={showEmailConfirmPassword ? 'text' : 'password'}
+                    value={emailForm.confirmPassword}
+                    onChange={(e) => setEmailForm({ ...emailForm, confirmPassword: e.target.value })}
+                    className="w-full p-3 border border-red-200 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowEmailConfirmPassword(!showEmailConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showEmailConfirmPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
+
               <button
                 type="submit"
                 className="w-full bg-red-600 text-white py-3 px-4 rounded-md hover:bg-red-700 transition-colors duration-300 font-semibold text-lg"
@@ -114,4 +163,3 @@ const AdminPanel = () => {
 }
 
 export default AdminPanel
-

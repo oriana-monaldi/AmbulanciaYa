@@ -566,6 +566,7 @@ function Alta({tipo}) {
                         </div>
                     </>
                 )}
+                    
 
                 <div className="mt-6 flex justify-center space-x-4">
                     <button type="submit" className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700">

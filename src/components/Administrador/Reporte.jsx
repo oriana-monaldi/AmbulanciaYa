@@ -1,95 +1,367 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Boton from '../Boton';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock } from 'lucide-react';
+import swal from 'sweetalert';
 
+const AccidentReport = () => {
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [hospitals, setHospitals] = useState([]);
 
-function Reporte() {
-    const [requiereTraslado, setRequiereTraslado] = useState(false);
-    const [hospitalSeleccionado, setHospitalSeleccionado] = useState('');
-    const [hospitales, setHospitales] = useState([]);
+  const API_URL = 'https://ambulanciaya.onrender.com';
+  
+  const [report, setReport] = useState({
+    description: '',
+    hospitalTransfer: false,
+    hospitalName: '',
+    reportDate: '',
+    reportTime: '',
+    isSubmitted: false,
+  });
 
-    useEffect(() => {
-        fetch('https://ambulanciaya.onrender.com/hospitales')
-            .then(response => response.json())
-            .then(data => setHospitales(data))
-            .catch(error => console.error('Error:', error));
-    }, []);
+  useEffect(() => {
+    const fetchHospitals = async () => {
+      try {
+        const response = await fetch(`${API_URL}/hospitales`);
+        const data = await response.json();
+        setHospitals(data);
+      } catch (error) {
+        console.error('Error fetching hospitals:', error);
+        swal('Error', 'No se pudieron cargar los hospitales', 'error');
+      }
+    };
+  
+    fetchHospitals();
+  }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+  
+    const cargarReporte = async () => {
+      if (!id) {
+        setIsLoading(false);
+        return;
+      }
 
-    return (
-        <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
-            <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
-                <h2 className="mb-5 text-center text-xl font-bold text-red-600">
-                    Reporte de Accidente
-                </h2>
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Reporte</label>
-                    <textarea
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
-                        placeholder="Ingrese el reporte"
-                        rows={6}
-                    />
-                </div>
+      try {
+        const response = await fetch(`${API_URL}/reportes/accidente/${id}`);
+        
+        if (!isMounted) return;
 
-                <div className="mb-4">
-                    <span className="font-medium text-gray-700">
-                        El paciente fue trasladado
-                    </span>
-                    <div className="ml-4 inline-flex items-center">
-                        <label className="relative inline-flex cursor-pointer items-center">
-                            <input
-                                type="checkbox"
-                                className="peer sr-only"
-                                checked={requiereTraslado}
-                                onChange={(e) => setRequiereTraslado(e.target.checked)}
-                            />
-                            <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-red-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300"></div>
-                        </label>
-                    </div>
-                </div>
+        if (response.status === 404) {
+          setReport({
+            description: '',
+            hospitalTransfer: false,
+            hospitalName: '',
+            reportDate: '',
+            reportTime: '',
+            isSubmitted: false,
+          });
+          setIsLoading(false);
+          return;
+        }
 
-                {requiereTraslado && (
-                    <div className="mb-4">
-                        <label className="mb-1 block font-medium text-gray-700">
-                            Hospital de traslado
-                        </label>
-                        <select
-                            value={hospitalSeleccionado}
-                            onChange={(e) => setHospitalSeleccionado(e.target.value)}
-                            className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                        >
-                            <option value="">Seleccione un hospital</option>
-                            {hospitales.map((hospital) => (
-                                <option key={hospital._id} value={hospital._id}>
-                                    {hospital.nombre}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                )}
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!isMounted) return;
 
-                <div className="mt-6 flex justify-center space-x-4">
-                    <Boton
-                        nombre="Guardar Cambios"
-                        colorClass="bg-red-600"
-                        textColorClass="text-white"
-                        size="w-auto"
-                        className="px-4 py-2 h-auto"
-                    />
-                    <Link to="/tabla/accidente">
-                        <Boton
-                            nombre="Cancelar"
-                            colorClass="bg-white"
-                            textColorClass="text-red-600"
-                            size="w-auto"
-                            className="px-4 py-2 h-auto border border-red-600 hover:bg-red-50"
-                        />
-                    </Link>
-                </div>
-            </div>
+        if (data) {
+          setReport({
+            description: data.descripcion || '',
+            hospitalTransfer: data.requiereTraslado || false,
+            hospitalName: data.nombreHospital || '',
+            reportDate: data.fecha || '',
+            reportTime: data.hora || '',
+            isSubmitted: true
+          });
+        }
+      } catch (error) {
+        if (!isMounted) return;
+        console.error('Error al cargar el reporte:', error);
+        swal({
+          title: 'Error',
+          text: 'No se pudo cargar el reporte del accidente',
+          icon: 'error'
+        });
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+  
+    setIsLoading(true);
+    cargarReporte();
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
+
+  const handleSubmit = async () => {
+    if (!report.description || !report.reportDate || !report.reportTime) {
+      swal('Error', 'Por favor complete todos los campos requeridos', 'error');
+      return;
+    }
+
+    if (report.hospitalTransfer && !report.hospitalName) {
+      swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
+      return;
+    }
+
+    try {
+      const submitPayload = {
+        accidenteId: id, // Cambiado de idAccidente a accidenteId
+        descripcion: report.description,
+        requiereTraslado: report.hospitalTransfer,
+        nombreHospital: report.hospitalTransfer ? report.hospitalName : '',
+        fecha: report.reportDate,
+        hora: report.reportTime
+      };
+
+      const response = await fetch(`${API_URL}/reportes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitPayload)
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al crear el reporte');
+      }
+  
+      const data = await response.json();
+      
+      setReport(prev => ({ 
+        ...prev, 
+        isSubmitted: true 
+      }));
+      
+      swal('Éxito', 'Reporte creado correctamente', 'success');
+    } catch (error) {
+      console.error('Error al crear:', error);
+      swal('Error', error.message || 'No se pudo crear el reporte', 'error');
+    }
+  };
+
+  const handleEdit = async () => {
+    if (!isEditing) {
+      setIsEditing(true);
+      return;
+    }
+
+    if (!report.description || !report.reportDate || !report.reportTime) {
+      swal('Error', 'Por favor complete todos los campos requeridos', 'error');
+      return;
+    }
+
+    if (report.hospitalTransfer && !report.hospitalName) {
+      swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
+      return;
+    }
+  
+    try {
+      const updatePayload = {
+        descripcion: report.description,
+        requiereTraslado: report.hospitalTransfer,
+        nombreHospital: report.hospitalTransfer ? report.hospitalName : '',
+        fecha: report.reportDate,
+        hora: report.reportTime,
+        accidenteId: id // Agregado el ID del accidente
+      };
+  
+      const response = await fetch(`${API_URL}/reportes/actualizar/${id}`, { // Modificada la URL
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatePayload)
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error al actualizar');
+      }
+  
+      setIsEditing(false);
+      swal('Éxito', 'Reporte actualizado correctamente', 'success');
+    } catch (error) {
+      console.error('Update error:', error);
+      swal('Error', `No se pudo actualizar el reporte: ${error.message}`, 'error');
+    }
+  };
+
+  const handleDelete = async () => {
+    swal({
+      title: "¿Está seguro?",
+      text: "Una vez eliminado, no podrá recuperar este reporte",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const response = await fetch(`${API_URL}/reportes/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('Error al eliminar el reporte');
+          }
+
+          setReport({
+            description: '',
+            hospitalTransfer: false,
+            hospitalName: '',
+            reportDate: '',
+            reportTime: '',
+            isSubmitted: false,
+          });
+          
+          swal('Éxito', 'Reporte eliminado correctamente', 'success');
+        } catch (error) {
+          console.error('Error al eliminar:', error);
+          swal('Error', 'No se pudo eliminar el reporte', 'error');
+        }
+      }
+    });
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+      <div className="flex justify-between items-start mb-6">
+        <h2 className="text-2xl font-bold text-red-600">Reporte de Accidente</h2>
+        <div className="flex gap-2">
+          {report.isSubmitted ? (
+            <>
+              <button
+                onClick={handleEdit}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+              >
+                <FileEdit size={20} />
+                {isEditing ? 'Guardar' : 'Editar'}
+              </button>
+              <button
+                onClick={handleDelete}
+                className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+              >
+                <Trash2 size={20} />
+                Eliminar
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+            >
+              <Upload size={20} />
+              Cargar Reporte
+            </button>
+          )}
         </div>
-    );
-}
+      </div>
 
-export default Reporte;
+      <div className="space-y-6">
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <h3 className="font-semibold text-lg mb-2">Descripción del Incidente</h3>
+          {isEditing || !report.isSubmitted ? (
+            <textarea
+              value={report.description}
+              onChange={(e) => setReport({ ...report, description: e.target.value })}
+              className="w-full h-32 p-2 border rounded focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              placeholder="Ingrese la descripción detallada del accidente..."
+            />
+          ) : (
+            <p className="text-gray-700 whitespace-pre-wrap">
+              {report.description || 'No hay descripción disponible'}
+            </p>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-semibold text-lg mb-4">Información de Traslado</h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={report.hospitalTransfer}
+                  onChange={(e) => setReport({ ...report, hospitalTransfer: e.target.checked })}
+                  disabled={!isEditing && report.isSubmitted}
+                  className="w-4 h-4 text-red-600"
+                />
+                <span>Requirió traslado a hospital</span>
+              </div>
+              {report.hospitalTransfer && (
+                <div className="flex items-center gap-2">
+                  <Hospital size={20} className="text-red-600" />
+                  {isEditing || !report.isSubmitted ? (
+                    <select
+                      value={report.hospitalName}
+                      onChange={(e) => setReport({ ...report, hospitalName: e.target.value })}
+                      className="w-full border rounded p-2"
+                    >
+                      <option value="">Seleccione un hospital</option>
+                      {hospitals.map((hospital) => (
+                        <option key={hospital._id || hospital.nombre} value={hospital.nombre}>
+                          {hospital.nombre}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <span>{report.hospitalName || 'No especificado'}</span>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-semibold text-lg mb-4">Fecha y Hora del Reporte</h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Calendar size={20} className="text-red-600" />
+                {isEditing || !report.isSubmitted ? (
+                  <input
+                    type="date"
+                    value={report.reportDate}
+                    onChange={(e) => setReport({ ...report, reportDate: e.target.value })}
+                    className="border rounded p-2"
+                  />
+                ) : (
+                  <span>{report.reportDate || 'No especificado'}</span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock size={20} className="text-red-600" />
+                {isEditing || !report.isSubmitted ? (
+                  <input
+                    type="time"
+                    value={report.reportTime}
+                    onChange={(e) => setReport({ ...report, reportTime: e.target.value })}
+                    className="border rounded p-2"
+                  />
+                ) : (
+                  <span>{report.reportTime || 'No especificado'}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AccidentReport;
