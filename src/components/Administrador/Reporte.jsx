@@ -5,7 +5,6 @@ import swal from 'sweetalert';
 
 const AccidentReport = () => {
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [hospitals, setHospitals] = useState([]);
 
@@ -45,6 +44,7 @@ const AccidentReport = () => {
       }
 
       try {
+        //FUNCIONA, GET DEL REPORTE DE UN ACCIDENTE CON EL ID DEL ACCIDENTE
         const response = await fetch(`${API_URL}/reportes/accidente/${id}`);
         
         if (!isMounted) return;
@@ -72,6 +72,8 @@ const AccidentReport = () => {
 
         if (data) {
           setReport({
+            //AHORA TAMBIEN RECUPERAMOS EL ID DEL REPORTE
+            idReporte: data.id || '',
             description: data.descripcion || '',
             hospitalTransfer: data.requiereTraslado || false,
             hospitalName: data.nombreHospital || '',
@@ -114,14 +116,15 @@ const AccidentReport = () => {
       return;
     }
 
+    //ORDENAMOS LOS CAMPOS DEL PAYLOAD PARA EL POST DEL REPORTE
     try {
       const submitPayload = {
-        accidenteId: id, // Cambiado de idAccidente a accidenteId
         descripcion: report.description,
-        requiereTraslado: report.hospitalTransfer,
-        nombreHospital: report.hospitalTransfer ? report.hospitalName : '',
         fecha: report.reportDate,
-        hora: report.reportTime
+        hora: report.reportTime,
+        requiereTraslado: report.hospitalTransfer,
+        accidenteId: id,
+        nombreHospital: report.hospitalTransfer ? report.hospitalName : ''
       };
 
       const response = await fetch(`${API_URL}/reportes`, {
@@ -168,16 +171,18 @@ const AccidentReport = () => {
     }
   
     try {
+      //ACTUALIZAMOS EL ORDEN DE LOS CAMPOS DEL PUT PARA EL PAYLOAD
       const updatePayload = {
         descripcion: report.description,
-        requiereTraslado: report.hospitalTransfer,
-        nombreHospital: report.hospitalTransfer ? report.hospitalName : '',
         fecha: report.reportDate,
         hora: report.reportTime,
-        accidenteId: id // Agregado el ID del accidente
+        requiereTraslado: report.hospitalTransfer,
+        accidenteId: id,
+        nombreHospital: report.hospitalName,
       };
   
-      const response = await fetch(`${API_URL}/reportes/actualizar/${id}`, { // Modificada la URL
+      //ACTUALIZAMOS LA URL DEL PUT A /reportes/:id
+      const response = await fetch(`${API_URL}/reportes/${report.idReporte}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
