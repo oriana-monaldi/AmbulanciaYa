@@ -79,7 +79,6 @@ const Formulario = () => {
 
     return (
         <>
-            {/* Overlay con loaders */}
             {(isLoading || success) && (
                 <div className="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
                     {/* Loader de procesamiento */}
