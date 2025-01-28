@@ -150,7 +150,14 @@ const VistaEscitorio = ({data, headers, tipo, onDelete}) => {
                                         <MdDelete color="red" size={20} />
                                     </button>
                                     {tipo === 'accidente' && !item.reporte && (
-                                        <Link to={`/vista-reporte/${itemId}`} className="font-medium text-red-600">
+                                            <Link 
+                                            to={`/vista-reporte/${itemId}`} 
+                                            state={{ 
+                                                direccion: item.direccion,
+                                                itemData: item 
+                                            }}
+                                            className="font-medium text-red-600"
+                                        >
                                             REPORTE
                                         </Link>
                                     )}

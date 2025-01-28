@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import {FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock} from 'lucide-react';
 import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
@@ -8,6 +8,9 @@ const AccidentReport = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [hospitals, setHospitals] = useState([]);
+
+    const location = useLocation();
+    const direccionAccidente = location.state?.direccion || "Dirección no especificada";
 
     const API_URL = 'https://ambulanciaya.onrender.com';
 
@@ -247,7 +250,7 @@ const AccidentReport = () => {
     return (
         <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg">
             <div className="mb-6 flex items-start justify-between">
-                <h2 className="text-2xl font-bold text-red-600">Reporte de Accidente</h2>
+                <h2 className="text-2xl font-bold text-red-600">Reporte de Accidente en {direccionAccidente}</h2>
                 <div className="flex gap-2">
                     {report.isSubmitted ? (
                         <>
