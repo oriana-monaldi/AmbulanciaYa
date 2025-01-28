@@ -218,7 +218,7 @@ const AccidentReport = () => {
         }).then(async (willDelete) => {
             if (willDelete) {
                 try {
-                    const response = await fetch(`${API_URL}/reportes/${id}`, {
+                    const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',

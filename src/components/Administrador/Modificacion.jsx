@@ -480,25 +480,6 @@ function Modificacion({tipo}) {
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
-                            <select
-                                name="hospitalId"
-                                value={formData.hospitalId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            >
-                                <option value="" disabled>
-                                    Seleccione un hospital
-                                </option>
-                                {hospitales.map((hospital) => (
-                                    <option key={hospital.id} value={hospital.id}>
-                                        {hospital.nombre}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Paciente</label>
                             <select
                                 name="pacienteId"
