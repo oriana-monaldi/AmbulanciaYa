@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 
 const AccidentReport = () => {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [hospitals, setHospitals] = useState([]);
 
@@ -14,6 +15,7 @@ const AccidentReport = () => {
     description: '',
     hospitalTransfer: false,
     hospitalName: '',
+    hospitalId: '',
     reportDate: '',
     reportTime: '',
     isSubmitted: false,
@@ -76,7 +78,8 @@ const AccidentReport = () => {
             idReporte: data.id || '',
             description: data.descripcion || '',
             hospitalTransfer: data.requiereTraslado || false,
-            hospitalName: data.nombreHospital || '',
+            hospitalName: data.hospital || '',
+            hospitalId: data.hospitalId || '',
             reportDate: data.fecha || '',
             reportTime: data.hora || '',
             isSubmitted: true
@@ -111,10 +114,10 @@ const AccidentReport = () => {
       return;
     }
 
-    if (report.hospitalTransfer && !report.hospitalName) {
+/*     if (report.hospitalTransfer && !report.hospitalName) {
       swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
       return;
-    }
+    } */
 
     //ORDENAMOS LOS CAMPOS DEL PAYLOAD PARA EL POST DEL REPORTE
     try {
@@ -165,10 +168,10 @@ const AccidentReport = () => {
       return;
     }
 
-    if (report.hospitalTransfer && !report.hospitalName) {
-      swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
-      return;
-    }
+      /*if (report.hospitalTransfer && !report.hospitalName) {
+        swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
+        return;
+      } */
   
     try {
       //ACTUALIZAMOS EL ORDEN DE LOS CAMPOS DEL PUT PARA EL PAYLOAD
@@ -178,11 +181,13 @@ const AccidentReport = () => {
         hora: report.reportTime,
         requiereTraslado: report.hospitalTransfer,
         accidenteId: id,
-        nombreHospital: report.hospitalName,
+        hospitalId: report.hospitalId || null, 
       };
-  
+
+      console.log('Payload being sent to PUT /reportes/accidente/idReporte:', JSON.stringify(updatePayload)); //Console log PAYLOAD
+
       //ACTUALIZAMOS LA URL DEL PUT A /reportes/:id
-      const response = await fetch(`${API_URL}/reportes/${report.idReporte}`, {
+      const response = await fetch(`${API_URL}/reportes/accidente/${report.idReporte}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -311,21 +316,37 @@ const AccidentReport = () => {
               {report.hospitalTransfer && (
                 <div className="flex items-center gap-2">
                   <Hospital size={20} className="text-red-600" />
-                  {isEditing || !report.isSubmitted ? (
+                  {!isEditing ? (
+                    <span>{report.hospitalName || 'No especificado'}</span>
+                  ) : (
                     <select
-                      value={report.hospitalName}
-                      onChange={(e) => setReport({ ...report, hospitalName: e.target.value })}
+                      value={report.hospitalId || ''}
+                      onChange={(e) => {
+                        const selectedValue = e.target.value;
+                        console.log('Selected value:', selectedValue);
+                        
+                        const selectedHospital = hospitals.find(h => h.id === selectedValue);
+                        console.log('Found hospital:', selectedHospital);
+                        
+                        setReport(prevReport => {
+                          const newReport = {
+                            ...prevReport,
+                            hospitalId: selectedValue,
+                            hospitalName: selectedHospital?.nombre || ''
+                          };
+                          console.log('New report state:', newReport);
+                          return newReport;
+                        });
+                      }}
                       className="w-full border rounded p-2"
                     >
                       <option value="">Seleccione un hospital</option>
                       {hospitals.map((hospital) => (
-                        <option key={hospital._id || hospital.nombre} value={hospital.nombre}>
+                        <option key={hospital.id} value={hospital.id}>
                           {hospital.nombre}
                         </option>
                       ))}
-                    </select>
-                  ) : (
-                    <span>{report.hospitalName || 'No especificado'}</span>
+                    </select>   
                   )}
                 </div>
               )}
