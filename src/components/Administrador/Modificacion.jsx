@@ -558,26 +558,16 @@ function Modificacion({tipo}) {
 
                 {tipo === 'paciente' && (
                     <>
-                        <input
-                            type="text"
-                            name="nombreCompleto"
-                            value={formData.nombreCompleto}
-                            onChange={handleInputChange}
-                            placeholder="Nombre Completo"
-                            className="mb-4 w-full rounded border p-2"
-                        />
-
+                        {tipo === 'paciente' && (
+                    <>
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
                             <input
                                 type="text"
-                                name="dni"
-                                value={formData.dni}
-                                placeholder="Ingrese el DNI"
+                                name="nombreCompleto"
+                                value={formData.nombreCompleto}
+                                placeholder="Ingrese el nombre completo"
                                 onChange={handleInputChange}
-                                onInput={(e) => {
-                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                                }}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
@@ -588,16 +578,15 @@ function Modificacion({tipo}) {
                             <input
                                 type="text"
                                 name="telefono"
-                                value={formData.dni}
-                                placeholder="Ingrese el DNI"
+                                value={formData.telefono}
                                 onChange={handleInputChange}
-                                onInput={(e) => {
-                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                                }}
+                                placeholder="Ingrese el numero de telefono"
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
                         </div>
+                    </>
+                )}
                     </>
                 )}
 

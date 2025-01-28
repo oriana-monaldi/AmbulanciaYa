@@ -378,6 +378,36 @@ function Alta({tipo}) {
                     </>
                 )}
 
+                {tipo === 'paciente' && (
+                    <>
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                            <input
+                                type="text"
+                                name="nombreCompleto"
+                                value={formData.nombreCompleto}
+                                placeholder="Ingrese el nombre completo"
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Telefono</label>
+                            <input
+                                type="text"
+                                name="telefono"
+                                value={formData.telefono}
+                                onChange={handleInputChange}
+                                placeholder="Ingrese el numero de telefono"
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
+                    </>
+                )}
+
                 {tipo === 'paramedico' && (
                     <>
                         <div className="mb-4">

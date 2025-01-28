@@ -113,6 +113,15 @@ const NavAdmi = () => {
                                 >
                                     Hospitales
                                 </NavLink>
+                                <NavLink
+                                    to="/tabla/paciente"
+                                    onClick={() => handleNavigation('/tabla/paciente')}
+                                    className={({isActive}) => (isActive 
+                                        ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
+                                        : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
+                                >
+                                    Pacientes
+                                </NavLink>
                             </div>
                         </div>
                     </div>
