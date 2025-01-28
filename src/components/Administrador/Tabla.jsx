@@ -1,23 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useNavigate} from 'react-router-dom';
 import swal from 'sweetalert';
 import {FiPlusCircle} from 'react-icons/fi';
 import {MdDelete} from 'react-icons/md';
 import {CiEdit} from 'react-icons/ci';
 import TableSkeleton from './TableSkeleton';
+import Loader from '../Loader';
 
 const headers = {
     ambulancia: {
         headers: ['ID', 'Patente', 'Inventario', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base'],
         displayEndpoint: '/ambulancias/desc',
         deleteEndpoint: 'ambulancias',
-        mensajeError: 'Esta ambulancia está relacionada con uno o más accidentes. Primero elimine los registros de accidentes asociados.'
+        mensajeError: 'Esta ambulancia está relacionada con uno o más accidentes. Primero elimine los registros de accidentes asociados.',
     },
     chofer: {
         headers: ['ID', 'Nombre Completo', 'DNI'],
         displayEndpoint: '/choferes',
         deleteEndpoint: 'choferes',
-        mensajeError: 'Este chofer está asignado a una o más ambulancias. Primero elimine al chofer de las ambulancias asignadas.'
+        mensajeError: 'Este chofer está asignado a una o más ambulancias. Primero elimine al chofer de las ambulancias asignadas.',
     },
     paramedico: {
         headers: ['ID', 'Nombre Completo', 'DNI', 'Email'],
@@ -34,7 +35,7 @@ const headers = {
         headers: ['ID', 'Nombre Completo', 'Telefono'],
         displayEndpoint: '/pacientes',
         deleteEndpoint: 'pacientes',
-        mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.'
+        mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
     },
     hospital: {
         headers: ['ID', 'Nombre', 'Dirección'],
@@ -48,15 +49,16 @@ const Tabla = () => {
     const {tipo} = useParams();
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [showLoader, setShowLoader] = useState(false);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
 
     const API_URL = 'https://ambulanciaya.onrender.com';
 
     const mensajeError = () => {
         switch (tipo) {
             case 'paramedico':
-                return mensajeError;  
+                return mensajeError;
             case 'chofer':
                 return mensajeError;
             case 'ambulancia':
@@ -70,6 +72,13 @@ const Tabla = () => {
         }
     };
 
+    //funcion para el loader
+    const handleEdit = (itemId, itemData) => {
+        setShowLoader(true);
+        setTimeout(() => {
+            navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
+        }, 500);
+    };
     const fetchData = async () => {
         if (!tipo || !headers[tipo]) {
             setError('Tipo de datos no válido');
@@ -95,6 +104,7 @@ const Tabla = () => {
         }
     };
 
+//Delete
     const handleDelete = async (itemId) => {
         try {
             const result = await swal({
@@ -164,9 +174,7 @@ const Tabla = () => {
                 <div className="m-8 flex justify-end">
                     <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
                 </div>
-                <h2 className="m-10 text-4xl font-bold text-red-600">
-                    Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
-                </h2>
+                <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
                 <TableSkeleton columns={headers[tipo]?.headers?.length + 1} rows={5} />
             </div>
         );
@@ -178,15 +186,23 @@ const Tabla = () => {
 
     return (
         <div>
-            <div className="m-8 flex justify-end">
-                <Link to={`/alta-${tipo}`}>
-                    <FiPlusCircle color="red" size="40" />
-                </Link>
-            </div>
+            {showLoader && <Loader />}
 
-            <h2 className="m-10 text-4xl font-bold text-red-600">
-                Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
-            </h2>
+        <div className="m-8 flex justify-end">
+            <button 
+                onClick={() => {
+                    setShowLoader(true);
+                    setTimeout(() => {
+                        navigate(`/alta-${tipo}`);
+                    }, 400);
+                }}
+                className="cursor-pointer"
+            >
+                <FiPlusCircle color="red" size="40" />
+            </button>
+        </div>
+
+            <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
 
             <div className="m-8 border-4 border-red-600">
                 <div className="hidden lg:block">
@@ -198,9 +214,7 @@ const Tabla = () => {
                                         {header}
                                     </th>
                                 ))}
-                                <th className="text-center text-sm font-medium tracking-wider text-gray-500">
-                                    Acciones
-                                </th>
+                                <th className="text-center text-sm font-medium tracking-wider text-gray-500">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 bg-white">
@@ -218,30 +232,47 @@ const Tabla = () => {
                                             ))}
                                         <td className="text-center">
                                             <div className="flex justify-center space-x-4">
-                                                <Link to={`/modificacion-${tipo}/${itemId}`} state={{itemData: item}}>
+                                                <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
                                                     <CiEdit color="red" size="20" />
-                                                </Link>
+                                                </button>
                                                 <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
                                                     <MdDelete color="red" size={20} />
                                                 </button>
                                                 {tipo === 'accidente' && !item.reporte && (
-                                                    <Link 
-                                                        to={`/vista-reporte/${itemId}`} 
-                                                        state={{ 
+                                                    <Link
+                                                        to={`/vista-reporte/${itemId}`}
+                                                        state={{
                                                             direccion: item.direccion,
-                                                            itemData: item 
+                                                            itemData: item,
                                                         }}
                                                         className="font-medium text-red-600"
                                                     >
                                                         REPORTE
                                                     </Link>
                                                 )}
+{/* 
+{tipo === 'accidente' && !item.reporte && (
+                                                    <button 
+                                                    onClick={() => {
+                                                        setShowLoader(true);
+                                                        setTimeout(() => {
+                                                            navigate(`/vista-reporte/${itemId}`, {
+                                                                state: {
+                                                                    direccion: item.direccion,
+                                                                    itemData: item,
+                                                                }
+                                                            });
+                                                        }, 500);
+                                                    }}
+                                                    className="font-medium text-red-600 cursor-pointer"
+                                                >
+                                                    REPORTE
+                                                </button> */}
                                             </div>
                                         </td>
                                     </tr>
                                 );
-                            }
-                            )}
+                            })}
                         </tbody>
                     </table>
                 </div>

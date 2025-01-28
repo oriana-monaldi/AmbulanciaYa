@@ -3,6 +3,8 @@ import {useParams, useLocation} from 'react-router-dom';
 import {FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock} from 'lucide-react';
 import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
+import Loader from '../Loader'
+
 const AccidentReport = () => {
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -15,12 +17,12 @@ const AccidentReport = () => {
     const API_URL = 'https://ambulanciaya.onrender.com';
 
     const [report, setReport] = useState({
-        description: '',
-        hospitalTransfer: false,
-        hospitalName: '',
+        descripcion: '',
+        requiereTraslado: false,
+        hospitalNombre: '',
         hospitalId: '',
-        reportDate: '',
-        reportTime: '',
+        fecha: '',
+        hora: '',
         isSubmitted: false,
     });
 
@@ -55,11 +57,11 @@ const AccidentReport = () => {
 
                 if (response.status === 404) {
                     setReport({
-                        description: '',
-                        hospitalTransfer: false,
-                        hospitalName: '',
-                        reportDate: '',
-                        reportTime: '',
+                        descripcion: '',
+                        requiereTraslado: false,
+                        hospitalNombre: '',
+                        fecha: '',
+                        hora: '',
                         isSubmitted: false,
                     });
                     setIsLoading(false);
@@ -77,12 +79,12 @@ const AccidentReport = () => {
                 if (data) {
                     setReport({
                         idReporte: data.id || '',
-                        description: data.descripcion || '',
-                        hospitalTransfer: data.requiereTraslado || false,
-                        hospitalName: data.hospital || '',
+                        descripcion: data.descripcion || '',
+                        requiereTraslado: data.requiereTraslado || false,
+                        hospitalNombre: data.hospital || '',
                         hospitalId: data.hospitalId || '',
-                        reportDate: data.fecha || '',
-                        reportTime: data.hora || '',
+                        fecha: data.fecha || '',
+                        hora: data.hora || '',
                         isSubmitted: true,
                     });
                 }
@@ -110,29 +112,30 @@ const AccidentReport = () => {
     }, [id]);
 
     const handleSubmit = async () => {
-        if (!report.description || !report.reportDate || !report.reportTime) {
+        setIsLoading(true);
+        if (!report.descripcion || !report.fecha || !report.hora) {
             swal('Error', 'Por favor complete todos los campos requeridos', 'error');
+            setIsLoading(false);
             return;
         }
 
-        if (report.hospitalTransfer && !report.hospitalName) {
+        if (report.requiereTraslado && !report.hospitalNombre) {
             swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
+            setIsLoading(false);
             return;
         }
 
         try {
-            //FETCH DEL POST
             const submitPayload = {
-                descripcion: report.description,
-                fecha: report.reportDate,
-                hora: report.reportTime,
-                requiereTraslado: report.hospitalTransfer,
+                descripcion: report.descripcion,
+                fecha: report.fecha,
+                hora: report.hora,
+                requiereTraslado: report.requiereTraslado,
                 hospitalId: report.hospitalId || null
             };
 
             console.log("Submit payload:", submitPayload);
 
-            //FETCH DEL POST
             const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                 method: 'POST',
                 headers: {
@@ -157,6 +160,8 @@ const AccidentReport = () => {
         } catch (error) {
             console.error('Error al crear:', error);
             swal('Error', error.message || 'No se pudo crear el reporte', 'error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -166,26 +171,28 @@ const AccidentReport = () => {
             return;
         }
 
-        if (!report.description || !report.reportDate || !report.reportTime) {
+        setIsLoading(true);
+        if (!report.descripcion || !report.fecha || !report.hora) {
             swal('Error', 'Por favor complete todos los campos requeridos', 'error');
+            setIsLoading(false);
             return;
         }
 
-        if (report.hospitalTransfer && !report.hospitalId) {
+        if (report.requiereTraslado && !report.hospitalId) {
             swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
+            setIsLoading(false);
             return;
         }
 
         try {
             const updatePayload = {
-                descripcion: report.description,
-                fecha: report.reportDate,
-                hora: report.reportTime,
-                requiereTraslado: report.hospitalTransfer,
+                descripcion: report.descripcion,
+                fecha: report.fecha,
+                hora: report.hora,
+                requiereTraslado: report.requiereTraslado,
                 accidenteId: id,
                 hospitalId: report.hospitalId || null,
             };
-
 
             const response = await fetch(`${API_URL}/reportes/accidente/${report.idReporte}`, {
                 method: 'PUT',
@@ -205,6 +212,8 @@ const AccidentReport = () => {
         } catch (error) {
             console.error('Update error:', error);
             swal('Error', `No se pudo actualizar el reporte: ${error.message}`, 'error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -217,6 +226,7 @@ const AccidentReport = () => {
             dangerMode: true,
         }).then(async (willDelete) => {
             if (willDelete) {
+                setIsLoading(true);
                 try {
                     const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                         method: 'DELETE',
@@ -230,11 +240,11 @@ const AccidentReport = () => {
                     }
 
                     setReport({
-                        description: '',
-                        hospitalTransfer: false,
-                        hospitalName: '',
-                        reportDate: '',
-                        reportTime: '',
+                        descripcion: '',
+                        requiereTraslado: false,
+                        hospitalNombre: '',
+                        fecha: '',
+                        hora: '',
                         isSubmitted: false,
                     });
 
@@ -242,10 +252,16 @@ const AccidentReport = () => {
                 } catch (error) {
                     console.error('Error al eliminar:', error);
                     swal('Error', 'No se pudo eliminar el reporte', 'error');
+                } finally {
+                    setIsLoading(false);
                 }
             }
         });
     };
+
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg">
@@ -277,13 +293,13 @@ const AccidentReport = () => {
                     <h3 className="mb-2 text-lg font-semibold">Descripción del Incidente</h3>
                     {isEditing || !report.isSubmitted ? (
                         <textarea
-                            value={report.description}
-                            onChange={(e) => setReport({...report, description: e.target.value})}
+                            value={report.descripcion}
+                            onChange={(e) => setReport({...report, descripcion: e.target.value})}
                             className="h-32 w-full rounded border p-2 focus:border-transparent focus:ring-2 focus:ring-red-500"
                             placeholder="Ingrese la descripción detallada del accidente..."
                         />
                     ) : (
-                        <p className="whitespace-pre-wrap text-gray-700">{report.description || 'No hay descripción disponible'}</p>
+                        <p className="whitespace-pre-wrap text-gray-700">{report.descripcion || 'No hay descripción disponible'}</p>
                     )}
                 </div>
 
@@ -294,18 +310,18 @@ const AccidentReport = () => {
                             <div className="flex items-center gap-2">
                                 <input
                                     type="checkbox"
-                                    checked={report.hospitalTransfer}
-                                    onChange={(e) => setReport({...report, hospitalTransfer: e.target.checked})}
+                                    checked={report.requiereTraslado}
+                                    onChange={(e) => setReport({...report, requiereTraslado: e.target.checked})}
                                     disabled={!isEditing && report.isSubmitted}
                                     className="h-4 w-4 text-red-600"
                                 />
                                 <span>Requirió traslado a hospital</span>
                             </div>
-                            {report.hospitalTransfer && (
+                            {report.requiereTraslado && (
                                 <div className="flex items-center gap-2">
                                     <FaHospital size={20} className="text-red-600" />
                                     {(!isEditing && report.isSubmitted) ? (
-                                        <span>{report.hospitalName || 'No especificado'}</span>
+                                        <span>{report.hospitalNombre || 'No especificado'}</span>
                                     ) : (
                                         <select
                                             value={report.hospitalId || ''}
@@ -320,7 +336,7 @@ const AccidentReport = () => {
                                                     const newReport = {
                                                         ...prevReport,
                                                         hospitalId: selectedValue,
-                                                        hospitalName: selectedHospital?.nombre || '',
+                                                        hospitalNombre: selectedHospital?.nombre || '',
                                                     };
                                                     console.log('New report state:', newReport);
                                                     return newReport;
@@ -347,17 +363,17 @@ const AccidentReport = () => {
                             <div className="flex items-center gap-2">
                                 <Calendar size={20} className="text-red-600" />
                                 {isEditing || !report.isSubmitted ? (
-                                    <input type="date" value={report.reportDate} onChange={(e) => setReport({...report, reportDate: e.target.value})} className="rounded border p-2" />
+                                    <input type="date" value={report.fecha} onChange={(e) => setReport({...report, fecha: e.target.value})} className="rounded border p-2" />
                                 ) : (
-                                    <span>{report.reportDate || 'No especificado'}</span>
+                                    <span>{report.fecha || 'No especificado'}</span>
                                 )}
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock size={20} className="text-red-600" />
                                 {isEditing || !report.isSubmitted ? (
-                                    <input type="time" value={report.reportTime} onChange={(e) => setReport({...report, reportTime: e.target.value})} className="rounded border p-2" />
+                                    <input type="time" value={report.hora} onChange={(e) => setReport({...report, hora: e.target.value})} className="rounded border p-2" />
                                 ) : (
-                                    <span>{report.reportTime || 'No especificado'}</span>
+                                    <span>{report.hora || 'No especificado'}</span>
                                 )}
                             </div>
                         </div>

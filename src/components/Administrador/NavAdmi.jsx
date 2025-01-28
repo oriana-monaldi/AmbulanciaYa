@@ -53,7 +53,7 @@ const NavAdmi = () => {
             navigate(path);
         }, 800);
     };
-
+    
     return (
         <>
             {isLoading && <Loader />}
