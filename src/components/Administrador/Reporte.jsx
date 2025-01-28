@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock} from 'lucide-react';
 import swal from 'sweetalert';
-
+import {FaHospital} from 'react-icons/fa';
 const AccidentReport = () => {
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -297,7 +297,7 @@ const AccidentReport = () => {
                             </div>
                             {report.hospitalTransfer && (
                                 <div className="flex items-center gap-2">
-                                    <Hospital size={20} className="text-red-600" />
+                                    <FaHospital size={20} className="text-red-600" />
                                     {!isEditing ? (
                                         <span>{report.hospitalName || 'No especificado'}</span>
                                     ) : (
