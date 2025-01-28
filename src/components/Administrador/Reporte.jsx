@@ -118,16 +118,19 @@ const AccidentReport = () => {
         }
 
         try {
+            //FETCH DEL POST
             const submitPayload = {
                 descripcion: report.description,
                 fecha: report.reportDate,
                 hora: report.reportTime,
                 requiereTraslado: report.hospitalTransfer,
-                accidenteId: id,
-                nombreHospital: report.hospitalTransfer ? report.hospitalName : '',
+                hospitalId: report.hospitalId || null
             };
 
-            const response = await fetch(`${API_URL}/reportes`, {
+            console.log("Submit payload:", submitPayload);
+
+            //FETCH DEL POST
+            const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -298,7 +301,7 @@ const AccidentReport = () => {
                             {report.hospitalTransfer && (
                                 <div className="flex items-center gap-2">
                                     <FaHospital size={20} className="text-red-600" />
-                                    {!isEditing ? (
+                                    {(!isEditing && report.isSubmitted) ? (
                                         <span>{report.hospitalName || 'No especificado'}</span>
                                     ) : (
                                         <select
