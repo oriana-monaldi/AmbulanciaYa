@@ -46,7 +46,6 @@ const AccidentReport = () => {
             }
 
             try {
-                //FUNCIONA, GET DEL REPORTE DE UN ACCIDENTE CON EL ID DEL ACCIDENTE
                 const response = await fetch(`${API_URL}/reportes/accidente/${id}`);
 
                 if (!isMounted) return;
@@ -74,7 +73,6 @@ const AccidentReport = () => {
 
                 if (data) {
                     setReport({
-                        //AHORA TAMBIEN RECUPERAMOS EL ID DEL REPORTE
                         idReporte: data.id || '',
                         description: data.descripcion || '',
                         hospitalTransfer: data.requiereTraslado || false,
@@ -119,7 +117,6 @@ const AccidentReport = () => {
             return;
         }
 
-        //ORDENAMOS LOS CAMPOS DEL PAYLOAD PARA EL POST DEL REPORTE
         try {
             const submitPayload = {
                 descripcion: report.description,
@@ -174,7 +171,6 @@ const AccidentReport = () => {
         }
 
         try {
-            //ACTUALIZAMOS EL ORDEN DE LOS CAMPOS DEL PUT PARA EL PAYLOAD
             const updatePayload = {
                 descripcion: report.description,
                 fecha: report.reportDate,
@@ -184,9 +180,7 @@ const AccidentReport = () => {
                 hospitalId: report.hospitalId || null,
             };
 
-            console.log('Payload being sent to PUT /reportes/accidente/idReporte:', JSON.stringify(updatePayload)); //Console log PAYLOAD
 
-            //ACTUALIZAMOS LA URL DEL PUT A /reportes/:id
             const response = await fetch(`${API_URL}/reportes/accidente/${report.idReporte}`, {
                 method: 'PUT',
                 headers: {
