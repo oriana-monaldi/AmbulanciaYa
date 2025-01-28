@@ -37,7 +37,6 @@ const estadosIniciales = {
         fecha: new Date().toLocaleDateString('en-CA'),
         hora: new Date().toLocaleTimeString('en-US', {hour12: false}).slice(0, 5),
         ambulanciaId: '',
-        hospitalId: '',
         pacienteId: '',
     },
     hospital: {
@@ -520,26 +519,6 @@ function Alta({tipo}) {
                                 {ambulancias.map((ambulancia) => (
                                     <option key={ambulancia.id} value={ambulancia.id}>
                                         {ambulancia.patente}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Hospital</label>
-                            <select
-                                name="hospitalId"
-                                value={formData.hospitalId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            >
-                                <option value="" disabled selected>
-                                    Seleccione un hospital
-                                </option>
-                                {hospitales.map((hospital) => (
-                                    <option key={hospital.id} value={hospital.id}>
-                                        {hospital.nombre}
                                     </option>
                                 ))}
                             </select>
