@@ -11,6 +11,7 @@ function Modificacion({tipo}) {
     const [pacientes, setPacientes] = useState([]);
     const [paramedicos, setParamedicos] = useState([]);
     const [choferes, setChoferes] = useState([]);
+    const [accidentes, setAccidentes] = useState([]);
     const itemData = location.state?.itemData;
 
     const [formData, setFormData] = useState({
@@ -69,6 +70,7 @@ function Modificacion({tipo}) {
             fetchAmbulancias();
             fetchHospitales();
             fetchPacientes();
+            fetchAccidentes();
         }
     }, [tipo]);
 
@@ -115,6 +117,22 @@ function Modificacion({tipo}) {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudieron cargar los hospitales',
+                icon: 'error',
+            });
+        }
+    };
+
+    const fetchAccidentes = async () => {
+        try {
+            const response = await fetch('https://ambulanciaya.onrender.com/accidentes');
+            if (!response.ok) throw new Error('Error fetching accidentes');
+            const data = await response.json();
+            setAccidentes(data);
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudieron cargar los accidentes',
                 icon: 'error',
             });
         }
@@ -177,15 +195,21 @@ function Modificacion({tipo}) {
         e.preventDefault();
         try {
             const endpoint = getEndpoint(tipo);
+
+            const { id: _, ...dataWithoutId } = formData;
+
+
             const dataToSend = {
-                ...formData,
-                // Asegúrate de que los IDs sean números
-                ambulanciaId: formData.ambulanciaId ? parseInt(formData.ambulanciaId) : undefined,
-                hospitalId: formData.hospitalId ? parseInt(formData.hospitalId) : undefined,
-                pacienteId: formData.pacienteId ? parseInt(formData.pacienteId) : undefined,
-                choferId: formData.choferId ? parseInt(formData.choferId) : undefined,
-                paramedicoId: formData.paramedicoId ? parseInt(formData.paramedicoId) : undefined,
+                ...dataWithoutId,
+                ambulanciaId: formData.ambulanciaId || undefined,
+                hospitalId: formData.hospitalId || undefined,
+                pacienteId: formData.pacienteId || undefined,
+                choferId: formData.choferId || undefined,
+                paramedicoId: formData.paramedicoId || undefined,
             };
+
+            console.log('Request URL:', `https://ambulanciaya.onrender.com/${endpoint}/${id}`);
+            console.log('Request Body:', JSON.stringify(dataToSend, null, 2));
 
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
