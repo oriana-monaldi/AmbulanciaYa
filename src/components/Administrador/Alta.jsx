@@ -89,6 +89,14 @@ function Alta({tipo}) {
         e.preventDefault();
 
         try {
+            // Intento de skip para paciente vacio
+            const payload = Object.entries(formData).reduce((acc, [key, value]) => {
+                if (value !== "" && value !== null && value !== undefined) {
+                    acc[key] = value;
+                }
+                return acc;
+            }, {});
+
             const response = await fetch(`https://ambulanciaya.onrender.com${Endpoints[tipo]}`, {
                 method: 'POST',
                 headers: {
@@ -96,7 +104,7 @@ function Alta({tipo}) {
                     Accept: 'application/json',
                     Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
@@ -582,7 +590,6 @@ function Alta({tipo}) {
                                 value={formData.pacienteId}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
                             >
                                 <option value="" disabled selected>
                                     Seleccione un paciente
