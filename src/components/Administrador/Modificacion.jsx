@@ -14,6 +14,14 @@ function Modificacion({tipo}) {
     const [accidentes, setAccidentes] = useState([]);
     const itemData = location.state?.itemData;
 
+    // Validacion del tipo de cuenta
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const adminStatus = sessionStorage.getItem('is-admin') === 'true';
+        setIsAdmin(adminStatus);
+    }, []);
+
     const [formData, setFormData] = useState({
         patente: '',
         vtv: '',
@@ -523,74 +531,78 @@ function Modificacion({tipo}) {
                     </>
                 )}
 
-                {tipo === 'accidente' && (
-                    <>
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Dirección</label>
-                            <input
-                                type="text"
-                                name="direccion"
-                                value={formData.direccion}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese la dirección"
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
+{tipo === 'accidente' && (
+    <>
+        {isAdmin && (
+            <>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Dirección</label>
+                    <input
+                        type="text"
+                        name="direccion"
+                        value={formData.direccion}
+                        onChange={handleInputChange}
+                        placeholder="Ingrese la dirección"
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Descripción</label>
-                            <input
-                                type="text"
-                                name="descripcion"
-                                value={formData.descripcion}
-                                onChange={handleInputChange}
-                                placeholder="Descripción"
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Descripción</label>
+                    <input
+                        type="text"
+                        name="descripcion"
+                        value={formData.descripcion}
+                        onChange={handleInputChange}
+                        placeholder="Descripción"
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Fecha</label>
-                            <input
-                                type="date"
-                                name="fecha"
-                                value={formData.fecha}
-                                placeholder="Ingrese la fecha"
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Fecha</label>
+                    <input
+                        type="date"
+                        name="fecha"
+                        value={formData.fecha}
+                        placeholder="Ingrese la fecha"
+                        onChange={handleInputChange}
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Hora</label>
-                            <input
-                                type="time"
-                                name="hora"
-                                placeholder="Ingrese la hora"
-                                value={formData.hora}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Hora</label>
+                    <input
+                        type="time"
+                        name="hora"
+                        placeholder="Ingrese la hora"
+                        value={formData.hora}
+                        onChange={handleInputChange}
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
-                            <select
-                                name="ambulanciaId"
-                                value={formData.ambulanciaId}
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                            >
-                                <option value="" disabled>
-                                    Seleccione una ambulancia
-                                </option>
-                                {ambulancias.map((ambulancia) => (
-                                    <option key={ambulancia.id} value={ambulancia.id}>
-                                        {ambulancia.patente}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                <div className="mb-4">
+                    <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
+                    <select
+                        name="ambulanciaId"
+                        value={formData.ambulanciaId}
+                        onChange={handleInputChange}
+                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                        <option value="" disabled>
+                            Seleccione una ambulancia
+                        </option>
+                        {ambulancias.map((ambulancia) => (
+                            <option key={ambulancia.id} value={ambulancia.id}>
+                                {ambulancia.patente}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </>
+        )}
 
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Paciente</label>
