@@ -37,6 +37,8 @@ const LogIn = () => {
             }
 
             sessionStorage.setItem('auth-token', data.token);
+            sessionStorage.setItem('is-admin', data.isAdmin);
+            console.log('Account type:', data.isAdmin);
             navigate('/tabla/accidente');
 
         } catch (error) {

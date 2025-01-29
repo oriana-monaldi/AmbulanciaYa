@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GiExitDoor } from 'react-icons/gi';
 import { FaBars } from 'react-icons/fa';
@@ -11,8 +11,13 @@ import Swal from 'sweetalert2';
 const NavAdmi = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const adminStatus = sessionStorage.getItem('is-admin') === 'true';
+        setIsAdmin(adminStatus);
+    }, []);
 
     const handleLinkClick = () => {
         setShowMenu(false);
@@ -35,6 +40,7 @@ const NavAdmi = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 sessionStorage.removeItem('auth-token');
+                sessionStorage.removeItem('is-admin');
                 Swal.fire({
                     title: "¡Sesión cerrada!",
                     text: "Has cerrado sesión exitosamente",
@@ -78,42 +84,48 @@ const NavAdmi = () => {
                                 >
                                     Accidentes
                                 </NavLink>
-                                <NavLink
-                                    to="/tabla/ambulancia"
-                                    onClick={() => handleNavigation('/tabla/ambulancia')}
-                                    className={({isActive}) => (isActive 
-                                        ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
-                                        : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
-                                >
-                                    Ambulancias
-                                </NavLink>
-                                <NavLink
-                                    to="/tabla/chofer"
-                                    onClick={() => handleNavigation('/tabla/chofer')}
-                                    className={({isActive}) => (isActive 
-                                        ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
-                                        : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
-                                >
-                                    Choferes
-                                </NavLink>
-                                <NavLink
-                                    to="/tabla/paramedico"
-                                    onClick={() => handleNavigation('/tabla/paramedico')}
-                                    className={({isActive}) => (isActive 
-                                        ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
-                                        : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
-                                >
-                                    Paramédicos
-                                </NavLink>
-                                <NavLink
-                                    to="/tabla/hospital"
-                                    onClick={() => handleNavigation('/tabla/hospital')}
-                                    className={({isActive}) => (isActive 
-                                        ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
-                                        : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
-                                >
-                                    Hospitales
-                                </NavLink>
+
+                                {isAdmin && (
+                                    <>
+                                        <NavLink
+                                            to="/tabla/ambulancia"
+                                            onClick={() => handleNavigation('/tabla/ambulancia')}
+                                            className={({isActive}) => (isActive 
+                                                ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
+                                                : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
+                                        >
+                                            Ambulancias
+                                        </NavLink>
+                                        <NavLink
+                                            to="/tabla/chofer"
+                                            onClick={() => handleNavigation('/tabla/chofer')}
+                                            className={({isActive}) => (isActive 
+                                                ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
+                                                : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
+                                        >
+                                            Choferes
+                                        </NavLink>
+                                        <NavLink
+                                            to="/tabla/paramedico"
+                                            onClick={() => handleNavigation('/tabla/paramedico')}
+                                            className={({isActive}) => (isActive 
+                                                ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
+                                                : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
+                                        >
+                                            Paramédicos
+                                        </NavLink>
+                                        <NavLink
+                                            to="/tabla/hospital"
+                                            onClick={() => handleNavigation('/tabla/hospital')}
+                                            className={({isActive}) => (isActive 
+                                                ? 'border-b-2 border-red-200 font-bold text-red-200 py-2 md:py-0' 
+                                                : 'text-white transition-colors duration-200 hover:text-red-200 py-2 md:py-0')}
+                                        >
+                                            Hospitales
+                                        </NavLink>
+                                    </>
+                                )}
+                                
                                 <NavLink
                                     to="/tabla/paciente"
                                     onClick={() => handleNavigation('/tabla/paciente')}
