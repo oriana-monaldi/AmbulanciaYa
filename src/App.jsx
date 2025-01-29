@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Main from './components/Main';
 import Servicio from './components/Servicio';
@@ -14,30 +14,40 @@ import LogIn from './components/LogIn';
 import Reporte from './components/Administrador/Reporte';
 import PanelUsuario from './components/Administrador/PanelUsuario';
 
-
 const AppContent = () => {
     const location = useLocation();
-    // Verifica si estamos en una ruta administrativa
-    const isAdminRoute = location.pathname.includes('/navAdmi') ||
-    location.pathname.includes('/tabla') ||
-    location.pathname.includes('/alta-') ||
-    location.pathname.includes('/modificacion-') ||
-    location.pathname.includes('/panelUsuario') ||
-    location.pathname.includes('/vista-reporte') ||
-    location.pathname === '/alta-reporte';
+
+    const rutasConNavbar = ['/', '/servicios', '/sobre-nosotros', '/formulario'];
+    const rutasLogIn = ['/logIn'];
+
+    const isAdminRoute = (pathname) => {
+        return pathname.startsWith('/tabla') ||
+               pathname.startsWith('/alta-') ||
+               pathname.startsWith('/modificacion-') ||
+               pathname.startsWith('/vista-reporte') ||
+               pathname === '/panelUsuario';
+    };
+
+    const rutasGenerales = rutasConNavbar.includes(location.pathname);
+    const esAdmin = isAdminRoute(location.pathname);
+    const esLogIn = rutasLogIn.includes(location.pathname);
 
     return (
         <div className="flex min-h-screen flex-col">
-            {!isAdminRoute && <Navbar className="flex-shrink-0" />}
-            {isAdminRoute && <NavAdmi className="flex-shrink-0" />}
+            {rutasGenerales && <Navbar className="flex-shrink-0" />}
+            {esAdmin && <NavAdmi className="flex-shrink-0" />}
             <div className="flex-grow">
                 <Routes>
+                    {/* Rutas con Navbar y Footer */}
                     <Route path="/" element={<Main />} />
                     <Route path="/servicios" element={<Servicio />} />
                     <Route path="/sobre-nosotros" element={<SobreNosotros />} />
                     <Route path="/formulario" element={<Formulario />} />
+
+                    {/* Ruta sin Navbar ni Footer */}
                     <Route path="/logIn" element={<LogIn />} />
-                    <Route path="/tabla" element={<Tabla />} />
+
+                    {/* Rutas con solo NavAdmin */}
                     <Route path="/tabla/:tipo" element={<Tabla />} />
                     <Route path="/alta-ambulancia" element={<Alta tipo="ambulancia" />} />
                     <Route path="/alta-accidente" element={<Alta tipo="accidente" />} />
@@ -55,7 +65,7 @@ const AppContent = () => {
                     <Route path="/panelUsuario" element={<PanelUsuario />} />
                 </Routes>
             </div>
-            {!isAdminRoute && <Footer />}
+            {rutasGenerales && <Footer />}
         </div>
     );
 };

@@ -87,7 +87,6 @@ function Alta({tipo}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos que estoy mandando:', JSON.stringify(formData, null, 2));
 
         try {
             const response = await fetch(`https://ambulanciaya.onrender.com${Endpoints[tipo]}`, {
@@ -108,7 +107,6 @@ function Alta({tipo}) {
             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
                 const data = await response.json();
-                console.log('Respuesta del servidor:', data);
             }
 
             await Swal.fire({

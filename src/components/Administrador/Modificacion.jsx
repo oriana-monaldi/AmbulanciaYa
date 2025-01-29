@@ -208,9 +208,6 @@ function Modificacion({tipo}) {
                 paramedicoId: formData.paramedicoId || undefined,
             };
 
-            console.log('Request URL:', `https://ambulanciaya.onrender.com/${endpoint}/${id}`);
-            console.log('Request Body:', JSON.stringify(dataToSend, null, 2));
-
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
                 headers: {

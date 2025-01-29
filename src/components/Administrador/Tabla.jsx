@@ -250,24 +250,6 @@ const Tabla = () => {
                                                         REPORTE
                                                     </Link>
                                                 )}
-{/* 
-{tipo === 'accidente' && !item.reporte && (
-                                                    <button 
-                                                    onClick={() => {
-                                                        setShowLoader(true);
-                                                        setTimeout(() => {
-                                                            navigate(`/vista-reporte/${itemId}`, {
-                                                                state: {
-                                                                    direccion: item.direccion,
-                                                                    itemData: item,
-                                                                }
-                                                            });
-                                                        }, 500);
-                                                    }}
-                                                    className="font-medium text-red-600 cursor-pointer"
-                                                >
-                                                    REPORTE
-                                                </button> */}
                                             </div>
                                         </td>
                                     </tr>

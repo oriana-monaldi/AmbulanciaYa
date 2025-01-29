@@ -14,7 +14,6 @@ const AdminPanel = () => {
     confirmPassword: "",
   })
 
-  // Password visibility states
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -31,10 +30,10 @@ const AdminPanel = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-red-600 mb-8 text-center">Configuracion de usuario</h1>
+        <h1 className="text-3xl font-bold text-red-600 mb-8 text-center">Configuración de usuario</h1>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Password Form */}
+          {/* Formulario para cambiar la contraseña */}
           <div className="bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
             <h2 className="text-2xl font-semibold mb-6 text-red-600 border-b pb-2">Cambiar Contraseña</h2>
             <form onSubmit={handlePasswordChange} className="space-y-6">
@@ -104,7 +103,7 @@ const AdminPanel = () => {
             </form>
           </div>
 
-          {/* Email Form */}
+          {/* Formulario para cambiar el correo electronico  */}
           <div className="bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
             <h2 className="text-2xl font-semibold mb-6 text-red-600 border-b pb-2">Modificar Correo Electrónico</h2>
             <form onSubmit={handleEmailChange} className="space-y-6">
@@ -150,7 +149,7 @@ const AdminPanel = () => {
 
               <button
                 type="submit"
-                className="w-full bg-red-600 text-white py-3 px-4 rounded-md hover:bg-red-700 transition-colors duration-300 font-semibold text-lg"
+                className="w-full bg-red-600 text-white py-3 px-4 rounded-md hover:bg-red-700  duration-300 font-semibold text-lg"
               >
                 Cambiar Correo Electrónico
               </button>
