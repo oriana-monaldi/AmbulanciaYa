@@ -39,8 +39,15 @@ function Modificacion({tipo}) {
         const fetchData = async () => {
             if (id) {
                 try {
-                    const endpoint = getEndpoint(tipo);
-                    const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`);
+                    const endpoint = getEndpoint(tipo); 
+                    const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
+                        method: 'GET', 
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                        },
+                    });
+    
                     if (!response.ok) throw new Error('Error al obtener los datos');
                     const data = await response.json();
                     setFormData(data);
@@ -54,9 +61,10 @@ function Modificacion({tipo}) {
                 }
             }
         };
-
+    
         fetchData();
     }, [id, tipo]);
+
     useEffect(() => {
         if (id && itemData) {
             setFormData(itemData);
@@ -74,17 +82,23 @@ function Modificacion({tipo}) {
         }
     }, [tipo]);
 
-    const fetchAmbulancias = async () => {
+    const fetchData = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/ambulancias');
-            if (!response.ok) throw new Error('Error fetching ambulances');
+            const endpoint = 'https://ambulanciaya.onrender.com/ambulancias'; // Define endpoint here
+            const response = await fetch(endpoint, {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
+            });
+    
+            if (!response.ok) throw new Error('Error fetching data');
             const data = await response.json();
-            setAmbulancias(data);
+            setData(data);
         } catch (error) {
             console.error('Error:', error);
             Swal.fire({
                 title: 'Error',
-                text: 'No se pudieron cargar las ambulancias',
+                text: 'No se pudieron cargar los datos',
                 icon: 'error',
             });
         }
@@ -92,7 +106,11 @@ function Modificacion({tipo}) {
 
     const fetchPacientes = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/pacientes');
+            const response = await fetch('https://ambulanciaya.onrender.com/pacientes', {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
+            });
             if (!response.ok) throw new Error('Error fetching patients');
             const data = await response.json();
             setPacientes(data);
@@ -108,7 +126,11 @@ function Modificacion({tipo}) {
 
     const fetchHospitales = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/hospitales');
+            const response = await fetch('https://ambulanciaya.onrender.com/hospitales', {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
+            });
             if (!response.ok) throw new Error('Error fetching hospitals');
             const data = await response.json();
             setHospitales(data);
@@ -124,7 +146,11 @@ function Modificacion({tipo}) {
 
     const fetchAccidentes = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/accidentes');
+            const response = await fetch('https://ambulanciaya.onrender.com/accidentes', {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
+            });
             if (!response.ok) throw new Error('Error fetching accidentes');
             const data = await response.json();
             setAccidentes(data);
@@ -140,7 +166,15 @@ function Modificacion({tipo}) {
 
     useEffect(() => {
         if (tipo === 'ambulancia') {
-            fetch('https://ambulanciaya.onrender.com/paramedicos')
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+            };
+    
+            fetch('https://ambulanciaya.onrender.com/paramedicos', {
+                method: 'GET',
+                headers: headers
+            })
                 .then((response) => response.json())
                 .then((data) => setParamedicos(data))
                 .catch((error) => console.error('Error cargando paramédicos:', error));
@@ -149,7 +183,15 @@ function Modificacion({tipo}) {
 
     useEffect(() => {
         if (tipo === 'ambulancia') {
-            fetch('https://ambulanciaya.onrender.com/choferes')
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+            };
+    
+            fetch('https://ambulanciaya.onrender.com/choferes', {
+                method: 'GET',
+                headers: headers
+            })
                 .then((response) => response.json())
                 .then((data) => setChoferes(data))
                 .catch((error) => console.error('Error cargando choferes:', error));
@@ -158,7 +200,12 @@ function Modificacion({tipo}) {
 
     const fetchItemData = async () => {
         try {
-            const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s/${id}`);
+            const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s/${id}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                },
+                });
+
             if (!response.ok) throw new Error('Error al obtener los datos');
             const data = await response.json();
             setFormData(data);
@@ -196,8 +243,7 @@ function Modificacion({tipo}) {
         try {
             const endpoint = getEndpoint(tipo);
 
-            const { id: _, ...dataWithoutId } = formData;
-
+            const {id: _, ...dataWithoutId} = formData;
 
             const dataToSend = {
                 ...dataWithoutId,
@@ -212,6 +258,7 @@ function Modificacion({tipo}) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
                 },
                 body: JSON.stringify(dataToSend),
             });
@@ -556,34 +603,34 @@ function Modificacion({tipo}) {
                 {tipo === 'paciente' && (
                     <>
                         {tipo === 'paciente' && (
-                    <>
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
-                            <input
-                                type="text"
-                                name="nombreCompleto"
-                                value={formData.nombreCompleto}
-                                placeholder="Ingrese el nombre completo"
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            />
-                        </div>
+                            <>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                                    <input
+                                        type="text"
+                                        name="nombreCompleto"
+                                        value={formData.nombreCompleto}
+                                        placeholder="Ingrese el nombre completo"
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        required
+                                    />
+                                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Telefono</label>
-                            <input
-                                type="text"
-                                name="telefono"
-                                value={formData.telefono}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese el numero de telefono"
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            />
-                        </div>
-                    </>
-                )}
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Telefono</label>
+                                    <input
+                                        type="text"
+                                        name="telefono"
+                                        value={formData.telefono}
+                                        onChange={handleInputChange}
+                                        placeholder="Ingrese el numero de telefono"
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        required
+                                    />
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
 

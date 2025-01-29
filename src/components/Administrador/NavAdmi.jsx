@@ -34,6 +34,7 @@ const NavAdmi = () => {
             cancelButtonText: "No, cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
+                sessionStorage.removeItem('auth-token');
                 Swal.fire({
                     title: "¡Sesión cerrada!",
                     text: "Has cerrado sesión exitosamente",

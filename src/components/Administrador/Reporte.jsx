@@ -29,7 +29,12 @@ const AccidentReport = () => {
     useEffect(() => {
         const fetchHospitals = async () => {
             try {
-                const response = await fetch(`${API_URL}/hospitales`);
+                const response = await fetch(`${API_URL}/hospitales`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    },
+                    });
+
                 const data = await response.json();
                 setHospitals(data);
             } catch (error) {
@@ -51,8 +56,12 @@ const AccidentReport = () => {
             }
 
             try {
-                const response = await fetch(`${API_URL}/reportes/accidente/${id}`);
-
+                const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    },
+                    });
+                
                 if (!isMounted) return;
 
                 if (response.status === 404) {
@@ -138,6 +147,7 @@ const AccidentReport = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
                 },
                 body: JSON.stringify(submitPayload),
             });
@@ -196,6 +206,7 @@ const AccidentReport = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
                 },
                 body: JSON.stringify(updatePayload),
             });
@@ -230,6 +241,7 @@ const AccidentReport = () => {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
                         },
                     });
 

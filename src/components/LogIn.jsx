@@ -18,12 +18,34 @@ function LogIn() {
         }
     }, [isLoading]);
 
-    const handleLogin = () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
+        try {
+            const response = await fetch('https://ambulanciaya.onrender.com/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+            console.log('', data.token);
+
+            sessionStorage.setItem('auth-token', data.token);
+
+            setTimeout(() => {
+                setIsLoading(false);
+                navigate('/tabla/accidente');
+            }, 6000);
+        } catch (error) {
+            console.error('Login error:', error);
             setIsLoading(false);
-            navigate('/tabla/accidente');
-        }, 6000);
+        }
     };
 
     return (
@@ -37,13 +59,8 @@ function LogIn() {
                 <div className="w-full max-w-md space-y-8">
                     <div className="rounded-lg bg-white px-8 pb-8 pt-6 shadow-md">
                         <h2 className="mb-6 text-center text-3xl font-bold text-red-500">Iniciar sesión como empleado</h2>
-                        <form
-                            className="space-y-6"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleLogin();
-                            }}
-                        >
+                        
+                        <form className="space-y-6" onSubmit={handleLogin}> 
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                     Email

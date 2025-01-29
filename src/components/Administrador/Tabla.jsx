@@ -87,7 +87,11 @@ const Tabla = () => {
         }
 
         try {
-            const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`);
+            const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                }
+            });
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const jsonData = await response.json();
@@ -134,6 +138,7 @@ const Tabla = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
                 },
             });
 

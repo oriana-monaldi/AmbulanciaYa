@@ -22,11 +22,11 @@ const AppContent = () => {
 
     const isAdminRoute = (pathname) => {
         return pathname.startsWith('/tabla') ||
-               pathname.startsWith('/alta-') ||
-               pathname.startsWith('/modificacion-') ||
-               pathname.startsWith('/vista-reporte') ||
-               pathname === '/panelUsuario';
-    };
+            pathname.startsWith('/alta-') ||
+            pathname.startsWith('/modificacion-') ||
+            pathname.startsWith('/vista-reporte') ||
+            pathname === '/panelUsuario';
+};
 
     const rutasGenerales = rutasConNavbar.includes(location.pathname);
     const esAdmin = isAdminRoute(location.pathname);
