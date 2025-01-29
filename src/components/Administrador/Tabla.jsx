@@ -52,6 +52,12 @@ const Tabla = () => {
     const [showLoader, setShowLoader] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const adminStatus = sessionStorage.getItem('is-admin') === 'true';
+        setIsAdmin(adminStatus);
+    }, []);
 
     const API_URL = 'https://ambulanciaya.onrender.com';
 
@@ -193,7 +199,8 @@ const Tabla = () => {
         <div>
             {showLoader && <Loader />}
 
-        <div className="m-8 flex justify-end">
+            <div className="m-8 flex justify-end">
+        {!((!isAdmin) && tipo === 'accidente') && (
             <button 
                 onClick={() => {
                     setShowLoader(true);
@@ -205,8 +212,8 @@ const Tabla = () => {
             >
                 <FiPlusCircle color="red" size="40" />
             </button>
-        </div>
-
+        )}
+    </div>
             <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
 
             <div className="m-8 border-4 border-red-600">
@@ -236,26 +243,28 @@ const Tabla = () => {
                                                 </td>
                                             ))}
                                         <td className="text-center">
-                                            <div className="flex justify-center space-x-4">
-                                                <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
-                                                    <CiEdit color="red" size="20" />
-                                                </button>
+                                        <div className="flex justify-center space-x-4">
+                                            <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
+                                                <CiEdit color="red" size="20" />
+                                            </button>
+                                            {!((!isAdmin) && tipo === 'accidente') && (
                                                 <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
                                                     <MdDelete color="red" size={20} />
                                                 </button>
-                                                {tipo === 'accidente' && !item.reporte && (
-                                                    <Link
-                                                        to={`/vista-reporte/${itemId}`}
-                                                        state={{
-                                                            direccion: item.direccion,
-                                                            itemData: item,
-                                                        }}
-                                                        className="font-medium text-red-600"
-                                                    >
-                                                        REPORTE
-                                                    </Link>
-                                                )}
-                                            </div>
+                                            )}
+                                            {tipo === 'accidente' && !item.reporte && (
+                                                <Link
+                                                    to={`/vista-reporte/${itemId}`}
+                                                    state={{
+                                                        direccion: item.direccion,
+                                                        itemData: item,
+                                                    }}
+                                                    className="font-medium text-red-600"
+                                                >
+                                                    REPORTE
+                                                </Link>
+                                            )}
+                                        </div>
                                         </td>
                                     </tr>
                                 );
