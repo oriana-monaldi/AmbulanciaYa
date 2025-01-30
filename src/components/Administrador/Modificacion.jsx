@@ -41,6 +41,8 @@ function Modificacion({tipo}) {
         pacienteId: '',
         telefono: '',
         nombre: '',
+        password: '',
+        isAdmin: false,
     });
 
     useEffect(() => {
@@ -304,7 +306,7 @@ function Modificacion({tipo}) {
                 choferId: formData.choferId || undefined,
                 paramedicoId: formData.paramedicoId || undefined,
             };
-
+            console.log(dataToSend);
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
                 headers: {
@@ -522,6 +524,18 @@ function Modificacion({tipo}) {
                                 type="email"
                                 name="email"
                                 value={formData.email}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
+                       
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Contraseña</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={formData.password}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
