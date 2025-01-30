@@ -118,15 +118,15 @@ const Tabla = () => {
     const handleDelete = async (itemId) => {
         try {
             const result = await swal({
-                title: '¿Estás segura?',
-                text: 'Una vez eliminado, no podrás recuperar este registro',
+                title: '¿Está seguro?',
+                text: 'Una vez eliminado, no podrá recuperar este registro',
                 icon: 'warning',
                 buttons: {
                     cancel: {
                         text: 'Cancelar',
                         value: false,
                         visible: true,
-                        className: 'bg-gray-500',
+                        className: 'bg-gray-300',
                     },
                     confirm: {
                         text: 'Sí, eliminar',
@@ -214,8 +214,8 @@ const Tabla = () => {
             </button>
         )}
     </div>
-            <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-
+{/*             <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+ */}
             <div className="m-8 border-4 border-red-600">
                 <div className="hidden lg:block">
                     <table className="min-w-full divide-y divide-gray-500">
