@@ -123,9 +123,8 @@ function Alta({tipo}) {
                 title: 'Éxito',
                 text: `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} registrado correctamente`,
                 icon: 'success',
-                timer: 1500,
+                confirmButtonColor: '#FF0000'
             });
-
             navigate(`/tabla/${tipo}`);
         } catch (error) {
             console.error('Error completo:', error);

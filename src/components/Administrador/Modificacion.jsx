@@ -326,6 +326,7 @@ function Modificacion({tipo}) {
                 title: 'Éxito',
                 text: 'Datos actualizados correctamente',
                 icon: 'success',
+                confirmButtonColor: '#FF0000'
             });
             navigate(`/tabla/${tipo}`);
         } catch (error) {
