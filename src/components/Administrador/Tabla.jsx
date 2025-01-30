@@ -253,7 +253,7 @@ const Tabla = () => {
                                                 )}
                                                 {tipo === 'accidente' && !item.reporte && (
                                                     <Link
-                                                        to={`/vista-reporte/${itemId}`}
+                                                        to={`/alta-reporte/${itemId}`}
                                                         state={{
                                                             direccion: item.direccion,
                                                             itemData: item,
