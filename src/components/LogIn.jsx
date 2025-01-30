@@ -33,11 +33,11 @@ const LogIn = () => {
 
             sessionStorage.setItem('auth-token', data.token);
             sessionStorage.setItem('is-admin', data.isAdmin);
-            console.log('Account type:', data.isAdmin);
+            console.log('Account type:', data.isAdmin); // hay que sacarlo cuando se termine la auth
             navigate('/tabla/accidente');
         } catch (error) {
             console.error('Login error:', error);
-            setError('Error en el inicio de sesión. Por favor, intente nuevamente.');
+            setError('Credenciales incorrectas.');
         } finally {
             setIsLoading(false);
         }
@@ -50,7 +50,7 @@ const LogIn = () => {
                 <div className="w-full max-w-md">
                     <div className="rounded-lg bg-white px-8 py-6 shadow-md">
                         <h2 className="mb-6 text-center text-3xl font-bold text-red-500">Iniciar sesión como empleado</h2>
-                        {error && <div className="mb-4 rounded-md bg-red-100 p-3 text-red-700">{error}</div>}
+                        {error && <div className="mb-4 rounded-md bg-red-100 p-3 text-red-700 text-center">{error}</div>}
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">

@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import {FiPlusCircle} from 'react-icons/fi';
 import {MdDelete} from 'react-icons/md';
 import {CiEdit} from 'react-icons/ci';
-import TableSkeleton from './TableSkeleton';
+import Skeleton from './Skeleton';
 import Loader from '../Loader';
 
 const headers = {
@@ -110,6 +110,10 @@ const Tabla = () => {
                 title: 'Error',
                 text: 'Error al cargar los datos. Por favor, intente nuevamente.',
                 icon: 'error',
+                button: {
+                    text: 'OK',
+                    className: 'bg-red-600 text-white hover:bg-red-700'
+                }
             });
         }
     };
@@ -132,7 +136,7 @@ const Tabla = () => {
                         text: 'Sí, eliminar',
                         value: true,
                         visible: true,
-                        className: 'bg-red-600',
+                        className: 'bg-red-600 text-white hover:bg-red-700',
                     },
                 },
                 dangerMode: true,
@@ -157,6 +161,7 @@ const Tabla = () => {
                         title: 'No se puede eliminar',
                         text: mensajeError(),
                         icon: 'warning',
+                        className: 'bg-red-600 text-white hover:bg-red-700'
                     });
                     return;
                 }
@@ -165,8 +170,15 @@ const Tabla = () => {
             }
 
             await fetchData();
-            await swal('¡Eliminado!', 'El registro ha sido eliminado.', 'success');
-        } catch (error) {
+            await swal({
+                title: '¡Eliminado!',
+                text: 'El registro ha sido eliminado.',
+                icon: 'success',
+                button: {
+                    text: 'OK',
+                    className: 'bg-red-600 text-white hover:bg-red-600'
+                }
+            });        } catch (error) {
             console.error('Error completo al eliminar:', error);
             await swal('Error', `No se pudo eliminar el registro: ${error.message}`, 'error');
         }
@@ -185,7 +197,7 @@ const Tabla = () => {
                 <div className="m-8 flex justify-end">
                     <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
                 </div>
-                <TableSkeleton columns={headers[tipo]?.headers?.length + 1} rows={5} />
+                <Skeleton columns={headers[tipo]?.headers?.length + 1} rows={5} />
             </div>
         );
     }
@@ -213,8 +225,7 @@ const Tabla = () => {
                     </button>
                 )}
             </div>
-            {/*             <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-             */}
+
             <div className="m-8 border-4 border-red-600">
                 <div className="hidden lg:block">
                     <table className="min-w-full divide-y divide-gray-500">

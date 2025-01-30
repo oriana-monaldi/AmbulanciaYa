@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useLocation} from 'react-router-dom';
-import {FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock} from 'lucide-react';
-import Swal from 'sweetalert2';
+import { FileEdit, Trash2, Upload, Calendar, Clock } from 'lucide-react';
+import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
+import Loader from '../Loader';
 
 const Reporte = () => {
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [hospitals, setHospitals] = useState([]);
+
     const location = useLocation();
     const direccionAccidente = location.state?.direccion || 'Dirección no especificada';
+
     const API_URL = 'https://ambulanciaya.onrender.com';
+
     const [report, setReport] = useState({
         descripcion: '',
         requiereTraslado: false,
@@ -30,34 +34,36 @@ const Reporte = () => {
                         Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
                 });
+
                 const data = await response.json();
                 setHospitals(data);
             } catch (error) {
                 console.error('Error fetching hospitals:', error);
-                await Swal.fire({
-                    title: 'Error',
-                    text: 'No se pudieron cargar los hospitales',
-                    icon: 'error',
-                });
+                swal('Error', 'No se pudieron cargar los hospitales', 'error');
             }
         };
+
         fetchHospitals();
     }, []);
 
     useEffect(() => {
         let isMounted = true;
+
         const cargarReporte = async () => {
             if (!id) {
                 setIsLoading(false);
                 return;
             }
+
             try {
                 const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                     headers: {
                         Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
                 });
+
                 if (!isMounted) return;
+
                 if (response.status === 404) {
                     setReport({
                         descripcion: '',
@@ -70,11 +76,15 @@ const Reporte = () => {
                     setIsLoading(false);
                     return;
                 }
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+
                 const data = await response.json();
+
                 if (!isMounted) return;
+
                 if (data) {
                     setReport({
                         idReporte: data.id || '',
@@ -90,7 +100,7 @@ const Reporte = () => {
             } catch (error) {
                 if (!isMounted) return;
                 console.error('Error al cargar el reporte:', error);
-                await Swal.fire({
+                swal({
                     title: 'Error',
                     text: 'No se pudo cargar el reporte del accidente',
                     icon: 'error',
@@ -101,8 +111,10 @@ const Reporte = () => {
                 }
             }
         };
+
         setIsLoading(true);
         cargarReporte();
+
         return () => {
             isMounted = false;
         };
@@ -111,23 +123,17 @@ const Reporte = () => {
     const handleSubmit = async () => {
         setIsLoading(true);
         if (!report.descripcion || !report.fecha || !report.hora) {
-            await Swal.fire({
-                title: 'Error',
-                text: 'Por favor complete todos los campos requeridos',
-                icon: 'error',
-            });
+            swal('Error', 'Por favor complete todos los campos requeridos', 'error');
             setIsLoading(false);
             return;
         }
+
         if (report.requiereTraslado && !report.hospitalNombre) {
-            await Swal.fire({
-                title: 'Error',
-                text: 'Por favor seleccione un hospital para el traslado',
-                icon: 'error',
-            });
+            swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
             setIsLoading(false);
             return;
         }
+
         try {
             const submitPayload = {
                 descripcion: report.descripcion,
@@ -136,6 +142,7 @@ const Reporte = () => {
                 requiereTraslado: report.requiereTraslado,
                 hospitalId: report.hospitalId || null,
             };
+
             const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                 method: 'POST',
                 headers: {
@@ -144,28 +151,23 @@ const Reporte = () => {
                 },
                 body: JSON.stringify(submitPayload),
             });
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Error al crear el reporte');
             }
+
             const data = await response.json();
+
             setReport((prev) => ({
                 ...prev,
                 isSubmitted: true,
             }));
-            await Swal.fire({
-                title: 'Éxito',
-                text: 'Reporte creado correctamente',
-                icon: 'success',
-                confirmButtonColor: '#FF0000'
-            });
+
+            swal('Éxito', 'Reporte creado correctamente', 'success');
         } catch (error) {
             console.error('Error al crear:', error);
-            await Swal.fire({
-                title: 'Error',
-                text: error.message || 'No se pudo crear el reporte',
-                icon: 'error',
-            });
+            swal('Error', error.message || 'No se pudo crear el reporte', 'error');
         } finally {
             setIsLoading(false);
         }
@@ -176,25 +178,20 @@ const Reporte = () => {
             setIsEditing(true);
             return;
         }
+
         setIsLoading(true);
         if (!report.descripcion || !report.fecha || !report.hora) {
-            await Swal.fire({
-                title: 'Error',
-                text: 'Por favor complete todos los campos requeridos',
-                icon: 'error',
-            });
+            swal('Error', 'Por favor complete todos los campos requeridos', 'error');
             setIsLoading(false);
             return;
         }
+
         if (report.requiereTraslado && !report.hospitalId) {
-            await Swal.fire({
-                title: 'Error',
-                text: 'Por favor seleccione un hospital para el traslado',
-                icon: 'error',
-            });
+            swal('Error', 'Por favor seleccione un hospital para el traslado', 'error');
             setIsLoading(false);
             return;
         }
+
         try {
             const updatePayload = {
                 descripcion: report.descripcion,
@@ -204,6 +201,7 @@ const Reporte = () => {
                 accidenteId: id,
                 hospitalId: report.hospitalId || null,
             };
+
             const response = await fetch(`${API_URL}/reportes/accidente/${report.idReporte}`, {
                 method: 'PUT',
                 headers: {
@@ -212,80 +210,70 @@ const Reporte = () => {
                 },
                 body: JSON.stringify(updatePayload),
             });
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Error al actualizar');
             }
+
             setIsEditing(false);
-            await Swal.fire({
-                title: 'Éxito',
-                text: 'Reporte actualizado correctamente',
-                icon: 'success',
-                confirmButtonColor: '#FF0000'
-            });
+            swal('Éxito', 'Reporte actualizado correctamente', 'success');
+            
         } catch (error) {
             console.error('Update error:', error);
-            await Swal.fire({
-                title: 'Error',
-                text: `No se pudo actualizar el reporte: ${error.message}`,
-                icon: 'error',
-            });
+            swal('Error', `No se pudo actualizar el reporte: ${error.message}`, 'error');
         } finally {
             setIsLoading(false);
         }
     };
 
     const handleDelete = async () => {
-        const result = await Swal.fire({
+        swal({
             title: '¿Está seguro?',
             text: 'Una vez eliminado, no podrá recuperar este reporte',
             icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#FF0000',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        });
+            buttons: true,
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                setIsLoading(true);
+                try {
+                    const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                        },
+                    });
 
-        if (result.isConfirmed) {
-            setIsLoading(true);
-            try {
-                const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Error al eliminar el reporte');
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar el reporte');
+                    }
+
+                    setReport({
+                        descripcion: '',
+                        requiereTraslado: false,
+                        hospitalNombre: '',
+                        fecha: '',
+                        hora: '',
+                        isSubmitted: false,
+                    });
+
+                    swal('Éxito', 'Reporte eliminado correctamente', 'success');
+                } catch (error) {
+                    console.error('Error al eliminar:', error);
+                    swal('Error', 'No se pudo eliminar el reporte', 'error');
+                } finally {
+                    setIsLoading(false);
                 }
-                setReport({
-                    descripcion: '',
-                    requiereTraslado: false,
-                    hospitalNombre: '',
-                    fecha: '',
-                    hora: '',
-                    isSubmitted: false,
-                });
-                await Swal.fire({
-                    title: 'Éxito',
-                    text: 'Reporte eliminado correctamente',
-                    icon: 'success',
-                    confirmButtonColor: '#FF0000'
-                });
-            } catch (error) {
-                console.error('Error al eliminar:', error);
-                await Swal.fire({
-                    title: 'Error',
-                    text: 'No se pudo eliminar el reporte',
-                    icon: 'error',
-                });
-            } finally {
-                setIsLoading(false);
             }
-        }
+        });
     };
+
+    if (isLoading) {
+        return <Loader />;
+    }
+
     return (
         <div className="flex h-full justify-center pt-20">
             <div className="mx-auto w-full max-w-4xl rounded-lg bg-white p-6 shadow-lg">
@@ -399,5 +387,5 @@ const Reporte = () => {
             </div>
         </div>
     );
-}
+};
 export default Reporte;
