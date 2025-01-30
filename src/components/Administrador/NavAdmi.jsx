@@ -49,6 +49,11 @@ const NavAdmi = () => {
         });
     };
 
+    const tipoCuenta = () => {
+        const isAdmin = sessionStorage.getItem('is-admin') === 'true';
+        return isAdmin ? 'Administrador' : 'Paramédico';
+    }
+
     const handleNavigation = (path) => {
         setShowMenu(false);
         navigate(path);
@@ -130,7 +135,8 @@ const NavAdmi = () => {
                     </div>
                 </div>
                 <div className="flex items-center">
-                    <Link 
+                <p className='font-bold text-white pr-6'>{tipoCuenta()}</p>
+                <Link 
                         to="/panelUsuario"
                         onClick={(e) => {
                             e.preventDefault();

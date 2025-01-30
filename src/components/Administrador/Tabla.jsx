@@ -185,7 +185,6 @@ const Tabla = () => {
                 <div className="m-8 flex justify-end">
                     <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
                 </div>
-                <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
                 <TableSkeleton columns={headers[tipo]?.headers?.length + 1} rows={5} />
             </div>
         );
