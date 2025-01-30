@@ -52,9 +52,9 @@ function Modificacion({tipo}) {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                        }
+                            Accept: 'application/json',
+                            Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                        },
                     };
                     const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, options);
                     if (!response.ok) throw new Error('Error al obtener los datos');
@@ -96,9 +96,9 @@ function Modificacion({tipo}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/ambulancias', options);
             if (!response.ok) throw new Error('Error fetching ambulances');
@@ -120,9 +120,9 @@ function Modificacion({tipo}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/pacientes', options);
             if (!response.ok) throw new Error('Error fetching patients');
@@ -144,9 +144,9 @@ function Modificacion({tipo}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/hospitales', options);
             if (!response.ok) throw new Error('Error fetching hospitals');
@@ -168,9 +168,9 @@ function Modificacion({tipo}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/accidentes', options);
             if (!response.ok) throw new Error('Error fetching accidentes');
@@ -193,9 +193,9 @@ function Modificacion({tipo}) {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                    }
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                    },
                 };
                 const response = await fetch('https://ambulanciaya.onrender.com/paramedicos', options);
                 if (!response.ok) throw new Error('Error fetching paramedicos');
@@ -223,9 +223,9 @@ function Modificacion({tipo}) {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                    }
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                    },
                 };
                 const response = await fetch('https://ambulanciaya.onrender.com/choferes', options);
                 if (!response.ok) throw new Error('Error fetching choferes');
@@ -252,9 +252,9 @@ function Modificacion({tipo}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             };
             const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s/${id}`, options);
             if (!response.ok) throw new Error('Error al obtener los datos');
@@ -294,8 +294,7 @@ function Modificacion({tipo}) {
         try {
             const endpoint = getEndpoint(tipo);
 
-            const { id: _, ...dataWithoutId } = formData;
-
+            const {id: _, ...dataWithoutId} = formData;
 
             const dataToSend = {
                 ...dataWithoutId,
@@ -310,8 +309,8 @@ function Modificacion({tipo}) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(dataToSend),
             });
@@ -531,78 +530,78 @@ function Modificacion({tipo}) {
                     </>
                 )}
 
-{tipo === 'accidente' && (
-    <>
-        {isAdmin && (
-            <>
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Dirección</label>
-                    <input
-                        type="text"
-                        name="direccion"
-                        value={formData.direccion}
-                        onChange={handleInputChange}
-                        placeholder="Ingrese la dirección"
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
-                </div>
+                {tipo === 'accidente' && (
+                    <>
+                        {isAdmin && (
+                            <>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Dirección</label>
+                                    <input
+                                        type="text"
+                                        name="direccion"
+                                        value={formData.direccion}
+                                        onChange={handleInputChange}
+                                        placeholder="Ingrese la dirección"
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                </div>
 
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Descripción</label>
-                    <input
-                        type="text"
-                        name="descripcion"
-                        value={formData.descripcion}
-                        onChange={handleInputChange}
-                        placeholder="Descripción"
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
-                </div>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Descripción</label>
+                                    <input
+                                        type="text"
+                                        name="descripcion"
+                                        value={formData.descripcion}
+                                        onChange={handleInputChange}
+                                        placeholder="Descripción"
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                </div>
 
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Fecha</label>
-                    <input
-                        type="date"
-                        name="fecha"
-                        value={formData.fecha}
-                        placeholder="Ingrese la fecha"
-                        onChange={handleInputChange}
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
-                </div>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Fecha</label>
+                                    <input
+                                        type="date"
+                                        name="fecha"
+                                        value={formData.fecha}
+                                        placeholder="Ingrese la fecha"
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                </div>
 
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Hora</label>
-                    <input
-                        type="time"
-                        name="hora"
-                        placeholder="Ingrese la hora"
-                        value={formData.hora}
-                        onChange={handleInputChange}
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
-                </div>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Hora</label>
+                                    <input
+                                        type="time"
+                                        name="hora"
+                                        placeholder="Ingrese la hora"
+                                        value={formData.hora}
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                </div>
 
-                <div className="mb-4">
-                    <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
-                    <select
-                        name="ambulanciaId"
-                        value={formData.ambulanciaId}
-                        onChange={handleInputChange}
-                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                    >
-                        <option value="" disabled>
-                            Seleccione una ambulancia
-                        </option>
-                        {ambulancias.map((ambulancia) => (
-                            <option key={ambulancia.id} value={ambulancia.id}>
-                                {ambulancia.patente}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </>
-        )}
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Ambulancia</label>
+                                    <select
+                                        name="ambulanciaId"
+                                        value={formData.ambulanciaId}
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    >
+                                        <option value="" disabled>
+                                            Seleccione una ambulancia
+                                        </option>
+                                        {ambulancias.map((ambulancia) => (
+                                            <option key={ambulancia.id} value={ambulancia.id}>
+                                                {ambulancia.patente}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </>
+                        )}
 
                         <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Paciente</label>
@@ -660,34 +659,34 @@ function Modificacion({tipo}) {
                 {tipo === 'paciente' && (
                     <>
                         {tipo === 'paciente' && (
-                    <>
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
-                            <input
-                                type="text"
-                                name="nombreCompleto"
-                                value={formData.nombreCompleto}
-                                placeholder="Ingrese el nombre completo"
-                                onChange={handleInputChange}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            />
-                        </div>
+                            <>
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Nombre Completo</label>
+                                    <input
+                                        type="text"
+                                        name="nombreCompleto"
+                                        value={formData.nombreCompleto}
+                                        placeholder="Ingrese el nombre completo"
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        required
+                                    />
+                                </div>
 
-                        <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Telefono</label>
-                            <input
-                                type="text"
-                                name="telefono"
-                                value={formData.telefono}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese el numero de telefono"
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            />
-                        </div>
-                    </>
-                )}
+                                <div className="mb-4">
+                                    <label className="mb-1 block font-medium text-gray-700">Telefono</label>
+                                    <input
+                                        type="text"
+                                        name="telefono"
+                                        value={formData.telefono}
+                                        onChange={handleInputChange}
+                                        placeholder="Ingrese el numero de telefono"
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        required
+                                    />
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
 

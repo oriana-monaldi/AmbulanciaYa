@@ -1,10 +1,10 @@
 import React from 'react';
-import { LuPhone } from 'react-icons/lu';
+import {LuPhone} from 'react-icons/lu';
 
 const Footer = () => {
     return (
         <footer className="w-full bg-white py-2">
-            <div className="flex flex-col items-center justify-center w-full space-y-6 px-4 sm:flex-col sm:items-center md:flex-row md:space-y-0">
+            <div className="flex w-full flex-col items-center justify-center space-y-6 px-4 sm:flex-col sm:items-center md:flex-row md:space-y-0">
                 <div className="w-full text-center sm:text-center md:w-1/3">
                     <h3 className="mb-2 text-xl font-bold text-red-600">Emergencia Médica</h3>
                     <p className="text-gray-700">Brindamos atención médica de emergencia las 24 hs</p>

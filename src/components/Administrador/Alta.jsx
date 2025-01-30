@@ -92,7 +92,7 @@ function Alta({tipo}) {
         try {
             // Permite cargar un paciente vacio en el alta de un accidente
             const payload = Object.entries(formData).reduce((acc, [key, value]) => {
-                if (value !== "" && value !== null && value !== undefined) {
+                if (value !== '' && value !== null && value !== undefined) {
                     acc[key] = value;
                 }
                 return acc;
@@ -102,8 +102,8 @@ function Alta({tipo}) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(payload),
             });

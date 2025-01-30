@@ -95,8 +95,8 @@ const Tabla = () => {
         try {
             const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`, {
                 headers: {
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
-                }
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                },
             });
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -114,7 +114,7 @@ const Tabla = () => {
         }
     };
 
-//Delete
+    //Delete
     const handleDelete = async (itemId) => {
         try {
             const result = await swal({
@@ -144,7 +144,7 @@ const Tabla = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             });
 
@@ -199,22 +199,22 @@ const Tabla = () => {
             {showLoader && <Loader />}
 
             <div className="m-8 flex justify-end">
-        {!((!isAdmin) && tipo === 'accidente') && (
-            <button 
-                onClick={() => {
-                    setShowLoader(true);
-                    setTimeout(() => {
-                        navigate(`/alta-${tipo}`);
-                    }, 400);
-                }}
-                className="cursor-pointer"
-            >
-                <FiPlusCircle color="red" size="40" />
-            </button>
-        )}
-    </div>
-{/*             <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
- */}
+                {!(!isAdmin && tipo === 'accidente') && (
+                    <button
+                        onClick={() => {
+                            setShowLoader(true);
+                            setTimeout(() => {
+                                navigate(`/alta-${tipo}`);
+                            }, 400);
+                        }}
+                        className="cursor-pointer"
+                    >
+                        <FiPlusCircle color="red" size="40" />
+                    </button>
+                )}
+            </div>
+            {/*             <h2 className="m-10 text-4xl font-bold text-red-600">Datos de {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+             */}
             <div className="m-8 border-4 border-red-600">
                 <div className="hidden lg:block">
                     <table className="min-w-full divide-y divide-gray-500">
@@ -242,28 +242,28 @@ const Tabla = () => {
                                                 </td>
                                             ))}
                                         <td className="text-center">
-                                        <div className="flex justify-center space-x-4">
-                                            <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
-                                                <CiEdit color="red" size="20" />
-                                            </button>
-                                            {!((!isAdmin) && tipo === 'accidente') && (
-                                                <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
-                                                    <MdDelete color="red" size={20} />
+                                            <div className="flex justify-center space-x-4">
+                                                <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
+                                                    <CiEdit color="red" size="20" />
                                                 </button>
-                                            )}
-                                            {tipo === 'accidente' && !item.reporte && (
-                                                <Link
-                                                    to={`/vista-reporte/${itemId}`}
-                                                    state={{
-                                                        direccion: item.direccion,
-                                                        itemData: item,
-                                                    }}
-                                                    className="font-medium text-red-600"
-                                                >
-                                                    REPORTE
-                                                </Link>
-                                            )}
-                                        </div>
+                                                {!(!isAdmin && tipo === 'accidente') && (
+                                                    <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
+                                                        <MdDelete color="red" size={20} />
+                                                    </button>
+                                                )}
+                                                {tipo === 'accidente' && !item.reporte && (
+                                                    <Link
+                                                        to={`/vista-reporte/${itemId}`}
+                                                        state={{
+                                                            direccion: item.direccion,
+                                                            itemData: item,
+                                                        }}
+                                                        className="font-medium text-red-600"
+                                                    >
+                                                        REPORTE
+                                                    </Link>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 );

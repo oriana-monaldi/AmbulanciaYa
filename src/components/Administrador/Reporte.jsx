@@ -3,7 +3,7 @@ import {useParams, useLocation} from 'react-router-dom';
 import {FileEdit, Trash2, Upload, Guitar as Hospital, Calendar, Clock} from 'lucide-react';
 import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
-import Loader from '../Loader'
+import Loader from '../Loader';
 
 const AccidentReport = () => {
     const {id} = useParams();
@@ -12,7 +12,7 @@ const AccidentReport = () => {
     const [hospitals, setHospitals] = useState([]);
 
     const location = useLocation();
-    const direccionAccidente = location.state?.direccion || "Dirección no especificada";
+    const direccionAccidente = location.state?.direccion || 'Dirección no especificada';
 
     const API_URL = 'https://ambulanciaya.onrender.com';
 
@@ -31,9 +31,9 @@ const AccidentReport = () => {
             try {
                 const response = await fetch(`${API_URL}/hospitales`, {
                     headers: {
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
-                    });
+                });
 
                 const data = await response.json();
                 setHospitals(data);
@@ -58,10 +58,10 @@ const AccidentReport = () => {
             try {
                 const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                     headers: {
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
-                    });
-                
+                });
+
                 if (!isMounted) return;
 
                 if (response.status === 404) {
@@ -140,14 +140,14 @@ const AccidentReport = () => {
                 fecha: report.fecha,
                 hora: report.hora,
                 requiereTraslado: report.requiereTraslado,
-                hospitalId: report.hospitalId || null
+                hospitalId: report.hospitalId || null,
             };
 
             const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(submitPayload),
             });
@@ -206,7 +206,7 @@ const AccidentReport = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(updatePayload),
             });
@@ -241,7 +241,7 @@ const AccidentReport = () => {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token')
+                            Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                         },
                     });
 
@@ -274,8 +274,8 @@ const AccidentReport = () => {
     }
 
     return (
-        <div className="h-full flex justify-center pt-20">
-            <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg w-full">
+        <div className="flex h-full justify-center pt-20">
+            <div className="mx-auto w-full max-w-4xl rounded-lg bg-white p-6 shadow-lg">
                 <div className="mb-6 flex items-start justify-between">
                     <h2 className="text-2xl font-bold text-red-600">Reporte de Accidente en {direccionAccidente}</h2>
                     <div className="flex gap-2">
@@ -329,7 +329,7 @@ const AccidentReport = () => {
                                 {report.requiereTraslado && (
                                     <div className="flex items-center gap-2">
                                         <FaHospital size={20} className="text-red-600" />
-                                        {(!isEditing && report.isSubmitted) ? (
+                                        {!isEditing && report.isSubmitted ? (
                                             <span>{report.hospitalNombre || 'No especificado'}</span>
                                         ) : (
                                             <select
