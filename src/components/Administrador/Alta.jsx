@@ -29,6 +29,7 @@ const estadosIniciales = {
         nombreCompleto: '',
         dni: '',
         email: '',
+        password: '',
         isAdmin: false,
     },
     accidente: {
@@ -89,7 +90,7 @@ function Alta({tipo}) {
         e.preventDefault();
 
         try {
-            // Intento de skip para paciente vacio
+            // Permite cargar un paciente vacio en el alta de un accidente
             const payload = Object.entries(formData).reduce((acc, [key, value]) => {
                 if (value !== "" && value !== null && value !== undefined) {
                     acc[key] = value;
@@ -101,8 +102,8 @@ function Alta({tipo}) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(payload),
             });
@@ -474,6 +475,19 @@ function Alta({tipo}) {
                                 type="text"
                                 name="email"
                                 value={formData.email}
+                                placeholder="Ingrese el Email"
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Contraseña</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={formData.password}
                                 placeholder="Ingrese el Email"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
