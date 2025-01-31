@@ -13,6 +13,7 @@ import Modificacion from './components/Administrador/Modificacion';
 import LogIn from './components/LogIn';
 import Reporte from './components/Administrador/Reporte';
 import PanelUsuario from './components/Administrador/PanelUsuario';
+import FichaMedica from './components/Administrador/FichaMedica';
 
 const AppContent = () => {
     const location = useLocation();
@@ -22,6 +23,7 @@ const AppContent = () => {
         location.pathname.includes('/alta-') ||
         location.pathname.includes('/modificacion-') ||
         location.pathname.includes('/panelUsuario') ||
+        location.pathname.includes('/fichaMedica') ||
         location.pathname === '/alta-reporte';
 
     return (
@@ -51,6 +53,7 @@ const AppContent = () => {
                     <Route path="/modificacion-paciente/:id" element={<Modificacion tipo="paciente" />} />
                     <Route path="/alta-reporte/:id" element={<Reporte />} />
                     <Route path="/panelUsuario" element={<PanelUsuario />} />
+                    <Route path="/fichaMedica/:id" element={<FichaMedica />} />
                 </Routes>
             </div>
             {!isAdminRoute && <Footer className="flex-shrink-0" />}

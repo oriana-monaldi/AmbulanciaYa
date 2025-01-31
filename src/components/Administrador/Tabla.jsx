@@ -283,6 +283,18 @@ const Tabla = () => {
                                                         REPORTE
                                                     </Link>
                                                 )}
+                                                {tipo === 'paciente' && !item.reporte && (
+                                                    <Link
+                                                        to={`/fichaMedica/${itemId}`}
+                                                        state={{
+                                                            direccion: item.direccion,
+                                                            itemData: item,
+                                                        }}
+                                                        className="font-medium text-red-600"
+                                                    >
+                                                        FICHA MEDICA
+                                                    </Link>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
