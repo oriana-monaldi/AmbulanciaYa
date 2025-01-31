@@ -19,6 +19,7 @@ const LogIn = () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/login', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -31,9 +32,7 @@ const LogIn = () => {
                 throw new Error(data.message || 'Error en el inicio de sesión');
             }
 
-            sessionStorage.setItem('auth-token', data.token);
             sessionStorage.setItem('is-admin', data.isAdmin);
-            console.log('Account type:', data.isAdmin); // hay que sacarlo cuando se termine la auth
             navigate('/tabla/accidente');
         } catch (error) {
             console.error('Login error:', error);

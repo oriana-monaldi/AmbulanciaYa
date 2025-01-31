@@ -94,10 +94,19 @@ const Tabla = () => {
 
         try {
             const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`, {
+                method: 'GET',
+                credentials: 'include',
                 headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
             });
+
+            if (response.status === 401) {
+                navigate('/login');
+                return;
+            }
+
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const jsonData = await response.json();
@@ -146,10 +155,10 @@ const Tabla = () => {
 
             const response = await fetch(`${API_URL}/${headers[tipo].deleteEndpoint}/${itemId}`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                    'Content-Type': 'application/json'
+                }
             });
 
             if (!response.ok) {

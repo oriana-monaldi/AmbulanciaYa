@@ -100,10 +100,10 @@ function Alta({tipo}) {
 
             const response = await fetch(`https://ambulanciaya.onrender.com${Endpoints[tipo]}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(payload),
             });
@@ -139,9 +139,7 @@ function Alta({tipo}) {
     const fetchChoferes = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/choferes', {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                credentials: 'include',
             });
             if (!response.ok) {
                 throw new Error('Error fetching drivers');
@@ -161,9 +159,7 @@ function Alta({tipo}) {
     const fetchParamedicos = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/paramedicos', {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                credentials: 'include',
             });
 
             if (!response.ok) {
@@ -184,9 +180,7 @@ function Alta({tipo}) {
     const fetchAmbulancias = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/ambulancias', {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                credentials: 'include',
             });
 
             if (!response.ok) {
@@ -207,9 +201,7 @@ function Alta({tipo}) {
     const fetchHospitales = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/hospitales', {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                credentials: 'include',
             });
             if (!response.ok) throw new Error('Error fetching hospitals');
             const data = await response.json();
@@ -227,9 +219,7 @@ function Alta({tipo}) {
     const fetchPacientes = async () => {
         try {
             const response = await fetch('https://ambulanciaya.onrender.com/pacientes', {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                },
+                credentials: 'include',
             });
             if (!response.ok) throw new Error('Error fetching patients');
             const data = await response.json();

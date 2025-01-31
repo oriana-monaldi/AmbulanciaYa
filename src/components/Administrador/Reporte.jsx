@@ -30,9 +30,7 @@ const Reporte = () => {
         const fetchHospitals = async () => {
             try {
                 const response = await fetch(`${API_URL}/hospitales`, {
-                    headers: {
-                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                    },
+                    credentials: 'include',
                 });
 
                 const data = await response.json();
@@ -57,9 +55,7 @@ const Reporte = () => {
 
             try {
                 const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
-                    headers: {
-                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
-                    },
+                    credentials: 'include',
                 });
 
                 if (!isMounted) return;
@@ -145,9 +141,9 @@ const Reporte = () => {
 
             const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(submitPayload),
             });
@@ -204,9 +200,9 @@ const Reporte = () => {
 
             const response = await fetch(`${API_URL}/reportes/accidente/${report.idReporte}`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(updatePayload),
             });
@@ -240,9 +236,9 @@ const Reporte = () => {
                 try {
                     const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
                         method: 'DELETE',
+                        credentials: 'include',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                         },
                     });
 

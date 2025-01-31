@@ -52,10 +52,10 @@ function Modificacion({tipo}) {
                     const endpoint = getEndpoint(tipo);
                     const options = {
                         method: 'GET',
+                        credentials: 'include',
                         headers: {
                             'Content-Type': 'application/json',
                             Accept: 'application/json',
-                            Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                         },
                     };
                     const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, options);
@@ -96,10 +96,10 @@ function Modificacion({tipo}) {
         try {
             const options = {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/ambulancias', options);
@@ -120,10 +120,10 @@ function Modificacion({tipo}) {
         try {
             const options = {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/pacientes', options);
@@ -144,10 +144,10 @@ function Modificacion({tipo}) {
         try {
             const options = {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/hospitales', options);
@@ -168,10 +168,10 @@ function Modificacion({tipo}) {
         try {
             const options = {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             };
             const response = await fetch('https://ambulanciaya.onrender.com/accidentes', options);
@@ -193,10 +193,10 @@ function Modificacion({tipo}) {
             try {
                 const options = {
                     method: 'GET',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
-                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
                 };
                 const response = await fetch('https://ambulanciaya.onrender.com/paramedicos', options);
@@ -223,10 +223,10 @@ function Modificacion({tipo}) {
             try {
                 const options = {
                     method: 'GET',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
-                        Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                     },
                 };
                 const response = await fetch('https://ambulanciaya.onrender.com/choferes', options);
@@ -252,10 +252,10 @@ function Modificacion({tipo}) {
         try {
             const options = {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
             };
             const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s/${id}`, options);
@@ -306,13 +306,12 @@ function Modificacion({tipo}) {
                 choferId: formData.choferId || undefined,
                 paramedicoId: formData.paramedicoId || undefined,
             };
-            console.log(dataToSend);
             const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('auth-token'),
                 },
                 body: JSON.stringify(dataToSend),
             });
