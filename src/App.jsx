@@ -16,7 +16,7 @@ import PanelUsuario from './components/Administrador/PanelUsuario';
 import FichaMedica from './components/Administrador/FichaMedica';
 
 const AppContent = () => {
-    const location = useLocation();
+    const location = useLocation();  // determinar la ruta
     const isAdminRoute =
         location.pathname.includes('/navAdmi') ||
         location.pathname.includes('/tabla') ||

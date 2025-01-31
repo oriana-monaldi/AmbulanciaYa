@@ -67,21 +67,6 @@ const AdminPanel = () => {
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="mb-2 block text-sm font-bold text-gray-700">Confirmar Nueva Contraseña</label>
-                                <div className="relative">
-                                    <input
-                                        type={showConfirmPassword ? 'text' : 'password'}
-                                        value={passwordForm.confirmPassword}
-                                        onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
-                                        className="w-full rounded-md border border-red-200 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
-                                    />
-                                    <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500">
-                                        {showConfirmPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-                                    </button>
-                                </div>
-                            </div>
-
                             <button type="submit" className="w-full rounded-md bg-red-600 px-4 py-3 text-lg font-semibold text-white transition-colors duration-300 hover:bg-red-700">
                                 Cambiar Contraseña
                             </button>
@@ -92,21 +77,6 @@ const AdminPanel = () => {
                     <div className="rounded-lg bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
                         <h2 className="mb-6 border-b pb-2 text-2xl font-semibold text-red-600">Modificar Correo Electrónico</h2>
                         <form onSubmit={handleEmailChange} className="space-y-6">
-                            <div>
-                                <label className="mb-2 block text-sm font-bold text-gray-700">Correo Electrónico Actual</label>
-                                <input type="email" value={emailForm.currentEmail} disabled className="w-full rounded-md border border-red-200 bg-gray-100 p-3 text-gray-600" />
-                            </div>
-
-                            <div>
-                                <label className="mb-2 block text-sm font-bold text-gray-700">Nuevo Correo Electrónico</label>
-                                <input
-                                    type="email"
-                                    value={emailForm.newEmail}
-                                    onChange={(e) => setEmailForm({...emailForm, newEmail: e.target.value})}
-                                    className="w-full rounded-md border border-red-200 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
-                                    placeholder="nuevo@email.com"
-                                />
-                            </div>
 
                             <div>
                                 <label className="mb-2 block text-sm font-bold text-gray-700">Confirmar contraseña</label>

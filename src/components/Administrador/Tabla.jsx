@@ -98,7 +98,7 @@ const Tabla = () => {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                 },
             });
 
@@ -121,8 +121,8 @@ const Tabla = () => {
                 icon: 'error',
                 button: {
                     text: 'OK',
-                    className: 'bg-red-600 text-white hover:bg-red-700'
-                }
+                    className: 'bg-red-600 text-white hover:bg-red-700',
+                },
             });
         }
     };
@@ -157,8 +157,8 @@ const Tabla = () => {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
@@ -170,7 +170,7 @@ const Tabla = () => {
                         title: 'No se puede eliminar',
                         text: mensajeError(),
                         icon: 'warning',
-                        className: 'bg-red-600 text-white hover:bg-red-700'
+                        className: 'bg-red-600 text-white hover:bg-red-700',
                     });
                     return;
                 }
@@ -185,9 +185,10 @@ const Tabla = () => {
                 icon: 'success',
                 button: {
                     text: 'OK',
-                    className: 'bg-red-600 text-white hover:bg-red-600'
-                }
-            });        } catch (error) {
+                    className: 'bg-red-600 text-white hover:bg-red-600',
+                },
+            });
+        } catch (error) {
             console.error('Error completo al eliminar:', error);
             await swal('Error', `No se pudo eliminar el registro: ${error.message}`, 'error');
         }
@@ -283,13 +284,9 @@ const Tabla = () => {
                                                         REPORTE
                                                     </Link>
                                                 )}
-                                                {tipo === 'paciente' && !item.reporte && (
+                                                {tipo === 'paciente' && (
                                                     <Link
-                                                        to={`/fichaMedica/${itemId}`}
-                                                        state={{
-                                                            direccion: item.direccion,
-                                                            itemData: item,
-                                                        }}
+                                                        to="/fichaMedica/:id"
                                                         className="font-medium text-red-600"
                                                     >
                                                         FICHA MEDICA

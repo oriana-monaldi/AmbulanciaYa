@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useLocation, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {FiEye, FiEyeOff} from 'react-icons/fi';
 
 function Modificacion({tipo}) {
     const location = useLocation();
@@ -13,6 +14,7 @@ function Modificacion({tipo}) {
     const [choferes, setChoferes] = useState([]);
     const [accidentes, setAccidentes] = useState([]);
     const itemData = location.state?.itemData;
+    const [showPassword, setShowPassword] = useState(false);
 
     // Validacion del tipo de cuenta
     const [isAdmin, setIsAdmin] = useState(false);
@@ -325,7 +327,7 @@ function Modificacion({tipo}) {
                 title: 'Éxito',
                 text: 'Datos actualizados correctamente',
                 icon: 'success',
-                confirmButtonColor: '#FF0000'
+                confirmButtonColor: '#FF0000',
             });
             navigate(`/tabla/${tipo}`);
         } catch (error) {
@@ -529,17 +531,20 @@ function Modificacion({tipo}) {
                                 required
                             />
                         </div>
-                       
-                        <div className="mb-4">
+
+                        <div className="relative mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Contraseña</label>
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-[70%] -translate-y-1/2 transform text-gray-500">
+                                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                            </button>
                         </div>
                     </>
                 )}

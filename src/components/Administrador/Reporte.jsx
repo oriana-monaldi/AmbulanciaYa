@@ -11,12 +11,12 @@ const Reporte = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [hospitals, setHospitals] = useState([]);
 
-    const location = useLocation();
+    const location = useLocation(); // obtenemos la dirección del accidente para mostrarla en ek titulo
     const direccionAccidente = location.state?.direccion || 'Dirección no especificada';
 
     const API_URL = 'https://ambulanciaya.onrender.com';
 
-    const [report, setReport] = useState({
+    const [report, setReport] = useState({ //estado inicial del reporte con campos vacios
         descripcion: '',
         requiereTraslado: false,
         hospitalNombre: '',
@@ -116,6 +116,7 @@ const Reporte = () => {
         };
     }, [id]);
 
+    // func para enviar el reporte
     const handleSubmit = async () => {
         setIsLoading(true);
         if (!report.descripcion || !report.fecha || !report.hora) {
@@ -169,6 +170,7 @@ const Reporte = () => {
         }
     };
 
+    // func para editar 
     const handleEdit = async () => {
         if (!isEditing) {
             setIsEditing(true);
@@ -223,6 +225,7 @@ const Reporte = () => {
         }
     };
 
+    //func para eliminar
     const handleDelete = async () => {
         swal({
             title: '¿Está seguro?',
