@@ -17,13 +17,13 @@ const NavAdmi = () => {
         setIsAdmin(adminStatus);
     }, []);
 
+    //No se usa?
     const handleLinkClick = () => {
         setShowMenu(false);
     };
 
     const handleLogout = (e) => {
         e.preventDefault();
-        e.stopPropagation();
 
         Swal.fire({
             title: '¿Estás seguro?',
@@ -36,15 +36,32 @@ const NavAdmi = () => {
             cancelButtonText: 'No, cancelar',
         }).then((result) => {
             if (result.isConfirmed) {
-                sessionStorage.removeItem('auth-token');
-                sessionStorage.removeItem('is-admin');
-                Swal.fire({
-                    title: '¡Sesión cerrada!',
-                    text: 'Has cerrado sesión exitosamente',
-                    icon: 'success',
-                }).then(() => {
-                    navigate('/logIn');
-                });
+                fetch('https://ambulanciaya.onrender.com/logout', {
+                    method: 'POST',
+                    credentials: 'include',
+                }).then(
+                    () => {
+                        sessionStorage.removeItem('is-admin');
+                        Swal.fire({
+                            title: '¡Sesión cerrada!',
+                            text: 'Has cerrado sesión exitosamente',
+                            icon: 'success',
+                            confirmButtonColor: '#FF0000'
+                        }).then(() => {
+                            navigate('/logIn');
+                        });
+                    },
+                    (error) => {
+                        Swal.fire({
+                            title: 'Error al cerrar sesión',
+                            text: error,
+                            icon: 'cancel',
+                            confirmButtonColor: '#FF0000'
+                        }).then(() => {
+                            navigate('/');
+                        });
+                    }
+                );
             }
         });
     };
@@ -132,16 +149,18 @@ const NavAdmi = () => {
                 </div>
                 <div className="flex items-center">
                     <p className="pr-6 font-bold text-white">{tipoCuenta()}</p>
-                    <Link
-                        to="/panelUsuario"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleNavigation('/panelUsuario');
-                        }}
-                        className="mr-6 text-white transition-colors duration-200 hover:text-red-200"
-                    >
-                        <FaUserGear size={24} />
-                    </Link>
+                    {!isAdmin && (
+                        <Link
+                            to="/panelUsuario"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleNavigation('/panelUsuario');
+                            }}
+                            className="mr-6 text-white transition-colors duration-200 hover:text-red-200"
+                        >
+                            <FaUserGear size={24} />
+                        </Link>
+                    )}
                     <button onClick={handleLogout} className="text-white transition-colors duration-200 hover:text-red-200">
                         <GiExitDoor size={24} />
                     </button>
