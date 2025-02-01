@@ -1,5 +1,6 @@
 import React from 'react';
 import {LuPhone} from 'react-icons/lu';
+import  {Link} from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -15,19 +16,16 @@ const Footer = () => {
                     <h3 className="mb-2 mt-0 text-xl font-bold text-red-600">Contacto de emergencias</h3>
                     <div className="flex items-center justify-center space-x-2">
                         <LuPhone className="h-6 w-6 text-red-600" />
-                        <p className="text-gray-700">911</p>
+                        <p className="text-gray-700">0800-333-111</p>
                     </div>
                 </div>
 
                 <div className="w-full text-center sm:text-center md:w-1/3">
                     <h3 className="mb-2 text-xl font-bold text-red-600">Información</h3>
                     <nav className="flex flex-col space-y-2 sm:items-center">
-                        <a href="#" className="text-gray-700 transition-colors hover:text-red-600">
+                        <Link to="/politicaPrivacidad" className="text-gray-700 transition-colors hover:text-red-600">
                             Políticas de Privacidad
-                        </a>
-                        <a href="#" className="text-gray-700 transition-colors hover:text-red-600">
-                            Términos y Condiciones
-                        </a>
+                        </Link>
                     </nav>
                 </div>
             </div>

@@ -14,6 +14,7 @@ import LogIn from './components/LogIn';
 import Reporte from './components/Administrador/Reporte';
 import PanelUsuario from './components/Administrador/PanelUsuario';
 import FichaMedica from './components/Administrador/FichaMedica';
+import PoliticasPrivacidad from './components/PoliticasPrivacidad';
 
 const AppContent = () => {
     const location = useLocation();  // determinar la ruta
@@ -54,6 +55,7 @@ const AppContent = () => {
                     <Route path="/alta-reporte/:id" element={<Reporte />} />
                     <Route path="/panelUsuario" element={<PanelUsuario />} />
                     <Route path="/fichaMedica/:id" element={<FichaMedica />} />
+                    <Route path="politicaPrivacidad" element={<PoliticasPrivacidad />} />
                 </Routes>
             </div>
             {!isAdminRoute && <Footer className="flex-shrink-0" />}
