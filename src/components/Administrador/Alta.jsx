@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {FiEye, FiEyeOff} from 'react-icons/fi';
 
 const Endpoints = {
     ambulancia: '/ambulancias',
@@ -59,6 +60,7 @@ function Alta({tipo}) {
     const [hospitales, setHospitales] = useState([]);
     const [pacientes, setPacientes] = useState([]);
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if (tipo === 'ambulancia') {
@@ -123,7 +125,7 @@ function Alta({tipo}) {
                 title: 'Éxito',
                 text: `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} registrado correctamente`,
                 icon: 'success',
-                confirmButtonColor: '#FF0000'
+                confirmButtonColor: '#FF0000',
             });
             navigate(`/tabla/${tipo}`);
         } catch (error) {
@@ -471,17 +473,20 @@ function Alta({tipo}) {
                             />
                         </div>
 
-                        <div className="mb-4">
+                        <div className="relative mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Contraseña</label>
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
-                                placeholder="Ingrese el Email"
+                                placeholder="Ingrese la contraseña"
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-[70%] -translate-y-1/2 transform text-gray-500">
+                                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                            </button>
                         </div>
                     </>
                 )}
