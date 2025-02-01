@@ -386,16 +386,20 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Inventario</label>
                             <select
                                 name="inventario"
-                                value={formData.inventario}
-                                onChange={handleInputChange}
+                                value={formData.inventario?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'inventario',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled>
-                                    Seleccione una opción
-                                </option>
-                                <option value={true}>Completo</option>
-                                <option value={false}>Incompleto</option>
+                                <option value="true">Completo</option>
+                                <option value="false">Incompleto</option>
                             </select>
                         </div>
 
@@ -403,16 +407,20 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">VTV</label>
                             <select
                                 name="vtv"
-                                value={formData.vtv}
-                                onChange={handleInputChange}
+                                value={formData.vtv?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'vtv',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled>
-                                    Seleccione una opción
-                                </option>
-                                <option value={true}>Vigente</option>
-                                <option value={false}>No vigente</option>
+                                <option value="true">Vigente</option>
+                                <option value="false">No vigente</option>
                             </select>
                         </div>
 
@@ -420,16 +428,20 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">Seguro</label>
                             <select
                                 name="seguro"
-                                value={formData.seguro}
-                                onChange={handleInputChange}
+                                value={formData.seguro?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'seguro',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled selected>
-                                    Seleccione estado Seguro
-                                </option>
-                                <option value={true}>Vigente</option>
-                                <option value={false}>No vigente</option>
+                                <option value="true">Vigente</option>
+                                <option value="false">No vigente</option>
                             </select>
                         </div>
 
@@ -437,16 +449,20 @@ function Modificacion({tipo}) {
                             <label className="mb-1 block font-medium text-gray-700">En Base</label>
                             <select
                                 name="enBase"
-                                value={formData.base}
-                                onChange={handleInputChange}
+                                value={formData.enBase?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'enBase',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             >
-                                <option value="" disabled selected>
-                                    Seleccione una opción
-                                </option>
-                                <option value={true}>Si</option>
-                                <option value={false}>No</option>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
 
