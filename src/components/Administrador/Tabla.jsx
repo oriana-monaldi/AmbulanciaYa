@@ -78,13 +78,13 @@ const Tabla = () => {
         }
     };
 
-    //funcion para el loader
     const handleEdit = (itemId, itemData) => {
         setShowLoader(true);
         setTimeout(() => {
             navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
         }, 500);
     };
+
     const fetchData = async () => {
         if (!tipo || !headers[tipo]) {
             setError('Tipo de datos no válido');
@@ -127,7 +127,6 @@ const Tabla = () => {
         }
     };
 
-    //Delete
     const handleDelete = async (itemId) => {
         try {
             const result = await swal({
@@ -236,17 +235,17 @@ const Tabla = () => {
                 )}
             </div>
 
-            <div className="m-8 border-4 border-red-600">
+            <div className="m-8 rounded-lg border-4 border-red-600">
                 <div className="hidden lg:block">
                     <table className="min-w-full divide-y divide-gray-500">
                         <thead className="bg-gray-50">
                             <tr className="h-8">
                                 {headers[tipo].headers.map((header) => (
-                                    <th key={header} className="text-center text-sm font-medium tracking-wider text-gray-500">
+                                    <th key={header} className="text-center font-medium tracking-wider text-black-800 text-sm">
                                         {header}
                                     </th>
                                 ))}
-                                <th className="text-center text-sm font-medium tracking-wider text-gray-500">Acciones</th>
+                                <th className="text-center text-sm font-medium tracking-wider text-black-800">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 bg-white">
@@ -264,34 +263,33 @@ const Tabla = () => {
                                             ))}
                                         <td className="text-center">
                                             <div className="flex justify-center space-x-4">
-                                                <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
-                                                    <CiEdit color="red" size="20" />
-                                                </button>
-                                                {!(!isAdmin && tipo === 'accidente') && (
-                                                    <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
-                                                        <MdDelete color="red" size={20} />
+                                                <>
+                                                    <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
+                                                        <CiEdit color="red" size="20" />
                                                     </button>
-                                                )}
-                                                {tipo === 'accidente' && !item.reporte && (
-                                                    <Link
-                                                        to={`/alta-reporte/${itemId}`}
-                                                        state={{
-                                                            direccion: item.direccion,
-                                                            itemData: item,
-                                                        }}
-                                                        className="font-medium text-red-600"
-                                                    >
-                                                        REPORTE
-                                                    </Link>
-                                                )}
-                                                {tipo === 'paciente' && (
-                                                    <Link
-                                                        to="/fichaMedica/:id"
-                                                        className="font-medium text-red-600"
-                                                    >
-                                                        FICHA MEDICA
-                                                    </Link>
-                                                )}
+                                                    {!(!isAdmin && tipo === 'accidente') && (
+                                                        <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
+                                                            <MdDelete color="red" size={20} />
+                                                        </button>
+                                                    )}
+                                                    {tipo === 'accidente' && !item.reporte && (
+                                                        <Link
+                                                            to={`/alta-reporte/${itemId}`}
+                                                            state={{
+                                                                direccion: item.direccion,
+                                                                itemData: item,
+                                                            }}
+                                                            className="font-medium text-red-600"
+                                                        >
+                                                            REPORTE
+                                                        </Link>
+                                                    )}
+                                                    {tipo === 'paciente' && (
+                                                        <Link to="/fichaMedica/:id" className="font-medium text-red-600">
+                                                            FICHA MEDICA
+                                                        </Link>
+                                                    )}
+                                                </>
                                             </div>
                                         </td>
                                     </tr>
@@ -299,6 +297,60 @@ const Tabla = () => {
                             })}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="block lg:hidden">
+                    <div className="space-y-4 p-4">
+                        {data.map((item) => {
+                            const itemId = item._id || item.id;
+                            return (
+                                <div key={itemId} className="rounded-lg bg-white p-4 shadow">
+                                    {Object.keys(item)
+                                        .filter((key) => key !== 'isAdmin')
+                                        .slice(0, headers[tipo].headers.length)
+                                        .map((key, index) => (
+                                            <div key={`${itemId}-${key}`} className="flex justify-between py-2">
+                                                <span className="font-medium text-gray-600">
+                                                    {headers[tipo].headers[index]}:
+                                                </span>
+                                                <span className="text-gray-500">
+                                                    {typeof item[key] === 'boolean' ? (item[key] ? 'Sí' : 'No') : item[key]}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    <div className="mt-4 flex justify-end space-x-4">
+                                        <>
+                                            <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
+                                                <CiEdit color="red" size="20" />
+                                            </button>
+                                            {!(!isAdmin && tipo === 'accidente') && (
+                                                <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
+                                                    <MdDelete color="red" size={20} />
+                                                </button>
+                                            )}
+                                            {tipo === 'accidente' && !item.reporte && (
+                                                <Link
+                                                    to={`/alta-reporte/${itemId}`}
+                                                    state={{
+                                                        direccion: item.direccion,
+                                                        itemData: item,
+                                                    }}
+                                                    className="font-medium text-red-600"
+                                                >
+                                                    REPORTE
+                                                </Link>
+                                            )}
+                                            {tipo === 'paciente' && (
+                                                <Link to="/fichaMedica/:id" className="font-medium text-red-600">
+                                                    FICHA MEDICA
+                                                </Link>
+                                            )}
+                                        </>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

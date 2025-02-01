@@ -340,6 +340,7 @@ function Modificacion({tipo}) {
         }
     };
 
+    // funcion para manejar los cambios en los inputs (tel por ej)
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData((prevState) => ({
@@ -695,10 +696,14 @@ function Modificacion({tipo}) {
                                 <div className="mb-4">
                                     <label className="mb-1 block font-medium text-gray-700">Telefono</label>
                                     <input
-                                        type="text"
+                                        type="tel"
                                         name="telefono"
                                         value={formData.telefono}
-                                        onChange={handleInputChange}
+                                        onChange={(e) => {
+                                            // Filtrar caracteres no numéricos
+                                            const value = e.target.value.replace(/\D/g, ''); // Reemplaza todo lo que no sea un número
+                                            handleInputChange({target: {name: 'telefono', value}}); // Llamar a handleInputChange con el valor filtrado
+                                        }}
                                         placeholder="Ingrese el numero de telefono"
                                         className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                         required

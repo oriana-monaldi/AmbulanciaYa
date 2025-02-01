@@ -80,15 +80,15 @@ const NavAdmi = () => {
         <nav className="bg-red-600 p-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                    <FaBars className="cursor-pointer text-white md:hidden" size={25} onClick={() => setShowMenu(!showMenu)} />
+                    <FaBars className="cursor-pointer text-white lg:hidden" size={25} onClick={() => setShowMenu(!showMenu)} />
 
-                    <div className={`absolute left-0 right-0 top-14 bg-red-600 md:relative md:top-0 md:block ${showMenu ? 'block' : 'hidden'}`}>
-                        <div className="flex flex-col p-4 md:flex-row md:space-x-6 md:p-0">
+                    <div className={`absolute left-0 right-0 top-14 bg-red-600 lg:relative lg:top-0 lg:block ${showMenu ? 'block' : 'hidden'}`}>
+                        <div className="flex flex-col p-4 lg:flex-row lg:space-x-6 lg:p-0">
                             <NavLink
                                 to="/tabla/accidente"
                                 onClick={() => handleNavigation('/tabla/accidente')}
                                 className={({isActive}) =>
-                                    isActive ? 'border-b-2 border-red-200 py-2 font-bold text-red-200 md:py-0' : 'py-2 text-white transition-colors duration-200 hover:text-red-200 md:py-0'
+                                    isActive ? 'border-b-2 border-red-200 py-2 font-bold text-red-200 lg:py-0' : 'py-2 text-white transition-colors duration-200 hover:text-red-200 lg:py-0'
                                 }
                             >
                                 Accidentes

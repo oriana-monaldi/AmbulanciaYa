@@ -3,7 +3,6 @@ import {useParams, useLocation} from 'react-router-dom';
 import { FileEdit, Trash2, Upload, Calendar, Clock } from 'lucide-react';
 import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
-import Loader from '../Loader';
 
 const Reporte = () => {
     const {id} = useParams();
@@ -268,10 +267,6 @@ const Reporte = () => {
             }
         });
     };
-
-    if (isLoading) {
-        return <Loader />;
-    }
 
     return (
         <div className="flex h-full justify-center pt-20">
