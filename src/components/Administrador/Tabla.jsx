@@ -235,21 +235,22 @@ const Tabla = () => {
                 )}
             </div>
 
-            <div className="m-8 border-4 border-red-600 rounded-lg">
-                <div className="hidden lg:block ">
-                    <table className="min-w-full divide-y divide-gray-500">
+            <div className="m-8 border-4 border-red-600 rounded-lg overflow-x-auto">
+    <table className="w-full divide-y divide-gray-500">
+
+
                         <thead className="bg-gray-50">
                             <tr className="h-8">
-                                <th className="text-black-500 text-center text-sm font-medium tracking-wider"></th>
+                                <th className="text-black-500 text-center text-sm font-medium"></th>
                                 {headers[tipo].headers.map((header) => (
-                                    <th key={header} className="text-black-500 text-center text-sm font-medium tracking-wider">
+                                    <th key={header} className="text-black-500 text-center text-sm font-medium ">
                                         {header}
                                     </th>
                                 ))}
-                                <th className="text-black-500 text-center text-sm font-medium tracking-wider">Acciones</th>
+                                <th className="text-black-500 text-center text-sm font-medium ">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200 bg-white">
+                        <tbody className="divide-y divide-gray-300 bg-white">
                             {data.map((item, index) => {
                                 const itemId = item._id || item.id;
                                 return (
@@ -299,7 +300,6 @@ const Tabla = () => {
                     </table>
                 </div>
             </div>
-        </div>
     );
 };
 
