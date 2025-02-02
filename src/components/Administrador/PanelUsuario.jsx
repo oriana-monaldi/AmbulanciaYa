@@ -2,6 +2,8 @@ import {useState} from 'react';
 import {FiEye, FiEyeOff} from 'react-icons/fi';
 import Swal from 'sweetalert2';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const PanelUsuario = () => {
     const [passwordForm, setPasswordForm] = useState({
         currentPassword: '',
@@ -18,7 +20,7 @@ const PanelUsuario = () => {
     const handlePasswordChange = (e) => {
         e.preventDefault();
 
-        fetch('https://ambulanciaya.onrender.com/paramedicos/me/password', {
+        fetch(API_URL + '/paramedicos/me/password', {
             method: 'PATCH',
             credentials: 'include',
             headers: {
@@ -47,7 +49,7 @@ const PanelUsuario = () => {
     const handleEmailChange = (e) => {
         e.preventDefault();
 
-        fetch('https://ambulanciaya.onrender.com/paramedicos/me/email', {
+        fetch(API_URL + '/paramedicos/me/email', {
             method: 'PATCH',
             credentials: 'include',
             headers: {
@@ -148,7 +150,21 @@ const PanelUsuario = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full rounded-md bg-red-600 py-2 text-white hover:bg-red-700">
+                            <button
+                                type="submit"
+                                className="w-full rounded-md bg-red-600 py-2 text-white hover:bg-red-700"
+                                onClick={() => {
+                                    Swal.fire({
+                                        title: '¡Éxito!',
+                                        text: 'El correo ha sido actualizado correctamente',
+                                        icon: 'success',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }}
+                            >
                                 Cambiar Correo
                             </button>
                         </form>

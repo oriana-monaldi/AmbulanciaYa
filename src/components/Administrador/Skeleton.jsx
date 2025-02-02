@@ -2,7 +2,7 @@ import React from 'react';
 
 const Skeleton = ({columns = 8, rows = 5}) => {
     return (
-        <div className="m-8 border-4 border-red-600">
+        <div className="m-8 border-4 border-red-600 rounded-lg overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-500">
                 <thead className="bg-gray-50">
                     <tr className="h-8">

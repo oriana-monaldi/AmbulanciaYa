@@ -61,7 +61,8 @@ function Alta({tipo}) {
     const [pacientes, setPacientes] = useState([]);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-
+    
+    const API_URL = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if (tipo === 'ambulancia') {
             fetchChoferes();
@@ -91,6 +92,7 @@ function Alta({tipo}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+
         try {
             // Permite cargar un paciente vacio en el alta de un accidente
             const payload = Object.entries(formData).reduce((acc, [key, value]) => {
@@ -100,7 +102,7 @@ function Alta({tipo}) {
                 return acc;
             }, {});
 
-            const response = await fetch(`https://ambulanciaya.onrender.com${Endpoints[tipo]}`, {
+            const response = await fetch(API_URL + `${Endpoints[tipo]}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -140,7 +142,7 @@ function Alta({tipo}) {
 
     const fetchChoferes = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/choferes', {
+            const response = await fetch( API_URL + '/choferes', {
                 credentials: 'include',
             });
             if (!response.ok) {
@@ -160,7 +162,7 @@ function Alta({tipo}) {
 
     const fetchParamedicos = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/paramedicos', {
+            const response = await fetch(API_URL + '/paramedicos', {
                 credentials: 'include',
             });
 
@@ -181,7 +183,7 @@ function Alta({tipo}) {
 
     const fetchAmbulancias = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/ambulancias', {
+            const response = await fetch(API_URL + '/ambulancias', {
                 credentials: 'include',
             });
 
@@ -202,7 +204,7 @@ function Alta({tipo}) {
 
     const fetchHospitales = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/hospitales', {
+            const response = await fetch(API_URL + '/hospitales', {
                 credentials: 'include',
             });
             if (!response.ok) throw new Error('Error fetching hospitals');
@@ -220,7 +222,7 @@ function Alta({tipo}) {
 
     const fetchPacientes = async () => {
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/pacientes', {
+            const response = await fetch(API_URL + '/pacientes', {
                 credentials: 'include',
             });
             if (!response.ok) throw new Error('Error fetching patients');

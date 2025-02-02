@@ -13,6 +13,8 @@ const Formulario = () => {
     const [success, setSuccess] = useState(false);
     const [responseMessage, setResponseMessage] = useState('');
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const enviarDatos = async () => {
         if (paraMi === 'Es para mí') {
             if (!nombre.trim() || !telefono.trim()) {
@@ -39,7 +41,7 @@ const Formulario = () => {
         setSuccess(false);
 
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/ambulancias/solicitar', {
+            const response = await fetch(API_URL + '/ambulancias/solicitar', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

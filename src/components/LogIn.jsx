@@ -11,13 +11,15 @@ const LogIn = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
 
         try {
-            const response = await fetch('https://ambulanciaya.onrender.com/login', {
+            const response = await fetch(API_URL + '/login', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useLocation} from 'react-router-dom';
-import { FileEdit, Trash2, Upload, Calendar, Clock } from 'lucide-react';
+import {FileEdit, Trash2, Upload, Calendar, Clock} from 'lucide-react';
 import swal from 'sweetalert';
 import {FaHospital} from 'react-icons/fa';
 
@@ -13,9 +13,10 @@ const Reporte = () => {
     const location = useLocation(); // obtenemos la dirección del accidente para mostrarla en ek titulo
     const direccionAccidente = location.state?.direccion || 'Dirección no especificada';
 
-    const API_URL = 'https://ambulanciaya.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const [report, setReport] = useState({ //estado inicial del reporte con campos vacios
+    const [report, setReport] = useState({
+        //estado inicial del reporte con campos vacios
         descripcion: '',
         requiereTraslado: false,
         hospitalNombre: '',
@@ -53,7 +54,7 @@ const Reporte = () => {
             }
 
             try {
-                const response = await fetch(`${API_URL}/reportes/accidente/${id}`, {
+                const response = await fetch(`${URL}/reportes/accidente/${id}`, {
                     credentials: 'include',
                 });
 
@@ -169,7 +170,7 @@ const Reporte = () => {
         }
     };
 
-    // func para editar 
+    // func para editar
     const handleEdit = async () => {
         if (!isEditing) {
             setIsEditing(true);
@@ -215,7 +216,6 @@ const Reporte = () => {
 
             setIsEditing(false);
             swal('Éxito', 'Reporte actualizado correctamente', 'success');
-            
         } catch (error) {
             console.error('Update error:', error);
             swal('Error', `No se pudo actualizar el reporte: ${error.message}`, 'error');

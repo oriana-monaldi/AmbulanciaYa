@@ -27,7 +27,7 @@ const headers = {
         mensajeError: 'Este paramédico está asignado a una o más ambulancias. Primero quite al paramédico de las ambulancias asignadas.',
     },
     accidente: {
-        headers: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Ambulancia', 'Hospital', 'Paciente'],
+        headers: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Ambulancia', 'Hospital', 'Paciente', 'Reporte'],
         displayEndpoint: '/accidentes/desc',
         deleteEndpoint: 'accidentes',
     },
@@ -58,7 +58,7 @@ const Tabla = () => {
         setIsAdmin(adminStatus);
     }, []);
 
-    const API_URL = 'https://ambulanciaya.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const mensajeError = () => {
         switch (tipo) {
@@ -236,9 +236,7 @@ const Tabla = () => {
             </div>
 
             <div className="m-8 border-4 border-red-600 rounded-lg overflow-x-auto">
-    <table className="w-full divide-y divide-gray-500">
-
-
+                <table className="w-full divide-y divide-gray-500">
                         <thead className="bg-gray-50">
                             <tr className="h-8">
                                 <th className="text-black-500 text-center text-sm font-medium"></th>

@@ -7,6 +7,8 @@ import {FaUserGear} from 'react-icons/fa6';
 import {Link} from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const NavAdmi = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
@@ -36,7 +38,7 @@ const NavAdmi = () => {
             cancelButtonText: 'No, cancelar',
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch('https://ambulanciaya.onrender.com/logout', {
+                fetch( API_URL + '/logout', {
                     method: 'POST',
                     credentials: 'include',
                 }).then(

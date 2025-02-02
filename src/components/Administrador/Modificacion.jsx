@@ -24,6 +24,8 @@ function Modificacion({tipo}) {
         setIsAdmin(adminStatus);
     }, []);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const [formData, setFormData] = useState({
         patente: '',
         vtv: '',
@@ -60,7 +62,7 @@ function Modificacion({tipo}) {
                             Accept: 'application/json',
                         },
                     };
-                    const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, options);
+                    const response = await fetch( API_URL + `/${endpoint}/${id}`, options);
                     if (!response.ok) throw new Error('Error al obtener los datos');
                     const data = await response.json();
                     setFormData(data);
@@ -104,7 +106,7 @@ function Modificacion({tipo}) {
                     Accept: 'application/json',
                 },
             };
-            const response = await fetch('https://ambulanciaya.onrender.com/ambulancias', options);
+            const response = await fetch(API_URL + '/ambulancias', options);
             if (!response.ok) throw new Error('Error fetching ambulances');
             const data = await response.json();
             setAmbulancias(data);
@@ -128,7 +130,7 @@ function Modificacion({tipo}) {
                     Accept: 'application/json',
                 },
             };
-            const response = await fetch('https://ambulanciaya.onrender.com/pacientes', options);
+            const response = await fetch( API_URL + '/pacientes', options);
             if (!response.ok) throw new Error('Error fetching patients');
             const data = await response.json();
             setPacientes(data);
@@ -152,7 +154,7 @@ function Modificacion({tipo}) {
                     Accept: 'application/json',
                 },
             };
-            const response = await fetch('https://ambulanciaya.onrender.com/hospitales', options);
+            const response = await fetch(API_URL + '/hospitales', options);
             if (!response.ok) throw new Error('Error fetching hospitals');
             const data = await response.json();
             setHospitales(data);
@@ -176,7 +178,7 @@ function Modificacion({tipo}) {
                     Accept: 'application/json',
                 },
             };
-            const response = await fetch('https://ambulanciaya.onrender.com/accidentes', options);
+            const response = await fetch( API_URL + '/accidentes', options);
             if (!response.ok) throw new Error('Error fetching accidentes');
             const data = await response.json();
             setAccidentes(data);
@@ -201,7 +203,7 @@ function Modificacion({tipo}) {
                         Accept: 'application/json',
                     },
                 };
-                const response = await fetch('https://ambulanciaya.onrender.com/paramedicos', options);
+                const response = await fetch(API_URL + '/paramedicos', options);
                 if (!response.ok) throw new Error('Error fetching paramedicos');
                 const data = await response.json();
                 setParamedicos(data);
@@ -231,7 +233,7 @@ function Modificacion({tipo}) {
                         Accept: 'application/json',
                     },
                 };
-                const response = await fetch('https://ambulanciaya.onrender.com/choferes', options);
+                const response = await fetch( API_URL + '/choferes', options);
                 if (!response.ok) throw new Error('Error fetching choferes');
                 const data = await response.json();
                 setChoferes(data);
@@ -260,7 +262,7 @@ function Modificacion({tipo}) {
                     Accept: 'application/json',
                 },
             };
-            const response = await fetch(`https://ambulanciaya.onrender.com/${tipo}s/${id}`, options);
+            const response = await fetch(API_URL + `/${tipo}s/${id}`, options);
             if (!response.ok) throw new Error('Error al obtener los datos');
             const data = await response.json();
             setFormData(data);
@@ -308,7 +310,7 @@ function Modificacion({tipo}) {
                 choferId: formData.choferId || undefined,
                 paramedicoId: formData.paramedicoId || undefined,
             };
-            const response = await fetch(`https://ambulanciaya.onrender.com/${endpoint}/${id}`, {
+            const response = await fetch( API_URL + `/${endpoint}/${id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -357,15 +359,15 @@ function Modificacion({tipo}) {
                     {tipo === 'ambulancia'
                         ? 'ambulancia'
                         : tipo === 'chofer'
-                          ? 'chofer'
-                          : tipo === 'paramedico'
-                            ? 'paramédico'
-                            : tipo === 'accidente'
-                              ? 'accidente'
-                              : tipo === 'paciente'
-                                ? 'paciente'
-                                : 'hospital'}
-                </h2>
+                        ? 'chofer'
+                        : tipo === 'paramedico'
+                        ? 'paramédico'
+                        : tipo === 'accidente'
+                        ? 'accidente'
+                        : tipo === 'paciente'
+                        ? 'paciente'
+                        : 'hospital'}
+            </h2>
 
                 {tipo === 'ambulancia' && (
                     <>
