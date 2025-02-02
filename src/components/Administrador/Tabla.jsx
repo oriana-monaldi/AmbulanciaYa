@@ -54,7 +54,7 @@ const Tabla = () => {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        const adminStatus = sessionStorage.getItem('is-admin') === 'true';
+        const adminStatus = localStorage.getItem('is-admin') === 'true';
         setIsAdmin(adminStatus);
     }, []);
 

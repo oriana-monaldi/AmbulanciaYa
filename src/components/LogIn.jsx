@@ -32,7 +32,8 @@ const LogIn = () => {
                 throw new Error(data.message || 'Error en el inicio de sesión');
             }
 
-            sessionStorage.setItem('is-admin', data.isAdmin);
+            localStorage.setItem('is-admin', data.isAdmin);
+
             navigate('/tabla/accidente');
         } catch (error) {
             console.error('Login error:', error);

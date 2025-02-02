@@ -13,7 +13,7 @@ const NavAdmi = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const adminStatus = sessionStorage.getItem('is-admin') === 'true';
+        const adminStatus = localStorage.getItem('is-admin') === 'true';
         setIsAdmin(adminStatus);
     }, []);
 
@@ -41,7 +41,7 @@ const NavAdmi = () => {
                     credentials: 'include',
                 }).then(
                     () => {
-                        sessionStorage.removeItem('is-admin');
+                        localStorage.removeItem('is-admin');
                         Swal.fire({
                             title: '¡Sesión cerrada!',
                             text: 'Has cerrado sesión exitosamente',
@@ -67,7 +67,7 @@ const NavAdmi = () => {
     };
 
     const tipoCuenta = () => {
-        const isAdmin = sessionStorage.getItem('is-admin') === 'true';
+        const isAdmin = localStorage.getItem('is-admin') === 'true';
         return isAdmin ? 'Administrador' : 'Paramédico';
     };
 
