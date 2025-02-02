@@ -32,7 +32,7 @@ const headers = {
         deleteEndpoint: 'accidentes',
     },
     paciente: {
-        headers: ['Nombre Completo', 'Telefono'],
+        headers: ['Nombre Completo', 'Telefono', 'Ficha Médica'],
         displayEndpoint: '/pacientes',
         deleteEndpoint: 'pacientes',
         mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
@@ -235,69 +235,69 @@ const Tabla = () => {
                 )}
             </div>
 
-            <div className="m-8 border-4 border-red-600 rounded-lg overflow-x-auto">
+            <div className="m-8 overflow-x-auto rounded-lg border-4 border-red-600">
                 <table className="w-full divide-y divide-gray-500">
-                        <thead className="bg-gray-50">
-                            <tr className="h-8">
-                                <th className="text-black-500 text-center text-sm font-medium"></th>
-                                {headers[tipo].headers.map((header) => (
-                                    <th key={header} className="text-black-500 text-center text-sm font-medium ">
-                                        {header}
-                                    </th>
-                                ))}
-                                <th className="text-black-500 text-center text-sm font-medium ">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-300 bg-white">
-                            {data.map((item, index) => {
-                                const itemId = item._id || item.id;
-                                return (
-                                    <tr key={itemId} className="h-12">
-                                        <td className="text-center text-sm text-gray-500">{index + 1}</td>
-                                        {Object.keys(item)
-                                            .filter((key) => key !== 'isAdmin' && key !== '_id' && key !== 'id')
-                                            .slice(0, headers[tipo].headers.length)
-                                            .map((key) => (
-                                                <td key={`${itemId}-${key}`} className="text-center text-sm text-gray-500">
-                                                    {typeof item[key] === 'boolean' ? (item[key] ? 'Sí' : 'No') : item[key]}
-                                                </td>
-                                            ))}
-                                        <td className="text-center">
-                                            <div className="flex justify-center space-x-4">
-                                                <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
-                                                    <CiEdit color="red" size="20" />
+                    <thead className="bg-gray-50">
+                        <tr className="h-8">
+                            <th className="text-black-500 text-center text-sm font-medium"></th>
+                            {headers[tipo].headers.map((header) => (
+                                <th key={header} className="text-black-500 text-center text-sm font-medium">
+                                    {header}
+                                </th>
+                            ))}
+                            <th className="text-black-500 text-center text-sm font-medium">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-300 bg-white">
+                        {data.map((item, index) => {
+                            const itemId = item._id || item.id;
+                            return (
+                                <tr key={itemId} className="h-12">
+                                    <td className="text-center text-sm text-gray-500">{index + 1}</td>
+                                    {Object.keys(item)
+                                        .filter((key) => key !== 'isAdmin' && key !== '_id' && key !== 'id')
+                                        .slice(0, headers[tipo].headers.length)
+                                        .map((key) => (
+                                            <td key={`${itemId}-${key}`} className="text-center text-sm text-gray-500">
+                                                {typeof item[key] === 'boolean' ? (item[key] ? 'Sí' : 'No') : item[key]}
+                                            </td>
+                                        ))}
+                                    <td className="text-center">
+                                        <div className="flex justify-center space-x-4">
+                                            <button onClick={() => handleEdit(itemId, item)} className="cursor-pointer">
+                                                <CiEdit color="red" size="20" />
+                                            </button>
+                                            {!(!isAdmin && tipo === 'accidente') && (
+                                                <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
+                                                    <MdDelete color="red" size={20} />
                                                 </button>
-                                                {!(!isAdmin && tipo === 'accidente') && (
-                                                    <button onClick={() => handleDelete(itemId)} className="cursor-pointer">
-                                                        <MdDelete color="red" size={20} />
-                                                    </button>
-                                                )}
-                                                {tipo === 'accidente' && !item.reporte && (
-                                                    <Link
-                                                        to={`/alta-reporte/${itemId}`}
-                                                        state={{
-                                                            direccion: item.direccion,
-                                                            itemData: item,
-                                                        }}
-                                                        className="font-medium text-red-600"
-                                                    >
-                                                        REPORTE
-                                                    </Link>
-                                                )}
-                                                {tipo === 'paciente' && (
-                                                    <Link to="/fichaMedica/:id" className="font-medium text-red-600">
-                                                        FICHA MEDICA
-                                                    </Link>
-                                                )}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                                            )}
+                                            {tipo === 'accidente' && (
+                                                <Link
+                                                    to={`/alta-reporte/${itemId}`}
+                                                    state={{
+                                                        direccion: item.direccion,
+                                                        itemData: item,
+                                                    }}
+                                                    className="font-medium text-red-600"
+                                                >
+                                                    REPORTE
+                                                </Link>
+                                            )}
+                                            {tipo === 'paciente' && (
+                                                <Link to="/fichaMedica/:id" className="font-medium text-red-600">
+                                                    FICHA MEDICA
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
+        </div>
     );
 };
 

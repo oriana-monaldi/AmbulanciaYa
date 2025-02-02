@@ -54,7 +54,7 @@ const Reporte = () => {
             }
 
             try {
-                const response = await fetch(`${URL}/reportes/accidente/${id}`, {
+                const response = await fetch( API_URL + `/reportes/accidente/${id}`, {
                     credentials: 'include',
                 });
 
