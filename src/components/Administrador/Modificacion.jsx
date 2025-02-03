@@ -448,27 +448,6 @@ function Modificacion({tipo}) {
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">En Base</label>
-                            <select
-                                name="enBase"
-                                value={formData.enBase?.toString()}
-                                onChange={(e) =>
-                                    handleInputChange({
-                                        target: {
-                                            name: 'enBase',
-                                            value: e.target.value === 'true',
-                                        },
-                                    })
-                                }
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            >
-                                <option value="true">Si</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-
-                        <div className="mb-4">
                             <label className="mb-1 block font-medium text-gray-700">Chofer</label>
                             <select
                                 name="choferId"
@@ -505,6 +484,90 @@ function Modificacion({tipo}) {
                                         {paramedico.nombreCompleto}
                                     </option>
                                 ))}
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">En Base</label>
+                            <select
+                                name="enBase"
+                                value={formData.enBase?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'enBase',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Cadenas</label>
+                            <select
+                                name="cadenas"
+                                value={formData.cadenas?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'cadenas',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Antinieblas</label>
+                            <select
+                                name="antinieblas"
+                                value={formData.antinieblas?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'antinieblas',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Cubiertas de lluvia</label>
+                            <select
+                                name="cubiertasLluvia"
+                                value={formData.cubiertasLluvia?.toString()}
+                                onChange={(e) =>
+                                    handleInputChange({
+                                        target: {
+                                            name: 'cubiertasLluvia',
+                                            value: e.target.value === 'true',
+                                        },
+                                    })
+                                }
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                     </>

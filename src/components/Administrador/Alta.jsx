@@ -21,6 +21,9 @@ const estadosIniciales = {
         base: '',
         choferId: '',
         paramedicoId: '',
+        cadenas: '',
+        antinieblas: '',
+        cubiertasLluvia: '',
     },
     chofer: {
         nombreCompleto: '',
@@ -363,6 +366,57 @@ function Alta({tipo}) {
                                         {paramedico.nombreCompleto}
                                     </option>
                                 ))}
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Cadenas</label>
+                            <select
+                                name="cadenas"
+                                value={formData.cadenas}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled>
+                                    Seleccione si posee cadenas
+                                </option>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Antinieblas</label>
+                            <select
+                                name="antinieblas"
+                                value={formData.antinieblas}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled>
+                                    Seleccione si posee antinieblas
+                                </option>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="mb-1 block font-medium text-gray-700">Cubiertas de lluvia</label>
+                            <select
+                                name="cubiertasLluvia"
+                                value={formData.cubiertasLluvia}
+                                onChange={handleInputChange}
+                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                required
+                            >
+                                <option value="" disabled>
+                                    Seleccione si posee cubiertas de lluvia
+                                </option>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                     </>

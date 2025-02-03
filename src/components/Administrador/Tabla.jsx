@@ -57,7 +57,6 @@ const Tabla = () => {
     const {tipo} = useParams();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [showLoader, setShowLoader] = useState(false);
     const [error, setError] = useState(null);
@@ -90,9 +89,7 @@ const Tabla = () => {
 
     const handleEdit = (itemId, itemData) => {
         setShowLoader(true);
-        setTimeout(() => {
-            navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
-        }, 500);
+        navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
     };
 
     //GET
@@ -122,7 +119,7 @@ const Tabla = () => {
             const jsonData = await response.json();
             const processedData = Array.isArray(jsonData) ? jsonData : [jsonData];
             const cleanedData = processedData.map(({password, ...rest}) => rest);
-            
+
             setData(cleanedData);
             setFilteredData(cleanedData);
         } catch (error) {
@@ -203,18 +200,17 @@ const Tabla = () => {
         }
     };
 
-    //  filtrado 
+    //  filtrado
     const handleSearch = (value) => {
-        setSearchTerm(value);
-        
+
         if (!value.trim()) {
             setFilteredData(data);
             return;
         }
-    
+
         const searchLower = value.toLowerCase().trim();
-        
-        const filtered = data.filter(item => {
+
+        const filtered = data.filter((item) => {
             switch (tipo) {
                 case 'ambulancia':
                     return item.patente?.toLowerCase().includes(searchLower);
@@ -230,15 +226,14 @@ const Tabla = () => {
                     return false;
             }
         });
-    
+
         setFilteredData(filtered);
     };
-
 
     useEffect(() => {
         setIsLoading(true);
         fetchData().finally(() => {
-            setTimeout(() => setIsLoading(false), 500);
+            setIsLoading(false);
         });
     }, [tipo]);
 
@@ -261,10 +256,7 @@ const Tabla = () => {
             {showLoader && <Loader />}
             <div className="m-8 flex items-center justify-between">
                 <div>
-                    <Input 
-                        placeholder={headers[tipo]?.placeholder || 'Buscar...'} 
-                        onSearchChange={handleSearch} 
-                    />
+                    <Input placeholder={headers[tipo]?.placeholder || 'Buscar...'} onSearchChange={handleSearch} />
                 </div>
 
                 <div className="flex items-center">
@@ -311,10 +303,10 @@ const Tabla = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300 bg-white">
-                {filteredData.map((item, index) => {  
-                    const itemId = item._id || item.id;
-                    return (
-                        <tr key={itemId} className="h-12">
+                        {filteredData.map((item, index) => {
+                            const itemId = item._id || item.id;
+                            return (
+                                <tr key={itemId} className="h-12">
                                     <td className="text-center text-sm text-gray-500">{index + 1}</td>
                                     {Object.keys(item)
                                         .filter((key) => key !== 'isAdmin' && key !== '_id' && key !== 'id')
