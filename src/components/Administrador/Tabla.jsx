@@ -7,91 +7,101 @@ import {CiEdit} from 'react-icons/ci';
 import Skeleton from './Skeleton';
 import Loader from '../Loader';
 import {LuRefreshCcw} from 'react-icons/lu';
+import Input from './Input';
 
 const headers = {
     ambulancia: {
-        headers: ['Patente', 'Inventario', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base'],
+        headers: ['Patente', 'Inventario', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base', 'Cadenas', 'Antinieblas', 'Cubiertas de lluvia'],
         displayEndpoint: '/ambulancias/desc',
         deleteEndpoint: 'ambulancias',
         mensajeError: 'Esta ambulancia está relacionada con uno o más accidentes. Primero elimine los registros de accidentes asociados.',
+        placeholder: 'Buscar por patente',
     },
     chofer: {
         headers: ['Nombre Completo', 'DNI'],
         displayEndpoint: '/choferes',
         deleteEndpoint: 'choferes',
         mensajeError: 'Este chofer está asignado a una o más ambulancias. Primero elimine al chofer de las ambulancias asignadas.',
+        placeholder: 'Buscar por nombre completo',
     },
     paramedico: {
         headers: ['Nombre Completo', 'DNI', 'Email'],
         displayEndpoint: '/paramedicos',
         deleteEndpoint: 'paramedicos',
         mensajeError: 'Este paramédico está asignado a una o más ambulancias. Primero quite al paramédico de las ambulancias asignadas.',
+        placeholder: 'Buscar por nombre completo',
     },
     accidente: {
         headers: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Ambulancia', 'Hospital', 'Paciente', 'Reporte'],
         displayEndpoint: '/accidentes/desc',
         deleteEndpoint: 'accidentes',
+        placeholder: 'Buscar por dirección',
     },
     paciente: {
         headers: ['Nombre Completo', 'Telefono', 'Ficha Médica'],
         displayEndpoint: '/pacientes',
         deleteEndpoint: 'pacientes',
         mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
+        placeholder: 'Buscar por nombre completo',
     },
     hospital: {
         headers: ['Nombre', 'Dirección'],
         displayEndpoint: '/hospitales',
         deleteEndpoint: 'hospitales',
         mensajeError: 'Este hospital está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
+        placeholder: 'Buscar por nombre',
     },
 };
+
 const Tabla = () => {
     const {tipo} = useParams();
     const [data, setData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [showLoader, setShowLoader] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const adminStatus = localStorage.getItem('is-admin') === 'true';
         setIsAdmin(adminStatus);
     }, []);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const mensajeError = () => {
         switch (tipo) {
             case 'paramedico':
-                return mensajeError;
+                return headers[tipo].mensajeError;
             case 'chofer':
-                return mensajeError;
+                return headers[tipo].mensajeError;
             case 'ambulancia':
-                return mensajeError;
+                return headers[tipo].mensajeError;
             case 'hospital':
-                return mensajeError;
+                return headers[tipo].mensajeError;
             case 'paciente':
-                return mensajeError;
+                return headers[tipo].mensajeError;
             default:
                 return 'Primero debe eliminar todos los registros que hacen referencia a este elemento.';
         }
     };
 
-    //funcion para el loader
     const handleEdit = (itemId, itemData) => {
         setShowLoader(true);
         setTimeout(() => {
             navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
         }, 500);
     };
+
+    //GET
     const fetchData = async () => {
         if (!tipo || !headers[tipo]) {
             setError('Tipo de datos no válido');
             setIsLoading(false);
             return;
         }
-
         try {
             const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`, {
                 method: 'GET',
@@ -111,7 +121,10 @@ const Tabla = () => {
 
             const jsonData = await response.json();
             const processedData = Array.isArray(jsonData) ? jsonData : [jsonData];
-            setData(processedData.map(({password, ...rest}) => rest));
+            const cleanedData = processedData.map(({password, ...rest}) => rest);
+            
+            setData(cleanedData);
+            setFilteredData(cleanedData);
         } catch (error) {
             console.error('Error fetching data:', error);
             setError(error.message);
@@ -126,8 +139,7 @@ const Tabla = () => {
             });
         }
     };
-
-    //Delete
+    // delete
     const handleDelete = async (itemId) => {
         try {
             const result = await swal({
@@ -152,7 +164,6 @@ const Tabla = () => {
             });
 
             if (!result) return;
-
             const response = await fetch(`${API_URL}/${headers[tipo].deleteEndpoint}/${itemId}`, {
                 method: 'DELETE',
                 credentials: 'include',
@@ -174,10 +185,8 @@ const Tabla = () => {
                     });
                     return;
                 }
-
                 throw new Error(errorData?.error || `Error HTTP! status: ${response.status}`);
             }
-
             await fetchData();
             await swal({
                 title: '¡Eliminado!',
@@ -193,6 +202,38 @@ const Tabla = () => {
             await swal('Error', `No se pudo eliminar el registro: ${error.message}`, 'error');
         }
     };
+
+    //  filtrado 
+    const handleSearch = (value) => {
+        setSearchTerm(value);
+        
+        if (!value.trim()) {
+            setFilteredData(data);
+            return;
+        }
+    
+        const searchLower = value.toLowerCase().trim();
+        
+        const filtered = data.filter(item => {
+            switch (tipo) {
+                case 'ambulancia':
+                    return item.patente?.toLowerCase().includes(searchLower);
+                case 'chofer':
+                case 'paramedico':
+                case 'paciente':
+                    return item.nombreCompleto?.toLowerCase().includes(searchLower);
+                case 'hospital':
+                    return item.nombre?.toLowerCase().includes(searchLower);
+                case 'accidente':
+                    return item.direccion?.toLowerCase().includes(searchLower);
+                default:
+                    return false;
+            }
+        });
+    
+        setFilteredData(filtered);
+    };
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -215,37 +256,44 @@ const Tabla = () => {
     if (error) {
         return <div className="m-8 text-center text-red-600">Error: {error}</div>;
     }
-
     return (
         <div>
             {showLoader && <Loader />}
-
-            <div className="aling-items m-8 flex justify-end">
-                <div className="justify-center">
-                    <button
-                        onClick={async () => {
-                            setIsLoading(true);
-                            await fetchData();
-                            setIsLoading(false);
-                        }}
-                    >
-                        <LuRefreshCcw color="red" size="40" />
-                    </button>
+            <div className="m-8 flex items-center justify-between">
+                <div>
+                    <Input 
+                        placeholder={headers[tipo]?.placeholder || 'Buscar...'} 
+                        onSearchChange={handleSearch} 
+                    />
                 </div>
-                <div className="ml-4 justify-center">
-                    {!(!isAdmin && tipo === 'accidente') && (
+
+                <div className="flex items-center">
+                    <div className="mr-4">
                         <button
-                            onClick={() => {
-                                setShowLoader(true);
-                                setTimeout(() => {
-                                    navigate(`/alta-${tipo}`);
-                                }, 400);
+                            onClick={async () => {
+                                setIsLoading(true);
+                                await fetchData();
+                                setIsLoading(false);
                             }}
-                            className="cursor-pointer"
                         >
-                            <FiPlusCircle color="red" size="40" />
+                            <LuRefreshCcw color="red" size="40" />
                         </button>
-                    )}
+                    </div>
+                    <div>
+                        {!(!isAdmin && tipo === 'accidente') && (
+                            <button
+                                onClick={() => {
+                                    setShowLoader(true);
+                                    setTimeout(() => {
+                                        navigate(`/alta-${tipo}`);
+                                    }, 400);
+                                }}
+                                className="cursor-pointer"
+                            >
+                                <FiPlusCircle color="red" size="40" />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -263,10 +311,10 @@ const Tabla = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300 bg-white">
-                        {data.map((item, index) => {
-                            const itemId = item._id || item.id;
-                            return (
-                                <tr key={itemId} className="h-12">
+                {filteredData.map((item, index) => {  
+                    const itemId = item._id || item.id;
+                    return (
+                        <tr key={itemId} className="h-12">
                                     <td className="text-center text-sm text-gray-500">{index + 1}</td>
                                     {Object.keys(item)
                                         .filter((key) => key !== 'isAdmin' && key !== '_id' && key !== 'id')
