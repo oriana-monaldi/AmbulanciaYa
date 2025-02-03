@@ -6,6 +6,7 @@ import {MdDelete} from 'react-icons/md';
 import {CiEdit} from 'react-icons/ci';
 import Skeleton from './Skeleton';
 import Loader from '../Loader';
+import {LuRefreshCcw} from 'react-icons/lu';
 
 const headers = {
     ambulancia: {
@@ -219,20 +220,33 @@ const Tabla = () => {
         <div>
             {showLoader && <Loader />}
 
-            <div className="m-8 flex justify-end">
-                {!(!isAdmin && tipo === 'accidente') && (
+            <div className="aling-items m-8 flex justify-end">
+                <div className="justify-center">
                     <button
-                        onClick={() => {
-                            setShowLoader(true);
-                            setTimeout(() => {
-                                navigate(`/alta-${tipo}`);
-                            }, 400);
+                        onClick={async () => {
+                            setIsLoading(true);
+                            await fetchData();
+                            setIsLoading(false);
                         }}
-                        className="cursor-pointer"
                     >
-                        <FiPlusCircle color="red" size="40" />
+                        <LuRefreshCcw color="red" size="40" />
                     </button>
-                )}
+                </div>
+                <div className="ml-4 justify-center">
+                    {!(!isAdmin && tipo === 'accidente') && (
+                        <button
+                            onClick={() => {
+                                setShowLoader(true);
+                                setTimeout(() => {
+                                    navigate(`/alta-${tipo}`);
+                                }, 400);
+                            }}
+                            className="cursor-pointer"
+                        >
+                            <FiPlusCircle color="red" size="40" />
+                        </button>
+                    )}
+                </div>
             </div>
 
             <div className="m-8 overflow-x-auto rounded-lg border-4 border-red-600">
