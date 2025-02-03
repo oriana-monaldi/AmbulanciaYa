@@ -12,41 +12,41 @@ import Input from './Input';
 const headers = {
     ambulancia: {
         headers: ['Patente', 'Inventario', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base', 'Cadenas', 'Antinieblas', 'Cubiertas de lluvia'],
-        displayEndpoint: '/ambulancias/desc',
+        getEndpoint: '/ambulancias/desc',
         deleteEndpoint: 'ambulancias',
         mensajeError: 'Esta ambulancia está relacionada con uno o más accidentes. Primero elimine los registros de accidentes asociados.',
         placeholder: 'Buscar por patente',
     },
     chofer: {
         headers: ['Nombre Completo', 'DNI'],
-        displayEndpoint: '/choferes',
+        getEndpoint: '/choferes',
         deleteEndpoint: 'choferes',
         mensajeError: 'Este chofer está asignado a una o más ambulancias. Primero elimine al chofer de las ambulancias asignadas.',
         placeholder: 'Buscar por nombre completo',
     },
     paramedico: {
         headers: ['Nombre Completo', 'DNI', 'Email'],
-        displayEndpoint: '/paramedicos',
+        getEndpoint: '/paramedicos',
         deleteEndpoint: 'paramedicos',
         mensajeError: 'Este paramédico está asignado a una o más ambulancias. Primero quite al paramédico de las ambulancias asignadas.',
         placeholder: 'Buscar por nombre completo',
     },
     accidente: {
         headers: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Ambulancia', 'Hospital', 'Paciente', 'Reporte'],
-        displayEndpoint: '/accidentes/desc',
+        getEndpoint: '/accidentes/desc',
         deleteEndpoint: 'accidentes',
         placeholder: 'Buscar por dirección',
     },
     paciente: {
-        headers: ['Nombre Completo', 'Telefono', 'Ficha Médica'],
-        displayEndpoint: '/pacientes',
+        headers: ['Nombre Completo', 'Telefono'],
+        getEndpoint: '/pacientes',
         deleteEndpoint: 'pacientes',
         mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
         placeholder: 'Buscar por nombre completo',
     },
     hospital: {
         headers: ['Nombre', 'Dirección'],
-        displayEndpoint: '/hospitales',
+        getEndpoint: '/hospitales',
         deleteEndpoint: 'hospitales',
         mensajeError: 'Este hospital está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
         placeholder: 'Buscar por nombre',
@@ -100,7 +100,7 @@ const Tabla = () => {
             return;
         }
         try {
-            const response = await fetch(`${API_URL}${headers[tipo].displayEndpoint}`, {
+            const response = await fetch(`${API_URL}${headers[tipo].getEndpoint}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
