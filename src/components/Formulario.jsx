@@ -178,7 +178,7 @@ const Formulario = () => {
                                             placeholder="2215689764"
                                             value={telefono}
                                             onChange={(e) => setTelefono(e.target.value)}
-                                            maxLength={10}
+                                            maxLength={20}
                                         />
                                     </div>
                                 </div>
