@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Phone, MapPin, AlertCircle, User, Loader2, CheckCircle2, PhoneCall} from 'lucide-react';
 import Boton from './Boton';
+import Swal from 'sweetalert2';
+
 
 const Formulario = () => {
     const [nombre, setNombre] = useState('');
@@ -53,7 +55,7 @@ const Formulario = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || 'Error en el servidor');
+                throw new Error(data.message || 'No se pudo enviar la solicitud. Intente nuevamente');
             }
 
             setResponseMessage(data.message || 'Solicitud procesada');
@@ -72,9 +74,13 @@ const Formulario = () => {
                 setResponseMessage('');
             }, 3000);
         } catch (err) {
-            setError(err.message || 'Error al enviar la solicitud');
-            console.error('Error:', err);
             setIsLoading(false);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: err.message || 'Error al enviar la solicitud',
+                confirmButtonColor: '#dc2626'
+            });
         }
     };
 
