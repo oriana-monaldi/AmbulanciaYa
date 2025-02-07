@@ -6,14 +6,14 @@ import Servicio from './components/Servicio';
 import SobreNosotros from './components/SobreNosotros';
 import Footer from './components/Footer';
 import Formulario from './components/Formulario';
-import NavAdmi from './components/Administrador/NavAdmi';
-import Tabla from './components/Administrador/Tabla';
-import Alta from './components/Administrador/Alta';
-import Modificacion from './components/Administrador/Modificacion';
+import NavAdmi from './components/Usuarios/NavAdmi';
+import Tabla from './components/Usuarios/Tabla';
+import Alta from './components/Usuarios/Alta';
+import Modificacion from './components/Usuarios/Modificacion';
 import LogIn from './components/LogIn';
-import Reporte from './components/Administrador/Reporte';
-import PanelUsuario from './components/Administrador/PanelUsuario';
-import FichaMedica from './components/Administrador/FichaMedica';
+import Reporte from './components/Usuarios/Reporte';
+import PanelUsuario from './components/Usuarios/PanelUsuario';
+import FichaMedica from './components/Usuarios/FichaMedica';
 import PoliticasPrivacidad from './components/PoliticasPrivacidad';
 
 const AppContent = () => {
