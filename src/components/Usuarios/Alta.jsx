@@ -145,7 +145,7 @@ function Alta({tipo}) {
 
     const fetchChoferes = async () => {
         try {
-            const response = await fetch( API_URL + '/choferes', {
+            const response = await fetch( API_URL + '/choferes/disp', {
                 credentials: 'include',
             });
             if (!response.ok) {
@@ -165,7 +165,7 @@ function Alta({tipo}) {
 
     const fetchParamedicos = async () => {
         try {
-            const response = await fetch(API_URL + '/paramedicos', {
+            const response = await fetch(API_URL + '/paramedicos/disp', {
                 credentials: 'include',
             });
 
