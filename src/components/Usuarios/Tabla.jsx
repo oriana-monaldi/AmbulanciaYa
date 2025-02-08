@@ -11,7 +11,7 @@ import Input from './Input';
 
 const headers = {
     ambulancia: {
-        headers: ['Patente', 'Inventario', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base', 'Cadenas', 'Antinieblas', 'Cubiertas de lluvia'],
+        headers: ['Patente', 'Inventario Especial', 'VTV', 'Seguro', 'Chofer', 'Paramedico', 'En base', 'Cadenas', 'Antinieblas', 'Cubiertas de lluvia'],
         getEndpoint: '/ambulancias/desc',
         deleteEndpoint: 'ambulancias',
         mensajeError: 'Esta ambulancia está relacionada con uno o más accidentes. Primero elimine los registros de accidentes asociados.',
