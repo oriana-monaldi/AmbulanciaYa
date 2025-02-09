@@ -17,6 +17,10 @@ function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [showMenu]);
 
+    const handleNavigation = () => {
+        setShowMenu(false);
+    };
+
     return (
         <nav className="bg-white px-4 py-2">
             <div className="flex items-center justify-between">
@@ -32,22 +36,22 @@ function Navbar() {
                     <ul className="flex flex-col items-center space-y-4 p-4 md:flex-row md:space-x-8 md:space-y-0 md:p-0">
                         {/* Enlaces de navegación */}
                         <li>
-                            <Link to="/" className="text-lg text-red-500 no-underline hover:text-red-700">
+                            <Link to="/" className="text-lg text-red-500 no-underline hover:text-red-700" onClick={handleNavigation}>
                                 <strong>Inicio</strong>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/servicios" className="text-lg text-red-500 no-underline hover:text-red-700">
+                            <Link to="/servicios" className="text-lg text-red-500 no-underline hover:text-red-700" onClick={handleNavigation}>
                                 <strong>Servicios</strong>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/sobre-nosotros" className="text-lg text-red-500 no-underline hover:text-red-700">
+                            <Link to="/sobre-nosotros" className="text-lg text-red-500 no-underline hover:text-red-700" onClick={handleNavigation}>
                                 <strong>Sobre Nosotros</strong>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/logIn">
+                            <Link to="/logIn" onClick={handleNavigation}>
                                 <FaUserAlt color="red" size={24} />
                             </Link>
                         </li>
