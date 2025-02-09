@@ -338,11 +338,6 @@ const Tabla = () => {
                                                     REPORTE
                                                 </Link>
                                             )}
-                                            {tipo === 'paciente' && (
-                                                <Link to="/fichaMedica/:id" className="font-medium text-red-600">
-                                                    FICHA MEDICA
-                                                </Link>
-                                            )}
                                         </div>
                                     </td>
                                 </tr>

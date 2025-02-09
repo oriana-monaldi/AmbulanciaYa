@@ -13,7 +13,6 @@ import Modificacion from './components/Usuarios/Modificacion';
 import LogIn from './components/LogIn';
 import Reporte from './components/Usuarios/Reporte';
 import PanelUsuario from './components/Usuarios/PanelUsuario';
-import FichaMedica from './components/Usuarios/FichaMedica';
 import PoliticasPrivacidad from './components/PoliticasPrivacidad';
 
 const AppContent = () => {
@@ -24,7 +23,6 @@ const AppContent = () => {
         location.pathname.includes('/alta-') ||
         location.pathname.includes('/modificacion-') ||
         location.pathname.includes('/panelUsuario') ||
-        location.pathname.includes('/fichaMedica') ||
         location.pathname === '/alta-reporte';
 
     return (
@@ -54,7 +52,6 @@ const AppContent = () => {
                     <Route path="/modificacion-paciente/:id" element={<Modificacion tipo="paciente" />} />
                     <Route path="/alta-reporte/:id" element={<Reporte />} />
                     <Route path="/panelUsuario" element={<PanelUsuario />} />
-                    <Route path="/fichaMedica/:id" element={<FichaMedica />} />
                     <Route path="politicaPrivacidad" element={<PoliticasPrivacidad />} />
                 </Routes>
             </div>
