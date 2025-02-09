@@ -22,14 +22,14 @@ const headers = {
         getEndpoint: '/choferes',
         deleteEndpoint: 'choferes',
         mensajeError: 'Este chofer está asignado a una o más ambulancias. Primero elimine al chofer de las ambulancias asignadas.',
-        placeholder: 'Buscar por nombre completo',
+        placeholder: 'Buscar por nombre',
     },
     paramedico: {
         headers: ['Nombre Completo', 'DNI', 'Email'],
         getEndpoint: '/paramedicos',
         deleteEndpoint: 'paramedicos',
         mensajeError: 'Este paramédico está asignado a una o más ambulancias. Primero quite al paramédico de las ambulancias asignadas.',
-        placeholder: 'Buscar por nombre completo',
+        placeholder: 'Buscar por nombre',
     },
     accidente: {
         headers: ['Dirección', 'Descripción', 'Fecha', 'Hora', 'Ambulancia', 'Hospital', 'Paciente', 'Reporte'],
@@ -42,7 +42,7 @@ const headers = {
         getEndpoint: '/pacientes',
         deleteEndpoint: 'pacientes',
         mensajeError: 'Este paciente está relacionado con uno o más accidentes. Por favor, primero elimine los registros de accidentes asociados.',
-        placeholder: 'Buscar por nombre completo',
+        placeholder: 'Buscar por nombre',
     },
     hospital: {
         headers: ['Nombre', 'Dirección'],
