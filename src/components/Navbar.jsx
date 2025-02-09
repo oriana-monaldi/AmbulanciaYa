@@ -1,10 +1,21 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {FaAmbulance, FaBars} from 'react-icons/fa';
-import {FaUserAlt} from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FaAmbulance, FaBars } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
 
 function Navbar() {
     const [showMenu, setShowMenu] = useState(false);
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (showMenu && !e.target.closest('nav')) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener('click', closeMenu);
+    }, [showMenu]);
 
     return (
         <nav className="bg-white px-4 py-2">
