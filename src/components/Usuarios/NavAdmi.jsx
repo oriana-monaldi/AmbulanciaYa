@@ -17,11 +17,16 @@ const NavAdmi = () => {
     useEffect(() => {
         const adminStatus = localStorage.getItem('is-admin') === 'true';
         setIsAdmin(adminStatus);
+
+        const closeMenu = () => setShowMenu(false);
+        document.addEventListener('click', closeMenu);
+        
+        return () => document.removeEventListener('click', closeMenu);
     }, []);
 
-    //No se usa?
-    const handleLinkClick = () => {
-        setShowMenu(false);
+    const toggleMenu = (e) => {
+        e.stopPropagation(); // Evita que el click del botón cierre inmediatamente el menú
+        setShowMenu(!showMenu);
     };
 
     const handleLogout = (e) => {
@@ -79,10 +84,10 @@ const NavAdmi = () => {
     };
 
     return (
-        <nav className="bg-red-600 p-4">
+        <nav className="bg-red-600 p-4 z-50">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                    <FaBars className="cursor-pointer text-white lg:hidden" size={25} onClick={() => setShowMenu(!showMenu)} />
+                    <FaBars className="cursor-pointer text-white lg:hidden" size={25}  onClick={toggleMenu}  />
 
                     <div className={`absolute left-0 right-0 top-14 bg-red-600 lg:relative lg:top-0 lg:block ${showMenu ? 'block' : 'hidden'}`}>
                         <div className="flex flex-col p-4 lg:flex-row lg:space-x-6 lg:p-0">
