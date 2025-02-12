@@ -388,7 +388,7 @@ function Modificacion({tipo}) {
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">Inventario</label>
+                            <label className="mb-1 block font-medium text-gray-700">Inventario Especial</label>
                             <select
                                 name="inventario"
                                 value={formData.inventario?.toString()}
