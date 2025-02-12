@@ -36,8 +36,14 @@ function Servicios() {
                     description="Servicio de traslado seguro y cómodo para pacientes entre centros médicos o al hogar."
                     icon={<PiStethoscopeBold color="red" size={40} />}
                 ></Card>
-                <Card title="Servicio 24/7" description="Disponibilidad constante, los 365 días del año para atender cualquier emergencia." icon={<BsFillPeopleFill color="red" size={40} />}></Card>
-                <Card title="Cobertura Amplia" description="Servicio en toda la ciudad y áreas circundantes para una atención sin límites." icon={<FaTruckFast color="red" size={40} />}></Card>
+                <Card title="Servicio 24/7" 
+                    description="Disponibilidad constante, los 365 días del año para atender cualquier emergencia." 
+                    icon={<BsFillPeopleFill color="red" size={40} />}
+                ></Card>
+                <Card title="Cobertura Amplia" 
+                    description="Servicio en toda la ciudad y áreas circundantes para una atención sin límites." 
+                    icon={<FaTruckFast color="red" size={40} />}>
+                </Card>
             </Grid>
             <CallToAction />
         </div>

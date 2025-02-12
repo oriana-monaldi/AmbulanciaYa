@@ -70,23 +70,7 @@ const Tabla = () => {
         setIsAdmin(adminStatus);
     }, []);
 
-    const mensajeError = () => {
-        switch (tipo) {
-            case 'paramedico':
-                return headers[tipo].mensajeError;
-            case 'chofer':
-                return headers[tipo].mensajeError;
-            case 'ambulancia':
-                return headers[tipo].mensajeError;
-            case 'hospital':
-                return headers[tipo].mensajeError;
-            case 'paciente':
-                return headers[tipo].mensajeError;
-            default:
-                return 'Primero debe eliminar todos los registros que hacen referencia a este elemento.';
-        }
-    };
-
+    // funcion editar
     const handleEdit = (itemId, itemData) => {
         setShowLoader(true);
         navigate(`/modificacion-${tipo}/${itemId}`, {state: {itemData}});
@@ -200,7 +184,7 @@ const Tabla = () => {
         }
     };
 
-    //  filtrado
+    // componente de filtrado
     const handleSearch = (value) => {
 
         if (!value.trim()) {
@@ -226,7 +210,6 @@ const Tabla = () => {
                     return false;
             }
         });
-
         setFilteredData(filtered);
     };
 
@@ -237,6 +220,7 @@ const Tabla = () => {
         });
     }, [tipo]);
 
+    //loader
     if (isLoading) {
         return (
             <div>
@@ -251,6 +235,7 @@ const Tabla = () => {
     if (error) {
         return <div className="m-8 text-center text-red-600">Error: {error}</div>;
     }
+
     return (
         <div>
             {showLoader && <Loader />}

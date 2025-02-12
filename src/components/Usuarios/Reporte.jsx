@@ -11,7 +11,7 @@ const Reporte = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [hospitals, setHospitals] = useState([]);
 
-    const location = useLocation(); // obtenemos la dirección del accidente para mostrarla en ek titulo
+    const location = useLocation(); // obtenemos la dirección del accidente para mostrarla en el titulo
     const direccionAccidente = location.state?.direccion || 'Dirección no especificada';
 
     const API_URL = import.meta.env.VITE_API_URL;

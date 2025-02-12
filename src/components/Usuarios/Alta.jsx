@@ -78,6 +78,7 @@ function Alta({tipo}) {
         }
     }, [tipo]);
 
+    // funcion para onchange de los inputs
     const handleInputChange = (e) => {
         const {name, value, type} = e.target;
 
@@ -94,8 +95,6 @@ function Alta({tipo}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
         try {
             // Permite cargar un paciente vacio en el alta de un accidente
             const payload = Object.entries(formData).reduce((acc, [key, value]) => {
@@ -121,11 +120,11 @@ function Alta({tipo}) {
                 throw new Error(`HTTP error! status: ${response.status}. Details: ${errorText}`);
             }
 
-            const contentType = response.headers.get('content-type');
+/*             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
                 const data = await response.json();
             }
-
+ */
             await Swal.fire({
                 title: 'Éxito',
                 text: `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} registrado correctamente`,
@@ -244,7 +243,7 @@ function Alta({tipo}) {
     return (
         <div className="flex min-h-[calc(100vh-170px)] items-center justify-center bg-gray-50 p-4">
             <form onSubmit={handleSubmit} className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
-                <h2 className="mb-5 text-center text-xl font-bold text-red-600">Registrar {tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+                <h2 className="mb-5 text-center text-xl font-bold text-red-600">Registrar {tipo}</h2>
 
                 {tipo === 'ambulancia' && (
                     <>

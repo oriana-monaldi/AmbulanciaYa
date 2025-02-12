@@ -4,7 +4,7 @@ import Grid from './Grid';
 import Equipo from './Equipo';
 import CallToAction from './CallToAction';
 
-import Directora from './Images/directoraMedica.png';
+import Paramedica from './Images/directoraMedica.png';
 import jefe from './Images/jefe.png';
 import coordinadora from './Images/coordinadora.webp';
 
@@ -28,7 +28,7 @@ function SobreNosotros() {
                     <p className="text-lg">Nuestra misión es proporcionar servicios de ambulancia rápidos y confiables a nuestra comunidad.</p>
                 </div>
 
-                <h2 className="mt-20 text-2xl">
+                <h2 className="mt-16 text-2xl">
                     <strong>Nuestro Impacto</strong>
                 </h2>
 
@@ -44,9 +44,9 @@ function SobreNosotros() {
                 </h2>
 
                 <div className="flex flex-wrap justify-center">
-                    <Equipo title="Dr. Ana García" rol="Directora Médica" img={Directora}></Equipo>
-                    <Equipo title="Laura Martinez" rol="Coordinadora de Operaciones" img={coordinadora}></Equipo>
-                    <Equipo title="Juan Perez" rol="Jefe de Paramédicos" img={jefe}></Equipo>
+                    <Equipo title="Dra. Ana García" rol="Paramédica" img={Paramedica}></Equipo>
+                    <Equipo title="Dra. Laura Martinez" rol="Paramédica" img={coordinadora}></Equipo>
+                    <Equipo title="Dr.Juan Perez" rol="Paramédico" img={jefe}></Equipo>
                 </div>
             </div>
             <CallToAction />

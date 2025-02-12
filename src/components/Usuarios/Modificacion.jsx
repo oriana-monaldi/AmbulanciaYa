@@ -82,6 +82,7 @@ function Modificacion({tipo}) {
 
         fetchData();
     }, [id, tipo]);
+    
     useEffect(() => {
         if (id && itemData) {
             setFormData(itemData);
@@ -625,7 +626,6 @@ function Modificacion({tipo}) {
                                 value={formData.password}
                                 onChange={handleInputChange}
                                 className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
                             />
                             <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-[70%] -translate-y-1/2 transform text-gray-500">
                                 {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
@@ -743,24 +743,20 @@ function Modificacion({tipo}) {
                         </div>
 
                         <div className="mb-4">
-                            <label className="mb-1 block font-medium text-gray-700">DNI</label>
-                            <input
-                                type="text"
-                                name="dni"
-                                value={formData.dni}
-                                placeholder="Ingrese el DNI"
-                                onChange={handleInputChange}
-                                onInput={(e) => {
-                                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                                }}
-                                className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
-                                required
-                            />
-                        </div>
+                                    <label className="mb-1 block font-medium text-gray-700">DNI</label>
+                                    <input
+                                        type="numberr"
+                                        name="dni"
+                                        value={formData.dni}
+                                        placeholder="Ingrese el DNI"
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        required
+                                    />
+                                </div>
                     </>
                 )}
 
-                {tipo === 'paciente' && (
                     <>
                         {tipo === 'paciente' && (
                             <>
@@ -783,12 +779,8 @@ function Modificacion({tipo}) {
                                         type="tel"
                                         name="telefono"
                                         value={formData.telefono}
-                                        onChange={(e) => {
-                                            // Filtrar caracteres no numéricos
-                                            const value = e.target.value.replace(/\D/g, ''); // Reemplaza todo lo que no sea un número
-                                            handleInputChange({target: {name: 'telefono', value}}); // Llamar a handleInputChange con el valor filtrado
-                                        }}
-                                        placeholder="Ingrese el numero de telefono"
+                                        placeholder="Ingrese el telefono"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-red-600 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-500"
                                         required
                                     />
@@ -796,7 +788,6 @@ function Modificacion({tipo}) {
                             </>
                         )}
                     </>
-                )}
 
                 {tipo === 'hospital' && (
                     <>

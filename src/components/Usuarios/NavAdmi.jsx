@@ -25,7 +25,7 @@ const NavAdmi = () => {
     }, []);
 
     const toggleMenu = (e) => {
-        e.stopPropagation(); // Evita que el click del botón cierre inmediatamente el menú
+        e.stopPropagation(); 
         setShowMenu(!showMenu);
     };
 

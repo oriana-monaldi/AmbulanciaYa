@@ -1,5 +1,6 @@
 import React from 'react';
 
+//cards en servicios y sobre nosotros
 function Card({title, description, icon}) {
     return (
         <div className="text m-10 w-96 rounded-md bg-white text-center">

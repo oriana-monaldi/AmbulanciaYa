@@ -18,30 +18,31 @@ const Formulario = () => {
     const API_URL = import.meta.env.VITE_API_URL;
 
     const enviarDatos = async () => {
+        // Validaciones
         if (paraMi === 'Es para mí') {
-            if (!nombre.trim() || !telefono.trim()) {
+            if (!nombre.trim() || !telefono.trim() || !direccion.trim() || !descripcion.trim()) {
                 setError('Complete todos los campos obligatorios');
                 return;
+            }            
+        }
+    
+        // Preparar los datos a enviar
+        const formData = paraMi === 'Es para mí'
+            ? {
+                nombre,
+                telefono,
+                direccion,
+                descripcion,
             }
-        }
-
-        if (!direccion.trim() || !descripcion.trim()) {
-            setError('Complete todos los campos obligatorios');
-            return;
-        }
-
-        const formData = {
-            ...(paraMi === 'Es para mí' && {
-                nombre: nombre,
-                telefono: telefono,
-            }),
-            direccion,
-            descripcion,
-        };
-
+            : {
+                direccion,
+                descripcion,
+            };
+    
+        // Configuración del estado de carga y éxito
         setIsLoading(true);
         setSuccess(false);
-
+    
         try {
             const response = await fetch(API_URL + '/ambulancias/solicitar', {
                 method: 'POST',
@@ -51,24 +52,26 @@ const Formulario = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             const data = await response.json();
-
+    
             if (!response.ok) {
                 throw new Error(data.message || 'No se pudo enviar la solicitud. Intente nuevamente');
             }
-
+    
             setResponseMessage(data.message || 'Solicitud procesada');
-
+            
+            // Limpiar los campos y estado
             setNombre('');
             setTelefono('');
             setDireccion('');
             setDescripcion('');
             setError('');
-
+    
             setIsLoading(false);
             setSuccess(true);
-
+    
+            // Reset de éxito después de 3 segundos
             setTimeout(() => {
                 setSuccess(false);
                 setResponseMessage('');
@@ -83,6 +86,7 @@ const Formulario = () => {
             });
         }
     };
+    
 
     return (
         <>

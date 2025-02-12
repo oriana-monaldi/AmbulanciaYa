@@ -17,7 +17,7 @@ import PoliticasPrivacidad from './components/PoliticasPrivacidad';
 
 const AppContent = () => {
     const location = useLocation();  // determinar la ruta
-    const isAdminRoute =
+    const adminRoute =
         location.pathname.includes('/navAdmi') ||
         location.pathname.includes('/tabla') ||
         location.pathname.includes('/alta-') ||
@@ -27,8 +27,8 @@ const AppContent = () => {
 
     return (
         <div className="flex min-h-screen flex-col">
-            {!isAdminRoute && <Navbar className="flex-shrink-0" />}
-            {isAdminRoute && <NavAdmi className="flex-shrink-0" />}
+            {!adminRoute && <Navbar className="flex-shrink-0" />}
+            {adminRoute && <NavAdmi className="flex-shrink-0" />}
             <div className="flex-grow">
                 <Routes>
                     <Route path="/" element={<Main />} />
@@ -55,7 +55,7 @@ const AppContent = () => {
                     <Route path="politicaPrivacidad" element={<PoliticasPrivacidad />} />
                 </Routes>
             </div>
-            {!isAdminRoute && <Footer className="flex-shrink-0" />}
+            {!adminRoute && <Footer className="flex-shrink-0" />}
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {LuPhone} from 'react-icons/lu';
-import  {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -9,7 +9,7 @@ const Footer = () => {
                 <div className="w-full text-center sm:text-center md:w-1/3">
                     <h3 className="mb-2 text-xl font-bold text-red-600">Emergencia Médica</h3>
                     <p className="text-gray-700">Brindamos atención médica de emergencia las 24 hs</p>
-                    <p className="text-gray-700">los 7 días a la semana</p>
+                    <p className="text-gray-700">los 7 días de la semana</p>
                 </div>
 
                 <div className="w-full text-center sm:text-center md:w-1/3">
