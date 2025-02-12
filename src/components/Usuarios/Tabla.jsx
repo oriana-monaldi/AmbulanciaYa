@@ -241,7 +241,7 @@ const Tabla = () => {
             {showLoader && <Loader />}
             <div className="m-8 flex items-center justify-between">
                 <div>
-                    <Input placeholder={headers[tipo]?.placeholder || 'Buscar...'} onSearchChange={handleSearch} />
+                    <Input placeholder={headers[tipo]?.placeholder || 'Buscar...'} onSearchChange={handleSearch} />  //buscador 
                 </div>
 
                 <div className="flex items-center">
